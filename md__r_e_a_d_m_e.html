@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ELiPS for BN and BLS12 curve: Main Page</title>
+<title>ELiPS for BN and BLS12 curve: ELiPS Installation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('md__r_e_a_d_m_e.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -83,16 +83,43 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">ELiPS for BN and BLS12 curve Documentation</div>  </div>
+<div class="title">ELiPS Installation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>ELiPS: Stands for Efficient Library for Pairing based Security. The main goal of this library is to give the reaserchers a tool that can be easy to install, configure and use. With a basic idea of pairing-based crypto anyone can be able to use this library for their reserach of protocols. We would like to update this library as incremental basis along side of our research activity to include the contemporary algorithmic improvements.</p>
-<h1><a class="anchor" id="Licensing"></a>
-Licensing</h1>
-<p>ELiPS is released under an LGPL version 3.1-or-above license to encourage collaboration with other research groups and contributions from the industry.</p>
-<h1><a class="anchor" id="Disclaimer"></a>
-Disclaimer</h1>
-<p>ELiPS is still under development software. Implementations may not be correct or secure and may include patented algorithms. Backward API compatibility with early versions may not necessarily be maintained. Use at your own risk. </p>
+<div class="textblock"><p>This document describes how to make existing ELiPS library working in Linux environment. This is expected that it will work any 32-bit and 64bit Unix distribution Ububtu, OS X (not tested). Autotools installation may vary for Linux and OS X. Please keep in mind that it is still in developing phase. If found any bug related to installation, please infrom in <code>khandaker@s.okayama-u.ac.jp</code></p>
+<ol type="1">
+<li>Follow the instructions to install <code>GMP</code> library. Latest vesion is ok.</li>
+<li><p class="startli">Check if <code>autoconf</code> is installed in your environment. <code>autoconf --version</code>. You migh see someting like this . If it is not installed then follow point 3. autoconf (GNU Autoconf) 2.69 Copyright (C) 2012 Free Software Foundation, Inc. License GPLv3+/Autoconf: GNU GPL version 3 or later <a href="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</a>, <a href="http://gnu.org/licenses/exceptions.html">http://gnu.org/licenses/exceptions.html</a> This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.</p>
+<p class="startli">Written by David J. MacKenzie and Akim Demaille.</p>
+</li>
+<li>Install <code>autoconf</code> as follows <code>sudo apt-get update</code> <code>sudo apt-get install autoconf</code></li>
+<li>Install <code>libtool</code> as follows <code>sudo apt-get install libtool-bin</code></li>
+<li>git clone <code><a href="https://github.com/eNipu/elips_bn_bls.git">https://github.com/eNipu/elips_bn_bls.git</a></code></li>
+<li>From terminal enter to <code>&lt;elips_bn_bls&gt;</code> directory.</li>
+<li>Run the following commands <code>autoreconf -i</code></li>
+</ol>
+<p>The output will be almost as follows </p><pre class="fragment">libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+libtoolize: and rerunning libtoolize and aclocal.
+libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+libtoolize: 'AC_PROG_RANLIB' is rendered obsolete by 'LT_INIT'
+configure.ac:7: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:
+configure.ac:7: http://www.gnu.org/software/automake/manual/automake.html#Modernize-AM_005fINIT_005fAUTOMAKE-invocation 
+</pre><ol type="1">
+<li>Next run <code>./configure</code></li>
+<li>Then <code>make</code></li>
+<li>Finally <code>sudo make install</code></li>
+</ol>
+<ol type="1">
+<li>To uninstall <code>sudo make uninstall</code> from the directory</li>
+</ol>
+<p>Still there is no single header. Therefore please <code>/usr/local/include/ELiPS_bn_bls</code> directory to get the header declaration.</p>
+<p>If you face <code>cannot open shared object file: No such file or directory</code> while running then follow this steps:</p>
+<ol type="1">
+<li>Run from terminal <code>sudo ldconfig</code></li>
+<li><code>echo $LD_LIBRARY_PATH</code></li>
+<li>If the command of point 2 gives blank result then <code>LD_LIBRARY_PATH=/usr/local/lib</code></li>
+<li>Check if again of <code>echo $LD_LIBRARY_PATH</code>. If path is set then run again. </li>
+</ol>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
