@@ -1,3 +1,3 @@
 plugins:
   - jekyll-include-cache
-theme: minimal-mistakes-jekyll
+theme: jekyll-theme-cayman
