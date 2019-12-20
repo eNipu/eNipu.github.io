@@ -60,7 +60,7 @@ author:
       icon: "fab fa-fw fa-github"
       url: "https://github.com/eNipu"
     - label: "Google Scholar"
-      icon: "fab fa-fw fa-google-scholar-square"
+      icon: "ai ai-google-scholar-square"
       url: "https://scholar.google.com/citations?user=nAO6FycAAAAJ"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
