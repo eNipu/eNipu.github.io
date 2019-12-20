@@ -59,9 +59,12 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/eNipu"
+    - label: "Google Scholar"
+      icon: "fab fa-fw fa-google-scholar-square"
+      url: "https://scholar.google.com/citations?user=nAO6FycAAAAJ"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://instagram.com/eNipu"
 
 footer:
   links:
