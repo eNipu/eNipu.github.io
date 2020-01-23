@@ -9,34 +9,15 @@ search: true
 
 # Build settings
 markdown: kramdown
-kramdown:
-  extensions: ["strikethrough"]
 remote_theme: mmistakes/minimal-mistakes
 # Outputting
 permalink: /:categories/:title/
-paginate: 7 # amount of posts to show
+paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: JP # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-future:      true
-#pygments:    true
-highlighter: rouge
 
 include:
   - _pages
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  enable_coderay: false
-
-coderay:
-    coderay_line_numbers:
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -66,7 +47,7 @@ author:
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://al-amin.ninja"
+      url: "https://al-amin.dev"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/eNipu"
@@ -118,7 +99,3 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
-
-
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
