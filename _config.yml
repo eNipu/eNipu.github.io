@@ -68,7 +68,7 @@ footer:
     #   url: "https://github.com/eNipu"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://www.instagram.com/enipu/"
 
 defaults:
   # _posts
