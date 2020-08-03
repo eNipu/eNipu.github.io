@@ -12,9 +12,9 @@ tags:
 
 
 While working TCP implementation, I could not understand why ```Socket.close()``` method was not working as expected.
-Expected means the in connection orriented protocol the close() method should be graceful. It should send all the pendinfg resources.
+Expected means the in connection orriented protocol the ```Close()``` method should be graceful. It should send all the pendinfg resources.
 It should not shutdhown in the middle. I was checking if I have received all the data. Then using Wireshark, could find the couse that
-insteam if sending ``FIN/ACK```  I was sending "RST" packet.
+insteam if sending ```FIN/ACK``` the ```Close()``` was sending "RST" packet.
 After few trial and error, figured out that ```Socket.Disconnect(false)``` sends "FIN/ACK".
 
 C# Close() https://docs.microsoft.com/en-us/dotnet/api/system.net.sockets.socket.close?redirectedfrom=MSDN&view=netcore-3.1
