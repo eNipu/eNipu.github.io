@@ -1,10 +1,10 @@
 ---
 title: "C# Socket Close() vs Disconnect()"
-date: 2020-07-25T19:00:40-14:00
+date: 2020-07-25T19:45:40-14:00
 categories:
   - blog, c#, notes
 tags:
-  - c++
+  - c#
   - notes
   - draft
 ---
