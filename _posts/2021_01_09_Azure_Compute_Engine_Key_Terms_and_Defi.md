@@ -1,3 +1,13 @@
+---
+title: "Azure Glossary"
+date: 2021-01-09T20:00:30-04:00
+categories:
+  - blog
+tags:
+  - Azure
+---
+
+
 |Key Term | Definition
 |:--- | :---
 |Subscription |Multiple of these can exist within a single Azure account; often used for billing and other management purposes.
