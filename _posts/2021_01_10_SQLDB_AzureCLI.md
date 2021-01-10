@@ -6,7 +6,7 @@ categories:
 tags:
   - Azure
   - SQL
-  -AzureCLI
+  - AzureCLI
 ---
 
 # Create, Delete an Azure SQL Database using Azure CLI.
