@@ -1,3 +1,14 @@
+---
+title: "Create, Delete an SQL Database using Azure CLI"
+date: 2021-01-10T19:15:30-04:00
+categories:
+  - blog
+tags:
+  - Azure
+  - SQL
+  -AzureCLI
+---
+
 # Create, Delete an Azure SQL Database using Azure CLI.
 
 1. Login to Azure CLI 
