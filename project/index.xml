@@ -33,10 +33,10 @@ Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoq
     </item>
     
     <item>
-      <title>ELiPS</title>
-      <link>https://al-amin.tech/project/viadesk/</link>
+      <title>Viadesk</title>
+      <link>https://al-amin.tech/project/dagdb/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>https://al-amin.tech/project/viadesk/</guid>
+      <guid>https://al-amin.tech/project/dagdb/</guid>
       <description>&lt;p&gt;This project was done based on Ph.D. works on elliptic-curve pairing.
 It was implemented using C and C++.
 Used GNU auto tools to build and install in Unix environments.&lt;/p&gt;
@@ -54,9 +54,9 @@ Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoq
     
     <item>
       <title>Viadesk</title>
-      <link>https://al-amin.tech/project/dagdb/</link>
+      <link>https://al-amin.tech/project/viadesk/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>https://al-amin.tech/project/dagdb/</guid>
+      <guid>https://al-amin.tech/project/viadesk/</guid>
       <description>&lt;p&gt;This project was done based on Ph.D. works on elliptic-curve pairing.
 It was implemented using C and C++.
 Used GNU auto tools to build and install in Unix environments.&lt;/p&gt;
