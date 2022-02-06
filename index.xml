@@ -267,13 +267,30 @@ Supplementary notes can be added here, including [code, math, and images](https:
     </item>
     
     <item>
-      <title>DataArmorGate</title>
+      <title>DataArmorGate DB (Gate DB)</title>
       <link>https://al-amin.tech/project/dagdb/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       <guid>https://al-amin.tech/project/dagdb/</guid>
       <description>&lt;p&gt;DataArmor Gate DB is a turn key solution for always-on encryption of databases that contain highly sensitive data or operate in non-trusted zones such as the cloud. The contents of the database are always encrypted and all queries are performed over encrypted data only. The encryption keys are stored separately from the database, and data is never decrypted at the database side. This is in contrast to current database solutions which partially decrypt the data when performing queries.&lt;/p&gt;
+&lt;h3 id=&#34;notable-features-of-gate-db&#34;&gt;Notable features of Gate DB:&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Key contributions:
+&lt;li&gt;
+&lt;p&gt;data is always-on encryption(during communication, at rest, during processing).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The contents of the database are always encrypted and all queries are performed over encrypted data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The encryption keys are not stored in the database.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It supports bring-your-own-key(BIOK)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;data is never decrypted at the database side which is different from traditional database systems.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Key contributions:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Implemented Homomorphic-encryption(HE) to perform ‘SQL aggregate functions’.&lt;/li&gt;
 &lt;li&gt;Reduced the bulk insertion and encryption time by 5 times by eﬀicient implementation of HE algorithms and multi-processing in Rust.&lt;/li&gt;
