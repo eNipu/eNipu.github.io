@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Invited Talks | Md. Al-Amin Khandaker</title>
-    <link>https://al-amin.tech/event/</link>
-      <atom:link href="https://al-amin.tech/event/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://al-amin.codes/event/</link>
+      <atom:link href="https://al-amin.codes/event/index.xml" rel="self" type="application/rss+xml" />
     <description>Invited Talks</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 01 Dec 2017 13:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://al-amin.tech/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <url>https://al-amin.codes/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>Invited Talks</title>
-      <link>https://al-amin.tech/event/</link>
+      <link>https://al-amin.codes/event/</link>
     </image>
     
     <item>
       <title>Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library</title>
-      <link>https://al-amin.tech/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/</link>
+      <link>https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/</link>
       <pubDate>Fri, 01 Dec 2017 13:00:00 +0000</pubDate>
-      <guid>https://al-amin.tech/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/</guid>
+      <guid>https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/</guid>
       <description>&lt;!-- 
 TODO: WILL ADD SLIDE
 
