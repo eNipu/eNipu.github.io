@@ -2,37 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://al-amin.codes/tag/academic/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/categories/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/category/demo/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/post/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/tags/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/post/getting-started/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/tag/%E5%BC%80%E6%BA%90/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://al-amin.codes/category/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://al-amin.codes/project/dagdb/</loc>
     <lastmod>2019-11-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://al-amin.codes/</loc>
+    <lastmod>2019-11-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://al-amin.codes/project/</loc>
+    <lastmod>2019-11-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://al-amin.codes/tags/</loc>
     <lastmod>2019-11-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://al-amin.codes/tag/work/</loc>
@@ -75,5 +54,9 @@
     <lastmod>2012-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://al-amin.codes/admin/</loc>
+  </url><url>
+    <loc>https://al-amin.codes/categories/</loc>
+  </url><url>
+    <loc>https://al-amin.codes/post/</loc>
   </url>
 </urlset>
