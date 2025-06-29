@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Secure Multi-Party Computation: A Comprehensive Guide | Md. Al-Amin Khandaker</title>
+  <meta name="description" content="An introduction to secure multi-party computation, its applications, and implementation details." />
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/wowchemy.24595df0c2dd320a6929bb350c13027d.css" />
+  <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'">
+
+  <!-- MathJax support -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://al-amin.codes/blog/secure-multi-party-computation/" />
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
+  <script src="/js/wowchemy-init.min.2a7b4dc7d7846171b6299e17e1f3ac71.js"></script>
+  
+  <!-- Custom styles to prevent image copying -->
+  <style>
+    .blog-content img {
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+    
+    /* Styles for code blocks */
+    pre {
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    
+    /* Styles for math equations */
+    .math {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    
+    /* Dyslexia-friendly font options */
+    .dyslexic-font {
+      font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      word-spacing: 0.1em;
+    }
+    
+    /* Toggle button for dyslexia-friendly font */
+    #font-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 10px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper dark">
+  <div class="page-header header--fixed">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+        <div class="container-xl">
+          <div class="d-none d-lg-inline-flex">
+            <a class="navbar-brand" href="/">Md. Al-Amin Khandaker</a>
+          </div>
+          
+          <button type="button" class="navbar-toggler" data-toggle="collapse"
+                  data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+          <span><i class="fas fa-bars"></i></span>
+          </button>
+          
+          <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+            <a class="navbar-brand" href="/">Md. Al-Amin Khandaker</a>
+          </div>
+          
+          <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+            <ul class="navbar-nav d-md-inline-flex">
+              <li class="nav-item">
+                <a class="nav-link" href="/#projects"><span>Projects</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/#talks"><span>Talks</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/#featured"><span>Publications</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/"><span>Blog</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/photography/"><span>Photography</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/uploads/resume.pdf"><span>CV</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+      <div class="article-container pt-3">
+        <h1>Secure Multi-Party Computation: A Comprehensive Guide</h1>
+        <p class="page-subtitle">An introduction to secure multi-party computation, its applications, and implementation details.</p>
+
+        <div class="article-metadata">
+          <span class="article-date">
+            May 15, 2023
+          </span>
+          <span class="middot-divider"></span>
+          <span class="article-reading-time">
+            8 min read
+          </span>
+        </div>
+      </div>
+
+      <div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 675px;">
+        <div style="position: relative">
+          <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" width="1200" height="675" alt="Secure Multi-Party Computation" class="featured-image">
+          <span class="article-header-caption">Image credit: <a href="https://www.pexels.com/" target="_blank" rel="noopener"><strong>Pexels</strong></a></span>
+        </div>
+      </div>
+
+      <div class="article-container">
+        <div class="article-style blog-content">
+          <h2>Introduction to Secure Multi-Party Computation</h2>
+          <p>Secure Multi-Party Computation (MPC) is a subfield of cryptography that enables multiple parties to jointly compute a function over their inputs while keeping those inputs private. In other words, MPC allows computation on encrypted data without decrypting it first.</p>
+          
+          <p>The concept was first introduced by Andrew Yao in the 1980s with his famous "millionaires' problem," where two millionaires want to determine who is richer without revealing their actual wealth.</p>
+          
+          <h2>Mathematical Foundations</h2>
+          <p>At its core, MPC relies on several cryptographic primitives. Let's explore some of the mathematical foundations:</p>
+          
+          <h3>Secret Sharing</h3>
+          <p>Shamir's Secret Sharing is a fundamental technique used in MPC. It allows a secret \(s\) to be divided into \(n\) shares such that:</p>
+          
+          <div class="math">
+          \[
+          s = \sum_{i=1}^{t} a_i x^i \mod p
+          \]
+          </div>
+          
+          <p>Where \(t\) is the threshold (minimum number of shares needed to reconstruct the secret), \(a_i\) are random coefficients, and \(p\) is a prime number.</p>
+          
+          <h3>Oblivious Transfer</h3>
+          <p>Oblivious Transfer (OT) is another crucial primitive where a sender has \(n\) messages, and a receiver wants to learn one of them without the sender knowing which one was chosen, and without the receiver learning anything about the other messages.</p>
+          
+          <h2>MPC Protocols</h2>
+          <p>There are several approaches to implementing MPC:</p>
+          
+          <h3>Garbled Circuits</h3>
+          <p>Yao's Garbled Circuits protocol works as follows:</p>
+          <ol>
+            <li>Party A "garbles" a circuit representing the function to be computed</li>
+            <li>Party A sends the garbled circuit to Party B along with A's garbled inputs</li>
+            <li>Party B obtains its garbled inputs through oblivious transfer</li>
+            <li>Party B evaluates the garbled circuit and obtains the result</li>
+          </ol>
+          
+          <h3>Secret Sharing Based Protocols</h3>
+          <p>Protocols like BGW (Ben-Or, Goldwasser, and Wigderson) and GMW (Goldreich, Micali, and Wigderson) use secret sharing schemes to perform computations on shared data.</p>
+          
+          <h2>Implementation Example</h2>
+          <p>Let's look at a simple example using Python with the <code>MPyC</code> library:</p>
+          
+          <pre><code class="language-python">from mpyc.runtime import mpc
+import mpyc.sectypes as sectypes
+
+async def main():
+    # Initialize MPC
+    await mpc.start()
+    
+    # Define secure integer type with 32-bit precision
+    secint = sectypes.SecInt32()
+    
+    # Each party inputs a private value
+    my_input = int(input("Enter your private value: "))
+    x = mpc.input(secint(my_input))
+    
+    # Compute sum and average securely
+    sum_x = await mpc.output(mpc.sum(x))
+    avg_x = await mpc.output(mpc.sum(x) / len(x))
+    
+    print(f"Sum of all inputs: {sum_x}")
+    print(f"Average of all inputs: {avg_x}")
+    
+    # Shutdown MPC
+    await mpc.shutdown()
+
+if __name__ == "__main__":
+    mpc.run(main())</code></pre>
+          
+          <p>This simple example demonstrates how multiple parties can compute the sum and average of their private inputs without revealing those inputs to each other.</p>
+          
+          <h2>Applications of MPC</h2>
+          <p>MPC has numerous real-world applications:</p>
+          
+          <h3>Privacy-Preserving Data Analysis</h3>
+          <p>Organizations can collaborate on data analysis without sharing sensitive data. For example, hospitals can jointly analyze patient data for medical research while preserving patient privacy.</p>
+          
+          <h3>Secure Auctions</h3>
+          <p>MPC enables auction mechanisms where bids remain private, preventing price manipulation and collusion.</p>
+          
+          <h3>Private Machine Learning</h3>
+          <p>Multiple parties can train machine learning models on their combined data without revealing their individual datasets.</p>
+          
+          <h2>Challenges and Future Directions</h2>
+          <p>Despite its powerful capabilities, MPC faces several challenges:</p>
+          
+          <ul>
+            <li><strong>Performance overhead</strong>: MPC protocols typically introduce significant computational and communication overhead compared to plaintext computation.</li>
+            <li><strong>Scalability</strong>: Many MPC protocols don't scale well with the number of participants.</li>
+            <li><strong>Usability</strong>: Implementing MPC correctly requires cryptographic expertise.</li>
+          </ul>
+          
+          <p>Research is actively addressing these challenges through optimized protocols, hardware acceleration, and better development frameworks.</p>
+          
+          <h2>Conclusion</h2>
+          <p>Secure Multi-Party Computation represents a powerful paradigm for privacy-preserving collaborative computation. As privacy concerns continue to grow in importance, MPC is likely to become an increasingly vital tool in our computational toolkit.</p>
+          
+          <p>In future posts, we'll explore specific MPC protocols in more detail and look at practical implementations for real-world scenarios.</p>
+        </div>
+
+        <div class="share-box">
+          <ul class="share">
+            <li>
+              <a href="https://twitter.com/intent/tweet?url=https://al-amin.codes/blog/secure-multi-party-computation/&text=Secure+Multi-Party+Computation:+A+Comprehensive+Guide" target="_blank" rel="noopener" class="share-btn-twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/shareArticle?url=https://al-amin.codes/blog/secure-multi-party-computation/&title=Secure+Multi-Party+Computation:+A+Comprehensive+Guide" target="_blank" rel="noopener" class="share-btn-linkedin">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="page-footer">
+    <div class="container">
+      <footer class="site-footer">
+        <p class="powered-by">
+          Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <button id="font-toggle">Toggle Dyslexia-Friendly Font</button>
+
+  <script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+  <script src="/en/js/wowchemy.min.e973d49cb2d568aa6f8eaf3638337473.js"></script>
+  
+  <script>
+    // Toggle dyslexia-friendly font
+    document.getElementById('font-toggle').addEventListener('click', function() {
+      document.body.classList.toggle('dyslexic-font');
+    });
+    
+    // Prevent image downloading/copying
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
