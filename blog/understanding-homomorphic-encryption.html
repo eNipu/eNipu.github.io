@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding Homomorphic Encryption | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax for math equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- Prism.js for code highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="blog-styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/#publications">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog" class="active">Blog</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <div class="blog-post-header">
+          <h1>Understanding Homomorphic Encryption</h1>
+          <div class="blog-post-meta">
+            <span class="blog-date">May 15, 2025</span>
+            <span class="blog-category">Cryptography</span>
+            <span class="blog-reading-time">10 min read</span>
+          </div>
+        </div>
+        
+        <div class="blog-post-content">
+          <p>Homomorphic encryption is a form of encryption that allows computations to be performed on encrypted data without decrypting it first. The result of the computation is also encrypted, and when decrypted, matches the result of the same operations performed on the plaintext.</p>
+          
+          <p>This revolutionary concept enables secure data processing in untrusted environments, making it a cornerstone technology for privacy-preserving computation.</p>
+          
+          <h2>The Mathematical Foundation</h2>
+          
+          <p>For a homomorphic encryption scheme, we want the following property to hold:</p>
+          
+          <div class="math-block">
+            \[ E(x) \circ E(y) = E(x \star y) \]
+          </div>
+          
+          <p>Where \(E\) is the encryption function, \(\circ\) is an operation on ciphertexts, and \(\star\) is the corresponding operation on plaintexts.</p>
+          
+          <p>For example, in an additively homomorphic encryption scheme:</p>
+          
+          <div class="math-block">
+            \[ E(x) \cdot E(y) = E(x + y) \]
+          </div>
+          
+          <p>And in a multiplicatively homomorphic encryption scheme:</p>
+          
+          <div class="math-block">
+            \[ E(x)^y = E(x \cdot y) \]
+          </div>
+          
+          <h2>Types of Homomorphic Encryption</h2>
+          
+          <h3>Partially Homomorphic Encryption (PHE)</h3>
+          
+          <p>PHE schemes support a single operation (either addition or multiplication) an unlimited number of times.</p>
+          
+          <p><strong>Examples:</strong></p>
+          <ul>
+            <li><strong>RSA</strong>: Multiplicatively homomorphic</li>
+            <li><strong>Paillier</strong>: Additively homomorphic</li>
+            <li><strong>ElGamal</strong>: Multiplicatively homomorphic</li>
+          </ul>
+          
+          <h3>Somewhat Homomorphic Encryption (SWHE)</h3>
+          
+          <p>SWHE schemes support both addition and multiplication, but only for a limited number of operations.</p>
+          
+          <h3>Fully Homomorphic Encryption (FHE)</h3>
+          
+          <p>FHE schemes support an arbitrary number of additions and multiplications, allowing for any computable function to be performed on encrypted data.</p>
+          
+          <p>The first viable FHE scheme was proposed by Craig Gentry in 2009, using lattice-based cryptography. Since then, several more efficient schemes have been developed, including:</p>
+          
+          <ul>
+            <li>Brakerski-Gentry-Vaikuntanathan (BGV)</li>
+            <li>Brakerski/Fan-Vercauteren (BFV)</li>
+            <li>Cheon-Kim-Kim-Song (CKKS)</li>
+            <li>TFHE (Torus Fully Homomorphic Encryption)</li>
+          </ul>
+          
+          <h2>Practical Implementation</h2>
+          
+          <p>Let's look at a simple example using the TenSEAL library, which provides Python bindings for the Microsoft SEAL library:</p>
+          
+          <pre><code class="language-python">import tenseal as ts
+import numpy as np
+
+# Set up the TenSEAL context
+context = ts.context(
+    ts.SCHEME_TYPE.CKKS,
+    poly_modulus_degree=8192,
+    coeff_mod_bit_sizes=[60, 40, 40, 60]
+)
+context.global_scale = 2**40
+context.generate_galois_keys()
+
+# Encrypt some data
+data = np.array([1.0, 2.0, 3.0, 4.0])
+encrypted_vector = ts.ckks_vector(context, data)
+
+# Perform computations on encrypted data
+encrypted_result = encrypted_vector + encrypted_vector  # Addition
+encrypted_result *= 5  # Multiplication by scalar
+
+# Decrypt the result
+result = encrypted_result.decrypt()
+print(result)  # Should be [10.0, 20.0, 30.0, 40.0]</code></pre>
+          
+          <p>This example demonstrates how we can perform basic operations on encrypted data. The beauty of homomorphic encryption is that the server performing these computations never sees the actual data values.</p>
+          
+          <h2>Applications of Homomorphic Encryption</h2>
+          
+          <h3>Privacy-Preserving Machine Learning</h3>
+          
+          <p>One of the most promising applications is in machine learning, where models can be trained or evaluated on encrypted data:</p>
+          
+          <ul>
+            <li><strong>Encrypted Inference</strong>: A model owner can provide predictions without seeing the input data</li>
+            <li><strong>Encrypted Training</strong>: Models can be trained on sensitive data without exposing the data</li>
+          </ul>
+          
+          <h3>Secure Cloud Computing</h3>
+          
+          <p>Organizations can outsource computation to cloud providers while keeping their data encrypted:</p>
+          
+          <ul>
+            <li>Database queries on encrypted data</li>
+            <li>Analytics on sensitive information</li>
+            <li>Secure multi-party computation</li>
+          </ul>
+          
+          <h3>Healthcare and Genomics</h3>
+          
+          <p>Medical and genomic data are highly sensitive but valuable for research:</p>
+          
+          <ul>
+            <li>Analysis of patient records while preserving privacy</li>
+            <li>Genomic studies across multiple institutions</li>
+            <li>Drug discovery on private datasets</li>
+          </ul>
+          
+          <h2>Challenges and Limitations</h2>
+          
+          <p>Despite its potential, homomorphic encryption faces several challenges:</p>
+          
+          <h3>Performance Overhead</h3>
+          
+          <p>FHE operations are computationally expensive, often thousands of times slower than operations on plaintext. This makes real-time applications challenging.</p>
+          
+          <h3>Noise Growth</h3>
+          
+          <p>In many FHE schemes, each operation introduces "noise" that accumulates. After too many operations, the noise can corrupt the encrypted data, requiring techniques like bootstrapping to manage it.</p>
+          
+          <h3>Parameter Selection</h3>
+          
+          <p>Choosing appropriate parameters for security, performance, and precision requires expertise and careful consideration of the specific application.</p>
+          
+          <h2>Future Directions</h2>
+          
+          <p>Research in homomorphic encryption is advancing rapidly, with several promising directions:</p>
+          
+          <ul>
+            <li><strong>Hardware Acceleration</strong>: Specialized hardware for FHE operations</li>
+            <li><strong>Improved Algorithms</strong>: More efficient schemes and implementations</li>
+            <li><strong>Standardization</strong>: Efforts to standardize FHE schemes and APIs</li>
+            <li><strong>Hybrid Approaches</strong>: Combining FHE with other privacy-preserving techniques</li>
+          </ul>
+          
+          <h2>Conclusion</h2>
+          
+          <p>Homomorphic encryption represents a paradigm shift in how we think about data privacy and security. By enabling computation on encrypted data, it offers a solution to the fundamental tension between data utility and privacy.</p>
+          
+          <p>As the technology matures and performance improves, we can expect to see homomorphic encryption deployed in increasingly diverse applications, fundamentally changing how sensitive data is processed in our digital world.</p>
+          
+          <div class="blog-post-footer">
+            <div class="blog-post-tags">
+              <span class="blog-post-tag">Cryptography</span>
+              <span class="blog-post-tag">Privacy</span>
+              <span class="blog-post-tag">Homomorphic Encryption</span>
+              <span class="blog-post-tag">Secure Computing</span>
+            </div>
+            
+            <div class="blog-post-navigation">
+              <a href="/blog" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+              <a href="secure-multi-party-computation.html" class="btn btn-primary">Next Post <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax for math equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- Prism.js for code highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="blog-styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/#publications">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog" class="active">Blog</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-header">
+      <div class="container">
+        <h1>Blog</h1>
+        <p>Thoughts on cryptography, secure computing, and privacy-preserving technologies</p>
+      </div>
+    </section>
+
+    <section class="blog-content">
+      <div class="container">
+        <div class="blog-grid">
+          <article class="blog-card">
+            <div class="blog-card-image">
+              <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Understanding Homomorphic Encryption">
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-date">May 15, 2025</span>
+                <span class="blog-category">Cryptography</span>
+              </div>
+              <h2>Understanding Homomorphic Encryption</h2>
+              <p>An introduction to homomorphic encryption and its applications in privacy-preserving computation.</p>
+              <a href="understanding-homomorphic-encryption.html" class="btn btn-primary">Read More</a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-image">
+              <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Secure Multi-Party Computation">
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-date">April 28, 2025</span>
+                <span class="blog-category">Secure Computing</span>
+              </div>
+              <h2>Secure Multi-Party Computation: Theory and Practice</h2>
+              <p>Exploring the foundations and practical applications of secure multi-party computation protocols.</p>
+              <a href="secure-multi-party-computation.html" class="btn btn-primary">Read More</a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-image">
+              <img src="https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Privacy-Preserving Machine Learning">
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-date">March 10, 2025</span>
+                <span class="blog-category">Machine Learning</span>
+              </div>
+              <h2>Privacy-Preserving Machine Learning Techniques</h2>
+              <p>How to train and deploy machine learning models while preserving data privacy.</p>
+              <a href="privacy-preserving-ml.html" class="btn btn-primary">Read More</a>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-image">
+              <img src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Elliptic Curve Cryptography">
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-date">February 5, 2025</span>
+                <span class="blog-category">Cryptography</span>
+              </div>
+              <h2>Elliptic Curve Cryptography: A Deep Dive</h2>
+              <p>Understanding the mathematics and implementation details of elliptic curve cryptography.</p>
+              <a href="elliptic-curve-cryptography.html" class="btn btn-primary">Read More</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>
