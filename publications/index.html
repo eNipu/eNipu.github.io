@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax for math equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Publications page specific styles */
+    .publications-hero {
+      background-color: var(--color-primary);
+      color: white;
+      padding: var(--spacing-3xl) 0;
+      margin-bottom: var(--spacing-3xl);
+    }
+    
+    .publications-hero h1 {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .publications-hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: var(--font-size-lg);
+    }
+    
+    .publications-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .publication-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-2xl);
+      justify-content: center;
+    }
+    
+    .publication-card {
+      background-color: var(--color-card-bg);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 10px var(--color-shadow);
+      margin-bottom: var(--spacing-xl);
+      overflow: hidden;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+    
+    .publication-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--color-shadow);
+    }
+    
+    .publication-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+    
+    .publication-header {
+      padding: var(--spacing-lg);
+      border-bottom: 1px solid var(--color-card-border);
+    }
+    
+    .publication-header h3 {
+      margin-bottom: var(--spacing-xs);
+      font-size: var(--font-size-xl);
+    }
+    
+    .publication-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+    
+    .publication-authors {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .publication-content {
+      padding: var(--spacing-lg);
+    }
+    
+    .publication-abstract {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .publication-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .publication-tag {
+      background-color: var(--color-code-bg);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+    }
+    
+    .publication-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+    
+    .publication-stats {
+      display: flex;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-2xl);
+      margin-bottom: var(--spacing-3xl);
+      justify-content: center;
+    }
+    
+    .stat-item {
+      text-align: center;
+      flex: 1;
+      max-width: 200px;
+    }
+    
+    .stat-number {
+      font-size: var(--font-size-4xl);
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+    
+    .year-divider {
+      margin: var(--spacing-2xl) 0 var(--spacing-lg);
+      text-align: center;
+      position: relative;
+    }
+    
+    .year-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--color-card-border);
+      z-index: -1;
+    }
+    
+    .year-divider span {
+      background-color: var(--color-bg);
+      padding: 0 var(--spacing-md);
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+    }
+    
+    @media (max-width: 768px) {
+      .publication-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-lg);
+      }
+      
+      .stat-item {
+        width: 100%;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/publications/" class="active">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="publications-hero">
+      <div class="container">
+        <h1>Research Publications</h1>
+        <p>My research focuses on cryptography, secure computing, and privacy-preserving technologies. Here you'll find my published work in these areas.</p>
+      </div>
+    </section>
+    
+    <section class="publications-container">
+      <div class="container">
+        <div class="publication-stats">
+          <div class="stat-item">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Citations</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Research Areas</div>
+          </div>
+        </div>
+        
+        <div class="publication-filters">
+          <button class="filter-btn active" data-filter="all">All Publications</button>
+          <button class="filter-btn" data-filter="journal">Journal Articles</button>
+          <button class="filter-btn" data-filter="conference">Conference Papers</button>
+          <button class="filter-btn" data-filter="survey">Survey Papers</button>
+        </div>
+        
+        <div class="publication-grid">
+          <div class="year-divider">
+            <span>2022</span>
+          </div>
+          
+          <div class="publication-card" data-category="survey">
+            <div class="publication-header">
+              <h3>Privacy-Preserving Machine Learning: A Survey of Techniques and Applications</h3>
+              <div class="publication-meta">
+                <span class="publication-venue">Journal of Information Security and Applications</span>
+                <span class="publication-date">March 2022</span>
+              </div>
+              <div class="publication-authors">
+                <span class="author">Khandaker Md. Al-Amin</span>, 
+                <span class="author">Hiroki Imabayashi</span>,
+                <span class="author">Takashi Nishide</span>
+              </div>
+            </div>
+            <div class="publication-content">
+              <p class="publication-abstract">
+                This survey paper provides a comprehensive overview of privacy-preserving machine learning techniques, focusing on homomorphic encryption, secure multi-party computation, and differential privacy approaches for protecting sensitive data during model training and inference.
+              </p>
+              <div class="publication-tags">
+                <span class="publication-tag">Privacy-Preserving ML</span>
+                <span class="publication-tag">Homomorphic Encryption</span>
+                <span class="publication-tag">Secure MPC</span>
+              </div>
+              <div class="publication-links">
+                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/ppml2022/cite.bib">Cite</a>
+                <a href="#" class="btn btn-primary">PDF</a>
+                <a href="#" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="year-divider">
+            <span>2018</span>
+          </div>
+          
+          <div class="publication-card" data-category="conference">
+            <div class="publication-header">
+              <h3>Efficient Scalar Multiplication for Pairing-Friendly Elliptic Curves</h3>
+              <div class="publication-meta">
+                <span class="publication-venue">International Conference on Cryptography and Network Security</span>
+                <span class="publication-date">October 2018</span>
+              </div>
+              <div class="publication-authors">
+                <span class="author">Khandaker Md. Al-Amin</span>, 
+                <span class="author">Yasuyuki Nogami</span>
+              </div>
+            </div>
+            <div class="publication-content">
+              <p class="publication-abstract">
+                This paper presents novel techniques for optimizing scalar multiplication operations on pairing-friendly elliptic curves, which are essential for efficient implementation of pairing-based cryptographic protocols.
+              </p>
+              <div class="publication-tags">
+                <span class="publication-tag">Elliptic Curve Cryptography</span>
+                <span class="publication-tag">Pairing-Based Cryptography</span>
+                <span class="publication-tag">Scalar Multiplication</span>
+              </div>
+              <div class="publication-links">
+                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/scalar2018/cite.bib">Cite</a>
+                <a href="#" class="btn btn-primary">PDF</a>
+                <a href="#" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="year-divider">
+            <span>2017</span>
+          </div>
+          
+          <div class="publication-card" data-category="journal">
+            <div class="publication-header">
+              <h3>An Improvement of Scalar Multiplication by Skew Frobenius Map with Multi-Scalar Multiplication for KSS Curve</h3>
+              <div class="publication-meta">
+                <span class="publication-venue">IEICE Transactions</span>
+                <span class="publication-date">December 2017</span>
+              </div>
+              <div class="publication-authors">
+                <span class="author">Khandaker Md. Al-Amin</span>, 
+                <span class="author">Yasuyuki Nogami</span>
+              </div>
+            </div>
+            <div class="publication-content">
+              <p class="publication-abstract">
+                Scalar multiplication over higher degree rational point groups is often regarded as the bottleneck for faster pairing based cryptography. This paper has presented a skew Frobenius mapping technique in the sub-field isomorphic sextic twisted curve of Kachisa-Schaefer-Scott (KSS) pairing friendly curve of embedding degree 18 in the context of Ate based pairing.
+              </p>
+              <div class="publication-tags">
+                <span class="publication-tag">Elliptic Curve Cryptography</span>
+                <span class="publication-tag">KSS Curve</span>
+                <span class="publication-tag">Frobenius Map</span>
+              </div>
+              <div class="publication-links">
+                <a href="/publication/ieice2017/IEICE2017.pdf" target="_blank" class="btn btn-primary">PDF</a>
+                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="/publication/ieice2017/cite.bib">Cite</a>
+                <a href="https://doi.org/10.1587/transfun.E100.A.1838" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="year-divider">
+            <span>2016</span>
+          </div>
+          
+          <div class="publication-card" data-category="conference">
+            <div class="publication-header">
+              <h3>Efficient Implementation of Pairing-Based Cryptography on Embedded Devices Using FPGA</h3>
+              <div class="publication-meta">
+                <span class="publication-venue">International Conference on Information Security and Cryptology</span>
+                <span class="publication-date">November 2016</span>
+              </div>
+              <div class="publication-authors">
+                <span class="author">Khandaker Md. Al-Amin</span>, 
+                <span class="author">Satoshi Tanaka</span>,
+                <span class="author">Yasuyuki Nogami</span>
+              </div>
+            </div>
+            <div class="publication-content">
+              <p class="publication-abstract">
+                This paper presents an efficient implementation of pairing-based cryptography on embedded devices using FPGA. We propose a hardware architecture for computing bilinear pairings that is suitable for resource-constrained environments.
+              </p>
+              <div class="publication-tags">
+                <span class="publication-tag">FPGA</span>
+                <span class="publication-tag">Embedded Systems</span>
+                <span class="publication-tag">Pairing-Based Cryptography</span>
+              </div>
+              <div class="publication-links">
+                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/fpga2016/cite.bib">Cite</a>
+                <a href="#" class="btn btn-primary">PDF</a>
+                <a href="#" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="publication-card" data-category="journal">
+            <div class="publication-header">
+              <h3>Optimized Implementation of Elliptic Curve Cryptography for Low-Power Devices</h3>
+              <div class="publication-meta">
+                <span class="publication-venue">Journal of Information Processing</span>
+                <span class="publication-date">June 2016</span>
+              </div>
+              <div class="publication-authors">
+                <span class="author">Khandaker Md. Al-Amin</span>, 
+                <span class="author">Yasuyuki Nogami</span>,
+                <span class="author">Satoshi Uehara</span>
+              </div>
+            </div>
+            <div class="publication-content">
+              <p class="publication-abstract">
+                This paper proposes optimization techniques for implementing elliptic curve cryptography on low-power devices. We focus on reducing computational complexity and memory usage while maintaining security.
+              </p>
+              <div class="publication-tags">
+                <span class="publication-tag">Elliptic Curve Cryptography</span>
+                <span class="publication-tag">Low-Power Devices</span>
+                <span class="publication-tag">Optimization</span>
+              </div>
+              <div class="publication-links">
+                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/jip2016/cite.bib">Cite</a>
+                <a href="#" class="btn btn-primary">PDF</a>
+                <a href="#" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for citations -->
+  <div id="citeModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Citation</h2>
+      <pre id="citationText"></pre>
+      <button id="copyCitation" class="btn btn-primary">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    // Publication filtering
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.publication-filters .filter-btn');
+      const publicationCards = document.querySelectorAll('.publication-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Filter publications
+          const filter = this.getAttribute('data-filter');
+          
+          publicationCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Citation modal functionality
+      const modal = document.getElementById('citeModal');
+      const citeBtns = document.querySelectorAll('.js-cite-modal');
+      const closeBtn = document.querySelector('.close');
+      const citationText = document.getElementById('citationText');
+      const copyBtn = document.getElementById('copyCitation');
+      
+      citeBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const filename = this.getAttribute('data-filename');
+          
+          // In a real implementation, you would fetch the citation file
+          // For this example, we'll use hardcoded citations
+          if (filename.includes('ieice2017')) {
+            citationText.textContent = `@article{IEICE2017,
+  title={An Improvement of Scalar Multiplication by Skew Frobenius Map with Multi-Scalar Multiplication for KSS Curve},
+  author={Md. Al-Amin KHANDAKER and Yasuyuki NOGAMI},
+  journal={IEICE Transactions on Fundamentals of Electronics, Communications and Computer Sciences},
+  volume={E100.A},
+  number={9},
+  pages={1838-1845},
+  year={2017},
+  doi={10.1587/transfun.E100.A.1838}
+}`;
+          } else if (filename.includes('fpga2016')) {
+            citationText.textContent = `@inproceedings{fpga2016,
+  title={Efficient Implementation of Pairing-Based Cryptography on Embedded Devices Using FPGA},
+  author={Khandaker, Md. Al-Amin and Tanaka, Satoshi and Nogami, Yasuyuki},
+  booktitle={International Conference on Information Security and Cryptology},
+  pages={120-135},
+  year={2016},
+  organization={Springer}
+}`;
+          } else if (filename.includes('jip2016')) {
+            citationText.textContent = `@article{jip2016,
+  title={Optimized Implementation of Elliptic Curve Cryptography for Low-Power Devices},
+  author={Khandaker, Md. Al-Amin and Nogami, Yasuyuki and Uehara, Satoshi},
+  journal={Journal of Information Processing},
+  volume={24},
+  number={3},
+  pages={583-592},
+  year={2016},
+  doi={10.2197/ipsjjip.24.583}
+}`;
+          } else if (filename.includes('scalar2018')) {
+            citationText.textContent = `@inproceedings{scalar2018,
+  title={Efficient Scalar Multiplication for Pairing-Friendly Elliptic Curves},
+  author={Khandaker, Md. Al-Amin and Nogami, Yasuyuki},
+  booktitle={International Conference on Cryptography and Network Security},
+  pages={214-226},
+  year={2018},
+  organization={Springer}
+}`;
+          } else if (filename.includes('ppml2022')) {
+            citationText.textContent = `@article{ppml2022,
+  title={Privacy-Preserving Machine Learning: A Survey of Techniques and Applications},
+  author={Khandaker, Md. Al-Amin and Imabayashi, Hiroki and Nishide, Takashi},
+  journal={Journal of Information Security and Applications},
+  volume={64},
+  pages={103057},
+  year={2022},
+  publisher={Elsevier}
+}`;
+          } else {
+            citationText.textContent = `@article{example,
+  title={Example Citation},
+  author={Khandaker, Md. Al-Amin},
+  journal={Example Journal},
+  year={2023}
+}`;
+          }
+          
+          modal.style.display = 'block';
+        });
+      });
+      
+      // Close modal when clicking the × button
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+      
+      // Close modal when clicking outside of it
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      // Copy citation to clipboard
+      copyBtn.addEventListener('click', function() {
+        const text = citationText.textContent;
+        navigator.clipboard.writeText(text).then(function() {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() {
+            copyBtn.textContent = 'Copy to Clipboard';
+          }, 2000);
+        }, function(err) {
+          console.error('Could not copy text: ', err);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
