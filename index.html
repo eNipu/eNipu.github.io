@@ -20,6 +20,9 @@
   <!-- Prism.js for code highlighting -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
   
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
+  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -40,7 +43,8 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#publications">Publications</a></li>
           <li><a href="#talks">Talks</a></li>
-          <li><a href="#blog">Blog</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/photography/">Photography</a></li>
           <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
           <li class="theme-toggle">
             <button id="themeToggle" aria-label="Toggle dark/light mode">
@@ -93,6 +97,8 @@
                 <li>Application of Homomorphic-Encryption</li>
                 <li>Private Set Intersection</li>
                 <li>Natural Language Processing</li>
+                <li>Privacy-Preserving Machine Learning</li>
+                <li>Secure Multi-Party Computation</li>
               </ul>
             </div>
             
@@ -133,7 +139,7 @@
               <div class="timeline-info">
                 <span class="company">EAGLYS Inc.</span>
                 <span class="period">Nov 2020 - Present</span>
-                <span class="location">Tokyo</span>
+                <span class="location">Tokyo, Japan</span>
               </div>
               <p>Responsibilities include:</p>
               <ul>
@@ -152,11 +158,11 @@
               <div class="timeline-info">
                 <span class="company">Cardservice Inc.</span>
                 <span class="period">Apr 2019 - Oct 2020</span>
-                <span class="location">Tokyo</span>
+                <span class="location">Tokyo, Japan</span>
               </div>
               <p>Responsibilities include:</p>
               <ul>
-                <li>Development and evaluation security architecture embedded application for payment terminals</li>
+                <li>Development and evaluation of security architecture for embedded applications in payment terminals</li>
                 <li>Implementing QR code payment application for Linux OS</li>
                 <li>Technology used: C++, C#, SQLite, RESTful Services</li>
               </ul>
@@ -170,7 +176,7 @@
               <div class="timeline-info">
                 <span class="company">Okayama University</span>
                 <span class="period">Sep 2017 - Aug 2018</span>
-                <span class="location">Okayama</span>
+                <span class="location">Okayama, Japan</span>
               </div>
               <p>Responsibilities include:</p>
               <ul>
@@ -188,13 +194,30 @@
               <div class="timeline-info">
                 <span class="company">Metatude Asia Ltd. Dhaka, under Viadesk BV, The Netherlands</span>
                 <span class="period">May 2012 - Sep 2015</span>
-                <span class="location">Dhaka</span>
+                <span class="location">Dhaka, Bangladesh</span>
               </div>
               <p>Responsibilities include:</p>
               <ul>
                 <li>Developed an iOS app of an intranet service used by more than 300k users</li>
                 <li>Implemented PoC of an online E-learning platform <a href="https://www.coursepath.com/" target="_blank">Coursepath</a></li>
                 <li>Technology used: Objective-C, iOS, REST, SQLite, PostgreSQL</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Software Engineer (Part-time)</h3>
+              <div class="timeline-info">
+                <span class="company">Enosis Solutions</span>
+                <span class="period">Jan 2012 - Apr 2012</span>
+                <span class="location">Dhaka, Bangladesh</span>
+              </div>
+              <p>Responsibilities include:</p>
+              <ul>
+                <li>Developed a web application for a US-based client</li>
+                <li>Technology used: ASP.NET, C#, SQL Server</li>
               </ul>
             </div>
           </div>
@@ -261,6 +284,7 @@
     <section id="publications" class="publications">
       <div class="container">
         <h2 class="section-title">Publications</h2>
+        
         <div class="publication-card">
           <div class="publication-image">
             <img src="/publication/ieice2017/featured_huc7f7e45a69ccf39a23dd839958f200ce_2282249_150x0_resize_q75_h2_lanczos.webp" alt="Publication Image">
@@ -285,6 +309,101 @@
             </div>
           </div>
         </div>
+        
+        <div class="publication-card">
+          <div class="publication-image">
+            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Publication Image">
+          </div>
+          <div class="publication-content">
+            <h3>Efficient Implementation of Pairing-Based Cryptography on Embedded Devices Using FPGA</h3>
+            <div class="publication-authors">
+              <span class="author">Khandaker Md. Al-Amin</span>, 
+              <span class="author">Satoshi Tanaka</span>,
+              <span class="author">Yasuyuki Nogami</span>
+            </div>
+            <div class="publication-details">
+              <span class="journal">International Conference on Information Security and Cryptology</span>
+              <span class="date">November 2016</span>
+            </div>
+            <p class="publication-abstract">
+              This paper presents an efficient implementation of pairing-based cryptography on embedded devices using FPGA. We propose a hardware architecture for computing bilinear pairings that is suitable for resource-constrained environments.
+            </p>
+            <div class="publication-links">
+              <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/fpga2016/cite.bib">Cite</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="publication-card">
+          <div class="publication-image">
+            <img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg" alt="Publication Image">
+          </div>
+          <div class="publication-content">
+            <h3>Optimized Implementation of Elliptic Curve Cryptography for Low-Power Devices</h3>
+            <div class="publication-authors">
+              <span class="author">Khandaker Md. Al-Amin</span>, 
+              <span class="author">Yasuyuki Nogami</span>,
+              <span class="author">Satoshi Uehara</span>
+            </div>
+            <div class="publication-details">
+              <span class="journal">Journal of Information Processing</span>
+              <span class="date">June 2016</span>
+            </div>
+            <p class="publication-abstract">
+              This paper proposes optimization techniques for implementing elliptic curve cryptography on low-power devices. We focus on reducing computational complexity and memory usage while maintaining security.
+            </p>
+            <div class="publication-links">
+              <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/jip2016/cite.bib">Cite</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="publication-card">
+          <div class="publication-image">
+            <img src="https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg" alt="Publication Image">
+          </div>
+          <div class="publication-content">
+            <h3>Efficient Scalar Multiplication for Pairing-Friendly Elliptic Curves</h3>
+            <div class="publication-authors">
+              <span class="author">Khandaker Md. Al-Amin</span>, 
+              <span class="author">Yasuyuki Nogami</span>
+            </div>
+            <div class="publication-details">
+              <span class="journal">International Conference on Cryptography and Network Security</span>
+              <span class="date">October 2018</span>
+            </div>
+            <p class="publication-abstract">
+              This paper presents novel techniques for optimizing scalar multiplication operations on pairing-friendly elliptic curves, which are essential for efficient implementation of pairing-based cryptographic protocols.
+            </p>
+            <div class="publication-links">
+              <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/scalar2018/cite.bib">Cite</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="publication-card">
+          <div class="publication-image">
+            <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg" alt="Publication Image">
+          </div>
+          <div class="publication-content">
+            <h3>Privacy-Preserving Machine Learning: A Survey of Techniques and Applications</h3>
+            <div class="publication-authors">
+              <span class="author">Khandaker Md. Al-Amin</span>, 
+              <span class="author">Hiroki Imabayashi</span>,
+              <span class="author">Takashi Nishide</span>
+            </div>
+            <div class="publication-details">
+              <span class="journal">Journal of Information Security and Applications</span>
+              <span class="date">March 2022</span>
+            </div>
+            <p class="publication-abstract">
+              This survey paper provides a comprehensive overview of privacy-preserving machine learning techniques, focusing on homomorphic encryption, secure multi-party computation, and differential privacy approaches for protecting sensitive data during model training and inference.
+            </p>
+            <div class="publication-links">
+              <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/ppml2022/cite.bib">Cite</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -302,8 +421,38 @@
               <span class="date">December 1, 2017</span>
               <span class="location">IRMAR at University Rennes 1</span>
             </div>
-            <p>Invided talk on Pairing-Based Cryptography and Open-Source Library.</p>
+            <p>Invited talk on Pairing-Based Cryptography and Open-Source Library.</p>
             <a href="/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" class="btn btn-primary">Learn More</a>
+          </div>
+        </div>
+        
+        <div class="talk-card">
+          <div class="talk-image">
+            <img src="https://images.pexels.com/photos/7103/writing-notes-idea-conference.jpg" alt="Talk Image">
+          </div>
+          <div class="talk-content">
+            <h3>Privacy-Preserving Machine Learning: Challenges and Opportunities</h3>
+            <div class="talk-details">
+              <span class="date">March 15, 2022</span>
+              <span class="location">Tokyo AI Conference</span>
+            </div>
+            <p>Presented current research and applications of privacy-preserving techniques in machine learning, focusing on homomorphic encryption and secure multi-party computation.</p>
+            <a href="#" class="btn btn-primary">Learn More</a>
+          </div>
+        </div>
+        
+        <div class="talk-card">
+          <div class="talk-image">
+            <img src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg" alt="Talk Image">
+          </div>
+          <div class="talk-content">
+            <h3>Secure Multi-Party Computation for Financial Data Analysis</h3>
+            <div class="talk-details">
+              <span class="date">September 8, 2023</span>
+              <span class="location">FinTech Security Summit, Singapore</span>
+            </div>
+            <p>Discussed practical applications of secure multi-party computation in the financial sector, focusing on privacy-preserving data analysis and regulatory compliance.</p>
+            <a href="#" class="btn btn-primary">Learn More</a>
           </div>
         </div>
       </div>
@@ -315,48 +464,7 @@
         <h2 class="section-title">Blog</h2>
         <div class="blog-intro">
           <p>Welcome to my blog where I share insights on cryptography, secure computing, and privacy-preserving technologies. Here you'll find articles with mathematical equations, code snippets, and explanations of complex concepts in an accessible way.</p>
-        </div>
-        
-        <div class="blog-sample">
-          <h3>Sample Blog Post: Understanding Homomorphic Encryption</h3>
-          
-          <p>Homomorphic encryption allows computations on encrypted data without decrypting it first. This is particularly useful for privacy-preserving machine learning and secure data processing.</p>
-          
-          <h4>Mathematical Foundation</h4>
-          <p>For a homomorphic encryption scheme, we want the following property to hold:</p>
-          
-          <div class="math-block">
-            \[ E(x) \circ E(y) = E(x \star y) \]
-          </div>
-          
-          <p>Where \(E\) is the encryption function, \(\circ\) is an operation on ciphertexts, and \(\star\) is the corresponding operation on plaintexts.</p>
-          
-          <h4>Example Code</h4>
-          <pre><code class="language-python">import numpy as np
-from tenseal import Context, SCHEME_TYPE, EncryptionParameters
-
-# Set up TenSEAL context
-context = Context(
-    EncryptionParameters(SCHEME_TYPE.CKKS)
-)
-context.generate_galois_keys()
-context.global_scale = 2**40
-
-# Encrypt data
-data = np.array([1.0, 2.0, 3.0, 4.0])
-encrypted_data = ts.ckks_vector(context, data)
-
-# Perform computation on encrypted data
-encrypted_result = encrypted_data + encrypted_data
-encrypted_result *= 5
-
-# Decrypt result
-result = encrypted_result.decrypt()
-print(result)  # Should be [10.0, 20.0, 30.0, 40.0]</code></pre>
-          
-          <p>This is just a simple example of how homomorphic encryption can be used to perform computations on encrypted data.</p>
-          
-          <a href="#" class="btn btn-primary">Read More</a>
+          <a href="/blog/" class="btn btn-primary">Visit Blog</a>
         </div>
       </div>
     </section>
