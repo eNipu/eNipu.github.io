@@ -27,8 +27,8 @@
     .publications-hero {
       background-color: var(--color-primary);
       color: white;
-      padding: var(--spacing-3xl) 0;
-      margin-bottom: var(--spacing-3xl);
+      padding: var(--spacing-xl) 0;
+      margin-bottom: var(--spacing-xl);
     }
     
     .publications-hero h1 {
@@ -50,86 +50,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: var(--spacing-md);
-      margin-bottom: var(--spacing-2xl);
-      justify-content: center;
-    }
-    
-    .publication-card {
-      background-color: var(--color-card-bg);
-      border-radius: var(--radius-md);
-      box-shadow: 0 4px 10px var(--color-shadow);
       margin-bottom: var(--spacing-xl);
-      overflow: hidden;
-      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    }
-    
-    .publication-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px var(--color-shadow);
-    }
-    
-    .publication-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--spacing-xl);
-    }
-    
-    .publication-header {
-      padding: var(--spacing-lg);
-      border-bottom: 1px solid var(--color-card-border);
-    }
-    
-    .publication-header h3 {
-      margin-bottom: var(--spacing-xs);
-      font-size: var(--font-size-xl);
-    }
-    
-    .publication-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-sm);
-      font-size: var(--font-size-sm);
-      color: var(--color-secondary);
-    }
-    
-    .publication-authors {
-      margin-bottom: var(--spacing-xs);
-    }
-    
-    .publication-content {
-      padding: var(--spacing-lg);
-    }
-    
-    .publication-abstract {
-      margin-bottom: var(--spacing-lg);
-    }
-    
-    .publication-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-sm);
-      margin-bottom: var(--spacing-md);
-    }
-    
-    .publication-tag {
-      background-color: var(--color-code-bg);
-      padding: var(--spacing-xs) var(--spacing-sm);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
-    }
-    
-    .publication-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-md);
+      justify-content: center;
     }
     
     .publication-stats {
       display: flex;
       gap: var(--spacing-lg);
-      margin-top: var(--spacing-2xl);
-      margin-bottom: var(--spacing-3xl);
+      margin-top: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
       justify-content: center;
     }
     
@@ -140,7 +69,7 @@
     }
     
     .stat-number {
-      font-size: var(--font-size-4xl);
+      font-size: var(--font-size-3xl);
       font-weight: 700;
       color: var(--color-primary);
       margin-bottom: var(--spacing-xs);
@@ -152,7 +81,7 @@
     }
     
     .year-divider {
-      margin: var(--spacing-2xl) 0 var(--spacing-lg);
+      margin: var(--spacing-xl) 0 var(--spacing-md);
       text-align: center;
       position: relative;
     }
@@ -224,7 +153,7 @@
     <section class="publications-hero">
       <div class="container">
         <h1>Research Publications</h1>
-        <p>My research focuses on cryptography, secure computing, and privacy-preserving technologies. Here you'll find my published work in these areas.</p>
+        <p>My research focuses on cryptography, secure computing, and privacy-preserving technologies.</p>
       </div>
     </section>
     
@@ -232,7 +161,7 @@
       <div class="container">
         <div class="publication-stats">
           <div class="stat-item">
-            <div class="stat-number">5+</div>
+            <div class="stat-number">3+</div>
             <div class="stat-label">Publications</div>
           </div>
           <div class="stat-item">
@@ -249,7 +178,6 @@
           <button class="filter-btn active" data-filter="all">All Publications</button>
           <button class="filter-btn" data-filter="journal">Journal Articles</button>
           <button class="filter-btn" data-filter="conference">Conference Papers</button>
-          <button class="filter-btn" data-filter="survey">Survey Papers</button>
         </div>
         
         <div class="publication-grid">
