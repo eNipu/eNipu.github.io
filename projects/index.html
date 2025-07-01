@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax for math equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Projects page specific styles */
+    .projects-hero {
+      background-color: var(--color-primary);
+      color: white;
+      padding: var(--spacing-xl) 0;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .projects-hero h1 {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .projects-hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: var(--font-size-lg);
+    }
+    
+    .projects-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-2xl);
+    }
+    
+    .project-card {
+      background-color: var(--color-card-bg);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 4px 10px var(--color-shadow);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--color-shadow);
+    }
+    
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+    
+    .project-content {
+      padding: var(--spacing-lg);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .project-content h3 {
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+    
+    .project-description {
+      margin-bottom: var(--spacing-lg);
+      flex-grow: 1;
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .project-tag {
+      background-color: var(--color-code-bg);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+    }
+    
+    .project-links {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: auto;
+    }
+    
+    .category-title {
+      margin: var(--spacing-2xl) 0 var(--spacing-lg);
+      position: relative;
+      text-align: left;
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 2px solid var(--color-primary);
+      width: fit-content;
+    }
+    
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/projects/" class="active">Projects</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="projects-hero">
+      <div class="container">
+        <h1>Research & Development Projects</h1>
+        <p>A collection of my work in cryptography, secure computing, and privacy-preserving technologies.</p>
+      </div>
+    </section>
+    
+    <section class="projects-container">
+      <div class="container">
+        <h2 class="category-title">Professional Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <img src="/project/dagdb/featured_hue585f61b28a74a671118de43150c5d63_499570_720x2500_fit_q75_h2_lanczos.webp" alt="DataArmorGate DB">
+            </div>
+            <div class="project-content">
+              <h3>DataArmorGate DB</h3>
+              <div class="project-meta">
+                <span class="project-date">2020-2023</span>
+                <span class="project-role">Lead Developer</span>
+              </div>
+              <div class="project-description">
+                <p>A database proxy application that enables users to perform SQL queries on encrypted data without storing the key to the database server. The contents of the database are always encrypted and all queries are performed over encrypted data only.</p>
+              </div>
+              <div class="project-tags">
+                <span class="project-tag">Homomorphic Encryption</span>
+                <span class="project-tag">Database Security</span>
+                <span class="project-tag">Rust</span>
+                <span class="project-tag">gRPC</span>
+              </div>
+              <div class="project-links">
+                <a href="/project/dagdb/" class="btn btn-primary">Learn More</a>
+                <a href="https://www.linkedin.com/products/eaglys-inc.-dataarmor-gate-db/" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin"></i> Product Page</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-image">
+              <img src="/project/viadesk/featured_hu7b43b3004fca5d247ca43e48f6b5ab44_33682_720x2500_fit_q75_h2_lanczos.webp" alt="Viadesk">
+            </div>
+            <div class="project-content">
+              <h3>Viadesk</h3>
+              <div class="project-meta">
+                <span class="project-date">2012-2015</span>
+                <span class="project-role">iOS Developer</span>
+              </div>
+              <div class="project-description">
+                <p>A SaaS platform that connects people, information and processes, allowing everyone in an organization to communicate, collaborate and share knowledge. The intranet is mobile, guarantees the security of work, and integrates other tools and systems.</p>
+              </div>
+              <div class="project-tags">
+                <span class="project-tag">iOS Development</span>
+                <span class="project-tag">Objective-C</span>
+                <span class="project-tag">REST API</span>
+                <span class="project-tag">SQLite</span>
+              </div>
+              <div class="project-links">
+                <a href="/project/viadesk/" class="btn btn-primary">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h2 class="category-title">Research Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <img src="/project/elips/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_720x2500_fit_q75_h2_lanczos.webp" alt="ELiPS">
+            </div>
+            <div class="project-content">
+              <h3>ELiPS: Efficient Library for Pairing-Based Cryptography</h3>
+              <div class="project-meta">
+                <span class="project-date">2016-2019</span>
+                <span class="project-role">Lead Developer</span>
+              </div>
+              <div class="project-description">
+                <p>An open-source library for efficient pairing-based cryptography, developed as part of my Ph.D. research. The library implements various pairing-friendly curves and optimized algorithms for scalar multiplication and pairing computation.</p>
+              </div>
+              <div class="project-tags">
+                <span class="project-tag">Elliptic Curve Cryptography</span>
+                <span class="project-tag">Pairing-Based Cryptography</span>
+                <span class="project-tag">C/C++</span>
+                <span class="project-tag">Open Source</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/eNipu/elips_bn_bls" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
+                <a href="/slides/example/" target="_blank" class="btn btn-secondary">Slides</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Secure MPC Framework">
+            </div>
+            <div class="project-content">
+              <h3>Secure Multi-Party Computation Framework</h3>
+              <div class="project-meta">
+                <span class="project-date">2020-2022</span>
+                <span class="project-role">Researcher</span>
+              </div>
+              <div class="project-description">
+                <p>A framework for implementing secure multi-party computation protocols for privacy-preserving data analysis. The project focuses on optimizing communication and computation overhead in MPC protocols.</p>
+              </div>
+              <div class="project-tags">
+                <span class="project-tag">Secure MPC</span>
+                <span class="project-tag">Privacy-Preserving Computing</span>
+                <span class="project-tag">Python</span>
+                <span class="project-tag">Rust</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-primary">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+</body>
+</html>
