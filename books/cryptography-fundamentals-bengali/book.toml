@@ -1,0 +1,22 @@
+[book]
+authors = ["খন্দকার মোঃ আল-আমিন"]
+language = "bn"
+src = "src"
+title = "ক্রিপ্টোগ্রাফির মূলনীতি"
+description = "ক্রিপ্টোগ্রাফির একটি সম্পূর্ণ বাংলা গাইড"
+
+[build]
+build-dir = "../../books-build/cryptography-fundamentals-bengali"
+
+[output.html]
+default-theme = "light"
+preffered-dark-theme = "navy"
+curly-quotes = true
+mathjax-support = true
+git-repository-url = "https://github.com/eNipu/eNipu.github.io"
+site-url = "/books-build/cryptography-fundamentals-bengali/"
+additional-css = ["theme/bengali.css"]
+
+[output.html.fold]
+enable = true
+level = 0

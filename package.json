@@ -1,0 +1,31 @@
+{
+  "name": "khandaker-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website with integrated GitBook-style documentation",
+  "main": "index.html",
+  "scripts": {
+    "dev": "./build-books.sh serve",
+    "build": "./build-books.sh",
+    "serve": "live-server --port=8080 --open=/ --ignore=books,books-build --wait=500",
+    "serve-simple": "python3 -m http.server 8000",
+    "build:books": "cd books/cryptography-fundamentals && mdbook build && cd ../secure-computing && mdbook build && cd ../..",
+    "clean": "rm -rf books-build"
+  },
+  "keywords": [
+    "portfolio",
+    "cryptography",
+    "cybersecurity",
+    "documentation",
+    "mdbook"
+  ],
+  "author": "Khandaker Md. Al-Amin",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eNipu/eNipu.github.io.git"
+  },
+  "homepage": "https://enipu.github.io"
+}

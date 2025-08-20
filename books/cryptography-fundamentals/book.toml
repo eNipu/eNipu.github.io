@@ -1,0 +1,17 @@
+[book]
+authors = ["Md. Al-Amin Khandaker"]
+language = "en"
+src = "src"
+title = "Cryptography Fundamentals"
+description = "A comprehensive guide to cryptography fundamentals"
+
+[build]
+build-dir = "../../books-build/cryptography-fundamentals"
+
+[output.html]
+default-theme = "light"
+preffered-dark-theme = "navy"
+curly-quotes = true
+mathjax-support = true
+git-repository-url = "https://github.com/eNipu/eNipu.github.io"
+site-url = "/books-build/cryptography-fundamentals/"

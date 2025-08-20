@@ -1,0 +1,17 @@
+[book]
+authors = ["Md. Al-Amin Khandaker"]
+language = "en"
+src = "src"
+title = "Secure Multi-Party Computation"
+description = "Understanding secure multi-party computation and privacy-preserving technologies"
+
+[build]
+build-dir = "../../books-build/secure-computing"
+
+[output.html]
+default-theme = "light"
+preffered-dark-theme = "navy"
+curly-quotes = true
+mathjax-support = true
+git-repository-url = "https://github.com/eNipu/eNipu.github.io"
+site-url = "/books-build/secure-computing/"

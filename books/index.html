@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  
+  <style>
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .book-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: 0 4px 6px var(--color-shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px var(--color-shadow);
+    }
+    
+    .book-title {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-primary);
+    }
+    
+    .book-description {
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-secondary);
+      line-height: 1.6;
+    }
+    
+    .book-meta {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+    
+    .book-meta span {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+    
+    .book-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    
+    .btn-book {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      border: 2px solid transparent;
+    }
+    
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--color-btn-hover);
+      color: white;
+    }
+    
+    .btn-outline {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/books/" class="active">Books</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="books" style="padding-top: 100px;">
+      <div class="container">
+        <h1>Books & Educational Resources</h1>
+        <p>A collection of comprehensive guides and educational materials covering cryptography, secure computation, and cybersecurity topics.</p>
+        
+        <div class="books-grid">
+          <div class="book-card">
+            <h3 class="book-title">
+              <i class="fas fa-lock"></i>
+              Cryptography Fundamentals
+            </h3>
+            <p class="book-description">
+              A comprehensive guide to both classical and modern cryptographic methods. Covers everything from Caesar ciphers to elliptic curve cryptography and pairing-based systems.
+            </p>
+            <div class="book-meta">
+              <span><i class="fas fa-user"></i> Md. Al-Amin Khandaker</span>
+              <span><i class="fas fa-book"></i> 11 Chapters</span>
+              <span><i class="fas fa-clock"></i> Updated Recently</span>
+            </div>
+            <div class="book-actions">
+              <a href="../books-build/cryptography-fundamentals/" class="btn-book btn-primary" target="_blank">
+                <i class="fas fa-book-open"></i> Read Book
+              </a>
+              <a href="https://github.com/eNipu/eNipu.github.io/tree/main/books/cryptography-fundamentals" class="btn-book btn-outline" target="_blank">
+                <i class="fab fa-github"></i> Source
+              </a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <h3 class="book-title">
+              <i class="fas fa-lock"></i>
+              ক্রিপ্টোগ্রাফির মূলনীতি
+            </h3>
+            <p class="book-description">
+              বাংলায় লিখিত প্রথম পূর্ণাঙ্গ ক্রিপ্টোগ্রাফি বই। শাস্ত্রীয় থেকে আধুনিক ক্রিপ্টোগ্রাফি পর্যন্ত সবকিছু সহজ ভাষায় ব্যাখ্যা করা হয়েছে।
+            </p>
+            <div class="book-meta">
+              <span><i class="fas fa-user"></i> খন্দকার মোঃ আল-আমিন</span>
+              <span><i class="fas fa-language"></i> বাংলা</span>
+              <span><i class="fas fa-clock"></i> নতুন প্রকাশিত</span>
+            </div>
+            <div class="book-actions">
+              <a href="../books-build/cryptography-fundamentals-bengali/" class="btn-book btn-primary" target="_blank">
+                <i class="fas fa-book-open"></i> বইটি পড়ুন
+              </a>
+              <a href="https://github.com/eNipu/eNipu.github.io/tree/main/books/cryptography-fundamentals-bengali" class="btn-book btn-outline" target="_blank">
+                <i class="fab fa-github"></i> সোর্স কোড
+              </a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <h3 class="book-title">
+              <i class="fas fa-shield-alt"></i>
+              Secure Multi-Party Computation
+            </h3>
+            <p class="book-description">
+              Understanding secure multi-party computation and privacy-preserving technologies. Based on practical experience developing privacy-preserving systems including DataArmorGate DB.
+            </p>
+            <div class="book-meta">
+              <span><i class="fas fa-user"></i> Md. Al-Amin Khandaker</span>
+              <span><i class="fas fa-book"></i> 10 Chapters</span>
+              <span><i class="fas fa-clock"></i> Updated Recently</span>
+            </div>
+            <div class="book-actions">
+              <a href="../books-build/secure-computing/" class="btn-book btn-primary" target="_blank">
+                <i class="fas fa-book-open"></i> Read Book
+              </a>
+              <a href="https://github.com/eNipu/eNipu.github.io/tree/main/books/secure-computing" class="btn-book btn-outline" target="_blank">
+                <i class="fab fa-github"></i> Source
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: var(--color-card-bg); border: 1px solid var(--color-card-border); border-radius: var(--radius-lg);">
+          <h2><i class="fas fa-lightbulb"></i> About These Books</h2>
+          <p>These books are written based on academic research and practical industry experience in cryptography and cybersecurity. They combine theoretical foundations with real-world applications and implementation examples.</p>
+          
+          <h3>Format & Features</h3>
+          <ul>
+            <li><strong>Interactive:</strong> Mathematical equations rendered with MathJax</li>
+            <li><strong>Searchable:</strong> Full-text search functionality</li>
+            <li><strong>Mobile-friendly:</strong> Responsive design for all devices</li>
+            <li><strong>Open Source:</strong> Source material available on GitHub</li>
+          </ul>
+          
+          <p>If you find these resources helpful or have suggestions for improvements, please feel free to <a href="mailto:khandakermd@outlook.com">contact me</a> or contribute via GitHub.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

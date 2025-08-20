@@ -1,0 +1,213 @@
+/* Bengali Typography and Styling */
+
+/* Import Bengali fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600&display=swap');
+
+/* Apply Bengali fonts - Using Noto Serif Bengali as primary */
+body, html {
+    font-family: 'Noto Serif Bengali', 'Noto Serif', serif;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+}
+
+/* Headings with serif font for better readability */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif Bengali', 'Noto Serif', serif;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Main content typography */
+.content {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Code blocks and inline code */
+code, pre {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    direction: ltr;
+    text-align: left;
+}
+
+/* Inline code with Bengali text */
+p code, li code {
+    background-color: rgba(175, 184, 193, 0.2);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-size: 0.95em;
+}
+
+/* Block quotes */
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 16px;
+    color: #6a737d;
+    font-style: italic;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+table th, table td {
+    border: 1px solid #dfe2e5;
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f6f8fa;
+    font-weight: 600;
+}
+
+/* Lists */
+ul, ol {
+    padding-left: 2em;
+    margin: 1em 0;
+}
+
+li {
+    margin: 0.5em 0;
+}
+
+/* Navigation and UI elements - Keep sans-serif for UI */
+.nav-wrapper {
+    font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+.nav-wrapper .nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Search box */
+#searchbar {
+    font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+/* Chapter navigation */
+.nav-chapters {
+    font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+/* Print styles */
+@media print {
+    body {
+        font-family: 'Noto Serif Bengali', serif;
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Noto Serif Bengali', serif;
+        page-break-after: avoid;
+    }
+    
+    blockquote, pre, code {
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    .content {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+    
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.3em; }
+    h4 { font-size: 1.1em; }
+}
+
+/* Mathematical expressions */
+.MathJax {
+    font-family: 'STIX Two Math', 'Times New Roman', serif !important;
+}
+
+/* Highlight Bengali text */
+mark {
+    background-color: #fff3cd;
+    padding: 0.1em 0.2em;
+    border-radius: 2px;
+}
+
+/* Better spacing for Bengali punctuation */
+.content p {
+    margin: 1em 0;
+}
+
+/* Custom styling for Bengali content */
+.bengali-content {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: embed;
+}
+
+/* Enhanced readability for code examples */
+.language-python, .language-javascript, .language-rust {
+    direction: ltr;
+    text-align: left;
+}
+
+/* Sidebar styling - Keep sans-serif for navigation */
+.sidebar {
+    font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+.sidebar .sidebar-scrollbox {
+    font-size: 14px;
+}
+
+/* Chapter list styling */
+.chapter {
+    line-height: 1.6;
+}
+
+.chapter a {
+    color: inherit;
+    text-decoration: none;
+    padding: 4px 8px;
+    display: block;
+    border-radius: 4px;
+}
+
+.chapter a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.chapter.active > a {
+    background-color: #1f2937;
+    color: white;
+}
+
+/* Theme-specific adjustments */
+.light {
+    --color-text: #24292e;
+    --color-background: #ffffff;
+}
+
+.navy {
+    --color-text: #bcbdd0;
+    --color-background: #161923;
+}
+
+.rust {
+    --color-text: #262625;
+    --color-background: #e1e1db;
+}
+
+.coal {
+    --color-text: #98a3ad;
+    --color-background: #141617;
+}
+
+.ayu {
+    --color-text: #575f66;
+    --color-background: #fafafa;
+}

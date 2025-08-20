@@ -1,0 +1,15 @@
+# Summary
+
+- [Introduction to Secure Computation](./introduction.md)
+- [Fundamentals of MPC](./mpc-fundamentals.md)
+  - [Secret Sharing](./secret-sharing.md)
+  - [Garbled Circuits](./garbled-circuits.md)
+- [Homomorphic Encryption](./homomorphic-encryption.md)
+  - [Partially Homomorphic Encryption](./phe.md)
+  - [Fully Homomorphic Encryption](./fhe.md)
+- [Privacy-Preserving ML](./ppml.md)
+  - [Federated Learning](./federated-learning.md)
+  - [Differential Privacy](./differential-privacy.md)
+- [Practical Applications](./applications.md)
+  - [Healthcare](./healthcare.md)
+  - [Finance](./finance.md)
