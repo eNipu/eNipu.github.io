@@ -51,9 +51,11 @@
 
 এই বইটি নিয়ে আপনার কোনো মতামত, প্রশ্ন বা পরামর্শ থাকলে আমার সাথে যোগাযোগ করতে পারেন:
 
-- ইমেইল: khandakermd@outlook.com
+- ইমেইল: tokhandaker [এট] outlook [ডট] com (ইংরেজিতে @ এবং . ব্যবহার করুন)
 - গিটহাব: [github.com/eNipu](https://github.com/eNipu)
 - লিঙ্কডইন: [linkedin.com/in/khandakermd](https://linkedin.com/in/khandakermd)
+
+**বিশেষ দ্রষ্টব্য:** ইমেইল পাঠানোর আগে বিষয় লাইনে "ক্রিপ্টো বই" লিখবেন - এতে আপনার ইমেইল আমার কাছে দ্রুত পৌঁছাবে!
 
 ---
 
