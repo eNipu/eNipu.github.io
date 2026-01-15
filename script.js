@@ -33,40 +33,55 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // CLI text scramble animation
+  // CLI text scramble animation (decrypted text + hyper text hover)
   if (document.body.classList.contains('cli-theme')) {
-    const scrambleTargets = document.querySelectorAll(
-      '.section-title, .projects-hero h1, .publications-hero h1, .books h1, .category-title'
-    );
-    const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$%#*';
+    const activeScrambles = new WeakMap();
 
-    const scrambleText = (element) => {
+    const decryptText = (element, { duration = 900, step = 30 } = {}) => {
       if (!element || !element.textContent) return;
       const original = element.dataset.scrambleOriginal || element.textContent;
       element.dataset.scrambleOriginal = original;
-      let iterations = 0;
-      const totalSteps = Math.max(6, original.length);
 
+      const existing = activeScrambles.get(element);
+      if (existing) {
+        clearInterval(existing);
+      }
+
+      let progress = 0;
+      const totalSteps = Math.max(6, Math.floor(duration / step));
       const interval = setInterval(() => {
+        progress += 1;
+        const revealCount = Math.floor((progress / totalSteps) * original.length);
         element.textContent = original
           .split('')
           .map((char, index) => {
             if (char === ' ') return ' ';
-            if (index < iterations) return original[index];
+            if (index <= revealCount) return original[index];
             return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
           })
           .join('');
 
-        iterations += original.length / totalSteps;
-        if (iterations >= original.length) {
+        if (progress >= totalSteps) {
           element.textContent = original;
           clearInterval(interval);
+          activeScrambles.delete(element);
         }
-      }, 30);
+      }, step);
+
+      activeScrambles.set(element, interval);
     };
 
-    scrambleTargets.forEach((element, index) => {
-      setTimeout(() => scrambleText(element), index * 120);
+    const sectionTargets = document.querySelectorAll(
+      '.section-title, .projects-hero h1, .publications-hero h1, .books h1, .category-title, main h1'
+    );
+    sectionTargets.forEach((element, index) => {
+      setTimeout(() => decryptText(element, { duration: 1000 }), index * 120);
+    });
+
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => decryptText(link, { duration: 500 }));
     });
   }
 
