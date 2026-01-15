@@ -33,6 +33,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // CLI text scramble animation
+  if (document.body.classList.contains('cli-theme')) {
+    const scrambleTargets = document.querySelectorAll(
+      '.section-title, .projects-hero h1, .publications-hero h1, .books h1, .category-title'
+    );
+    const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+    const scrambleText = (element) => {
+      if (!element || !element.textContent) return;
+      const original = element.dataset.scrambleOriginal || element.textContent;
+      element.dataset.scrambleOriginal = original;
+      let iterations = 0;
+      const totalSteps = Math.max(6, original.length);
+
+      const interval = setInterval(() => {
+        element.textContent = original
+          .split('')
+          .map((char, index) => {
+            if (char === ' ') return ' ';
+            if (index < iterations) return original[index];
+            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          })
+          .join('');
+
+        iterations += original.length / totalSteps;
+        if (iterations >= original.length) {
+          element.textContent = original;
+          clearInterval(interval);
+        }
+      }, 30);
+    };
+
+    scrambleTargets.forEach((element, index) => {
+      setTimeout(() => scrambleText(element), index * 120);
+    });
+  }
+
   // Mobile navigation toggle
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');

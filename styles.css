@@ -77,6 +77,30 @@ body.cli-theme {
   letter-spacing: 0.2px;
 }
 
+body.cli-theme::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  opacity: 0.2;
+  z-index: 0;
+  animation: cli-scanlines 8s linear infinite;
+}
+
+body.cli-theme main,
+body.cli-theme header,
+body.cli-theme footer {
+  position: relative;
+  z-index: 1;
+}
+
 body.cli-theme h1,
 body.cli-theme h2,
 body.cli-theme h3,
@@ -121,13 +145,29 @@ body.cli-theme .nav-toggle span {
 }
 
 body.cli-theme .section-title::after {
-  background-color: var(--color-text);
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  margin: 0;
+  display: inline;
 }
 
 body.cli-theme .section-title::before {
   content: "> ";
   color: var(--color-secondary);
   margin-right: var(--spacing-xs);
+}
+
+body.cli-theme .section-title::after {
+  content: " _";
+  color: var(--color-secondary);
+  animation: cli-cursor 1s steps(2, end) infinite;
+}
+
+body.cli-theme .section-title {
+  display: inline-block;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-card-border);
 }
 
 body.cli-theme .project-card,
@@ -295,6 +335,26 @@ body.cli-theme footer {
 
 body.cli-theme .modal {
   background-color: rgba(0, 0, 0, 0.85);
+}
+
+@keyframes cli-cursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cli-scanlines {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(10%);
+  }
 }
 
 /* Dark theme colors */
