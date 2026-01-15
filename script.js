@@ -108,6 +108,103 @@ document.addEventListener('DOMContentLoaded', function() {
       target.addEventListener('mouseenter', () => cursorEl.classList.add('is-hovering'));
       target.addEventListener('mouseleave', () => cursorEl.classList.remove('is-hovering'));
     });
+
+    // Image decrypt animation for profile photo
+    const initImageDecrypt = (container) => {
+      const img = container.querySelector('img');
+      if (!img || img.dataset.decryptReady) return;
+      img.dataset.decryptReady = 'true';
+
+      const runAnimation = () => {
+        const canvas = document.createElement('canvas');
+        canvas.className = 'cli-image-canvas';
+        const rect = img.getBoundingClientRect();
+        const width = Math.max(1, Math.floor(rect.width));
+        const height = Math.max(1, Math.floor(rect.height));
+        canvas.width = width;
+        canvas.height = height;
+        container.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.imageSmoothingEnabled = false;
+
+        const blockSize = Math.max(6, Math.floor(Math.min(width, height) / 10));
+        const cols = Math.floor(width / blockSize);
+        const rows = Math.floor(height / blockSize);
+        const blocks = [];
+        for (let y = 0; y < rows; y += 1) {
+          for (let x = 0; x < cols; x += 1) {
+            blocks.push({ x, y });
+          }
+        }
+
+        for (let i = blocks.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [blocks[i], blocks[j]] = [blocks[j], blocks[i]];
+        }
+
+        const image = new Image();
+        image.crossOrigin = 'anonymous';
+        image.src = img.src;
+
+        image.onload = () => {
+          const drawScrambledBase = () => {
+            blocks.forEach((block) => {
+              const srcX = Math.floor(Math.random() * cols) * blockSize;
+              const srcY = Math.floor(Math.random() * rows) * blockSize;
+              ctx.drawImage(
+                image,
+                srcX,
+                srcY,
+                blockSize,
+                blockSize,
+                block.x * blockSize,
+                block.y * blockSize,
+                blockSize,
+                blockSize
+              );
+            });
+          };
+
+          drawScrambledBase();
+          let index = 0;
+          const revealPerFrame = Math.max(1, Math.floor(blocks.length / 18));
+          const interval = setInterval(() => {
+            for (let i = 0; i < revealPerFrame; i += 1) {
+              const block = blocks[index];
+              if (!block) break;
+              ctx.drawImage(
+                image,
+                block.x * blockSize,
+                block.y * blockSize,
+                blockSize,
+                blockSize,
+                block.x * blockSize,
+                block.y * blockSize,
+                blockSize,
+                blockSize
+              );
+              index += 1;
+            }
+
+            if (index >= blocks.length) {
+              clearInterval(interval);
+              canvas.classList.add('is-revealed');
+              setTimeout(() => canvas.remove(), 700);
+            }
+          }, 60);
+        };
+      };
+
+      if (img.complete) {
+        requestAnimationFrame(runAnimation);
+      } else {
+        img.addEventListener('load', () => requestAnimationFrame(runAnimation), { once: true });
+      }
+    };
+
+    document.querySelectorAll('.about-image').forEach(initImageDecrypt);
   }
 
   // Mobile navigation toggle
