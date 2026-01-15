@@ -81,7 +81,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach((link) => {
+      if (!link.getAttribute('title')) {
+        link.setAttribute('title', link.textContent.trim());
+      }
       link.addEventListener('mouseenter', () => decryptText(link, { duration: 500 }));
+    });
+
+    // CLI cursor hover animation
+    const cursorEl = document.createElement('div');
+    cursorEl.className = 'cli-cursor';
+    document.body.appendChild(cursorEl);
+
+    let cursorX = 0;
+    let cursorY = 0;
+    const moveCursor = (event) => {
+      cursorX = event.clientX;
+      cursorY = event.clientY;
+      cursorEl.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+    };
+    window.addEventListener('mousemove', moveCursor);
+
+    const hoverTargets = document.querySelectorAll(
+      'a, button, .btn, .btn-book, .project-card, .publication-card, .talk-card'
+    );
+    hoverTargets.forEach((target) => {
+      target.addEventListener('mouseenter', () => cursorEl.classList.add('is-hovering'));
+      target.addEventListener('mouseleave', () => cursorEl.classList.remove('is-hovering'));
     });
   }
 

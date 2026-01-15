@@ -94,6 +94,39 @@ body.cli-theme::before {
   animation: cli-scanlines 8s linear infinite;
 }
 
+body.cli-theme .cli-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-text);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.1s ease, height 0.1s ease,
+    background-color 0.2s ease, border-color 0.2s ease;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+body.cli-theme .cli-cursor::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  opacity: 0.3;
+}
+
+body.cli-theme .cli-cursor.is-hovering {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent);
+  opacity: 0.9;
+}
+
 body.cli-theme main,
 body.cli-theme header,
 body.cli-theme footer {
@@ -400,6 +433,26 @@ body.cli-theme .modal {
   }
   100% {
     transform: translateY(12%);
+  }
+}
+
+@media (max-width: 768px) {
+  body.cli-theme::before {
+    opacity: 0.08;
+    animation-duration: 14s;
+  }
+
+  body.cli-theme .cli-cursor {
+    display: none;
+  }
+
+  body.cli-theme .section-title::after {
+    animation-duration: 1.6s;
+  }
+
+  body.cli-theme .about-image::after {
+    opacity: 0.35;
+    animation-duration: 6s;
   }
 }
 
