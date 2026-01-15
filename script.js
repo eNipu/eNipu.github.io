@@ -1,5 +1,12 @@
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
+  const excludedCliPrefixes = ['/blog'];
+  const currentPath = window.location.pathname || '/';
+  const isExcludedCli = excludedCliPrefixes.some(prefix => currentPath.startsWith(prefix));
+  if (!isExcludedCli) {
+    document.body.classList.add('cli-theme');
+  }
+
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = themeToggle.querySelector('i');
   
