@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const isExcludedCli = excludedCliPrefixes.some(prefix => currentPath.startsWith(prefix));
   if (!isExcludedCli) {
     document.body.classList.add('cli-theme');
+    if (currentPath === '/' || currentPath.endsWith('/index.html')) {
+      document.body.classList.add('cli-home');
+    }
   }
 
   const themeToggle = document.getElementById('themeToggle');
