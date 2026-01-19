@@ -91,7 +91,7 @@ body.cli-theme::before {
   );
   opacity: 0.2;
   z-index: 0;
-  animation: cli-scanlines 8s linear infinite;
+  background-position: 0 0;
 }
 
 body.cli-theme .cli-cursor {
@@ -451,17 +451,22 @@ body.cli-theme .modal {
   }
 }
 
-body.cli-theme.cli-home::after {
+body.cli-theme.cli-home main::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='none'/%3E%3Cpath d='M50 550 C 200 250, 400 250, 550 550 S 900 850, 1150 550' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='2'/%3E%3Cpath d='M100 520 C 250 220, 450 220, 600 520 S 950 820, 1100 520' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1'/%3E%3Ctext x='80' y='140' fill='rgba(255,255,255,0.12)' font-size='22' font-family='JetBrains Mono, monospace'%3EWeierstrass: y%5E2 = x%5E3 + ax + b%3C/text%3E%3Ctext x='80' y='175' fill='rgba(255,255,255,0.08)' font-size='16' font-family='JetBrains Mono, monospace'%3EOver finite fields %7C ECC%3C/text%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900'%3E%3Crect width='1400' height='900' fill='none'/%3E%3Cpath d='M80 600 C 260 220, 520 220, 700 600 S 1140 980, 1320 600' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='2'/%3E%3Cpath d='M140 570 C 320 190, 580 190, 760 570 S 1180 950, 1360 570' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ctext x='120' y='180' fill='rgba(255,255,255,0.18)' font-size='24' font-family='JetBrains Mono, monospace'%3EWeierstrass: y%5E2 = x%5E3 + ax + b%3C/text%3E%3Ctext x='120' y='215' fill='rgba(255,255,255,0.12)' font-size='16' font-family='JetBrains Mono, monospace'%3EFinite fields %7C Elliptic Curve Cryptography%3C/text%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 90% auto;
-  opacity: 0.4;
+  background-position: center 120px;
+  background-size: 92% auto;
+  opacity: 0.5;
   z-index: 0;
+}
+
+body.cli-theme.cli-home main > * {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {

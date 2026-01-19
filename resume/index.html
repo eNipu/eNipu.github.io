@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume | Khandaker Md. Al-Amin</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .resume-page {
+      padding-top: 100px;
+      padding-bottom: var(--spacing-2xl);
+    }
+
+    .resume-panel {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-xl);
+      display: grid;
+      gap: var(--spacing-xl);
+    }
+
+    .resume-header {
+      display: grid;
+      gap: var(--spacing-sm);
+      border-bottom: 1px solid var(--color-card-border);
+      padding-bottom: var(--spacing-lg);
+    }
+
+    .resume-title {
+      font-size: var(--font-size-3xl);
+      margin-bottom: 0;
+    }
+
+    .resume-subtitle {
+      color: var(--color-secondary);
+      font-size: var(--font-size-lg);
+      margin-bottom: 0;
+    }
+
+    .resume-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+
+    .resume-section {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .resume-section h2 {
+      font-size: var(--font-size-xl);
+      margin-bottom: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .resume-summary {
+      line-height: 1.7;
+      color: var(--color-secondary);
+    }
+
+    .resume-item {
+      display: grid;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-sm);
+    }
+
+    .resume-item h3 {
+      font-size: var(--font-size-lg);
+      margin-bottom: 0;
+    }
+
+    .resume-item-meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+
+    .resume-item ul {
+      margin: 0;
+      padding-left: var(--spacing-lg);
+    }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .resume-chip {
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+      background-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .resume-panel {
+        padding: var(--spacing-lg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/#talks">Talks</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/resume/" class="active">Resume</a></li>
+          <li><a href="/books/">Books</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV (PDF)</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="resume-page">
+    <div class="container">
+      <section class="resume-panel">
+        <div class="resume-header">
+          <h1 class="resume-title">Md. Al-Amin Khandaker</h1>
+          <p class="resume-subtitle">Cybersecurity Engineer · Cryptography R&amp;D</p>
+          <div class="resume-meta">
+            <span><i class="fas fa-location-dot"></i> Berlin, Germany</span>
+            <span><i class="fas fa-globe"></i> https://al-am.in</span>
+            <span><i class="fas fa-phone"></i> +49-1577-3637166</span>
+            <span><i class="fas fa-envelope"></i> tokhandaker@outlook.com</span>
+            <span><i class="fab fa-linkedin"></i> linkedin.com/in/khandakermd</span>
+            <span><i class="fab fa-github"></i> github.com/eNipu</span>
+            <span><i class="fas fa-calendar"></i> Resume version: 2026-01-16</span>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Career Objective</h2>
+          <p class="resume-summary">
+            Pursuing advanced cryptography R&amp;D to drive secure data processing, leveraging my
+            academic and professional background in homomorphic encryption while expanding into
+            post-quantum solutions.
+          </p>
+        </div>
+
+        <div class="resume-section">
+          <h2>Profile</h2>
+          <ul>
+            <li>PhD in Engineering with 6+ years of experience in data security and applied cryptography, specializing in homomorphic encryption, secure multi-party computation, and identity management.</li>
+            <li>Strong track record of bridging academic research with industrial R&amp;D, delivering prototypes, PoCs, and secure product integrations in cloud and mobile security domains.</li>
+            <li>Hands-on development in C/C++, Python, and Rust; DevOps proficiency using Docker, Kubernetes, GitLab CI, and Terraform on Azure and AWS.</li>
+            <li>Excellent communication and team leadership skills, with proven ability to collaborate on complex cryptographic solutions across diverse, multinational teams.</li>
+          </ul>
+        </div>
+
+        <div class="resume-section">
+          <h2>Professional Experience</h2>
+          <div class="resume-item">
+            <h3>Cybersecurity Engineer · ITK Engineering GmbH</h3>
+            <div class="resume-item-meta">
+              <span>2024.1 - Present</span>
+              <span>Berlin, Germany</span>
+            </div>
+            <ul>
+              <li>Performed in-depth Threat Analysis &amp; Risk Assessment, integrating cryptographic measures to comply with industry security standards (e.g., ISO/SAE 21434).</li>
+              <li>Developed and integrated cryptographic libraries (Mbed-TLS) across large-scale systems for secure data processing in diverse environments.</li>
+              <li>Prepared secure coding guidelines (aligned with SEI CERT) and performed code reviews to ensure robust security for embedded systems.</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <h3>Secure Computing Engineer · EAGLYS Inc.</h3>
+            <div class="resume-item-meta">
+              <span>2020.11 - 2023</span>
+              <span>Tokyo, Japan</span>
+            </div>
+            <ul>
+              <li><strong>R&amp;D on Encrypted Data Processing</strong></li>
+              <li>
+                Researched and implemented homomorphic encryption (Lifted-ElGamal on BLS curves)
+                and secure multi-party computation for DataArmor GateDB, enabling SQL queries on
+                encrypted data without exposing the decryption key.
+              </li>
+              <li>
+                Accelerated encryption/decryption by 17x through Rust and Python optimizations;
+                improved system performance by 30%.
+              </li>
+              <li><strong>Identity &amp; Access Management</strong></li>
+              <li>
+                Led design and implementation of an Attribute-Based Encryption (ABE) system,
+                enabling fine-grained access control in cloud-based environments.
+              </li>
+              <li><strong>Secure ML &amp; Cloud Integration</strong></li>
+              <li>
+                Advanced DataArmor GateAI to deliver encrypted AI inferences, migrating critical
+                modules from Python to C++ for a 20% performance boost.
+              </li>
+              <li>Streamlined secure CI/CD pipelines with Bazel, Skaffold, and Kubernetes.</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <h3>Systems Development Engineer · Cardservice Inc.</h3>
+            <div class="resume-item-meta">
+              <span>2019.04 - 2020</span>
+              <span>Tokyo, Japan</span>
+            </div>
+            <ul>
+              <li>Developed secure payment terminal software, focusing on cryptographic protocols and data integrity.</li>
+              <li>Created an in-house emulator for protocol testing between POS devices and payment gateways, improving reliability and reducing integration time.</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <h3>Associate &amp; Junior Software Engineer (iOS) · Metatude Asia Ltd.</h3>
+            <div class="resume-item-meta">
+              <span>2012.05 - 2015</span>
+            </div>
+            <ul>
+              <li>Built and iterated on the Viadesk iOS application, implementing secure data-sharing features and caching mechanisms.</li>
+              <li>Contributed to the early-stage development of Coursepath, an online e-learning platform that integrates secure authentication and data flows.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Skills</h2>
+          <div class="resume-item">
+            <h3>Programming Languages</h3>
+            <p class="resume-summary">Python, Rust, C (focus on secure computing and cryptographic implementations).</p>
+          </div>
+          <div class="resume-item">
+            <h3>Secure Computing &amp; Cryptography</h3>
+            <p class="resume-summary">Public-key cryptosystems, homomorphic encryption, elliptic curves, bilinear pairings.</p>
+          </div>
+          <div class="resume-item">
+            <h3>DevOps &amp; Cloud</h3>
+            <p class="resume-summary">Docker, Kubernetes, GitLab CI, Terraform; Azure and AWS.</p>
+          </div>
+          <div class="resume-item">
+            <h3>Languages</h3>
+            <p class="resume-summary">English (Fluent), Japanese (Conversational), Bengali (Native).</p>
+          </div>
+          <div class="resume-item">
+            <h3>Soft Skills</h3>
+            <p class="resume-summary">Leadership, Technical Writing, Public Speaking.</p>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Education</h2>
+          <div class="resume-item">
+            <h3>Ph.D. in Engineering · Okayama University</h3>
+            <div class="resume-item-meta">
+              <span>2015.10 - 2019</span>
+              <span>Okayama, Japan</span>
+            </div>
+            <p class="resume-summary">
+              Thesis: A Study of Efficient Pairing Computation Algorithm Using KSS Curves. Focused
+              on optimizing finite field operations for elliptic curve pairings, with applications to
+              attribute-based encryption and zero-knowledge proofs.
+            </p>
+          </div>
+          <div class="resume-item">
+            <h3>B.Sc. in Computer Science &amp; Engineering · Jahangirnagar University</h3>
+            <div class="resume-item-meta">
+              <span>2007 - 2012</span>
+              <span>Bangladesh</span>
+            </div>
+            <p class="resume-summary">GPA: 3.71/4.</p>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Research Experience</h2>
+          <ul>
+            <li>Conducted research in academia and industry (6+ years) on applied cryptography, including homomorphic encryption, secure multiparty computation, and pairing-based cryptosystems.</li>
+            <li>Optimized Miller’s Algorithm for KSS &amp; BLS pairing-friendly curves, benefiting cryptographic protocols (ABE, zero-knowledge proofs, etc.).</li>
+            <li>Built prototypes and PoCs for secure data analytics and ML models (processing over encrypted data).</li>
+          </ul>
+        </div>
+
+        <div class="resume-section">
+          <h2>Research Profiles</h2>
+          <div class="resume-item">
+            <div class="resume-item-meta">
+              <span><i class="fas fa-graduation-cap"></i> Google Scholar: https://scholar.google.com/citations?user=nAO6FycAAAAJ&amp;hl=en&amp;oi=ao</span>
+              <span><i class="fas fa-id-card"></i> ORCID: available on request</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Selected Publications</h2>
+          <div class="resume-item">
+            <ul>
+              <li>Conference Proceedings: Progress in Cryptology, “Efficient Optimal Ate Pairing at 128-Bit Security Level”. Dec. 2017, pp. 186–205. doi:10.1007/978-3-319-71667-1_10.</li>
+              <li>Journal: IEICE Transactions on Discrete Mathematics, “An Improvement of Scalar Multiplication by Skew-Frobenius Map with Multi-Scalar Multiplication for KSS Curve”. pp. 1838-1845. doi:10.1587/transfun.E100.A.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h2>Honors and Awards</h2>
+          <ul>
+            <li>Received Dean’s Award for excellence in PhD thesis in 2019.</li>
+            <li>Awarded MEXT scholarship by the Japanese government for doctoral studies in 2015.</li>
+            <li>The Government of Bangladesh granted a continuous merit scholarship from grade 6 to the completion of undergraduate studies in 2012.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>
