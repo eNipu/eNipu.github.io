@@ -1,1202 +1,221 @@
 <!DOCTYPE html>
-<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
-<!-- Last Published: December 21, 2022 --><html lang="en-us" >
-
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library | Md. Al-Amin Khandaker</title>
+  <meta name="description" content="Invited talk on Pairing-Based Cryptography and open-source library development." />
+  <meta name="keywords" content="pairing-based cryptography, invited talk, cryptography, open-source library" />
+  <link rel="canonical" href="https://al-am.in/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" />
+  <meta property="og:title" content="Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library" />
+  <meta property="og:description" content="Invited talk on Pairing-Based Cryptography and open-source library development." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://al-am.in/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" />
+  <meta property="og:image" content="https://al-am.in/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library" />
+  <meta name="twitter:description" content="Invited talk on Pairing-Based Cryptography and open-source library development." />
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
+  <!-- MathJax for math equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   
-
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
   
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-  
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
-  
-  
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
-    
-  
-
-  
-  
-
-  
-  
-
-  
-
-  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
-
-  
-  
-  
-    
-    
-
-    
-    
-    
-    
-      
-      
-    
-    
-    
-
-    
-    
-    
-
-    
-
-    
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-        
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
-    
-  
-
-  
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.24595df0c2dd320a6929bb350c13027d.css" />
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-    
-    
-    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" disabled>
-    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" >
-  
-
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-
-
-
-
-
-
-  <meta name="author" content="Khandaker Md. Al-Amin" />
-
-
-
-
-
-  
-
-<meta name="description" content="Invided talk on Pairing-Based Cryptography and Open-Source Library." />
-
-
-
-<link rel="alternate" hreflang="en-us" href="https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" />
-<link rel="canonical" href="https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" />
-
-
-
-  <link rel="manifest" href="/manifest.webmanifest" />
-
-
-
-<link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
-<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
-
-<meta name="theme-color" content="#bbdefb" />
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured.jpg" />
-<meta property="og:site_name" content="Md. Al-Amin Khandaker" />
-<meta property="og:url" content="https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/" />
-<meta property="og:title" content="Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library | Md. Al-Amin Khandaker" />
-<meta property="og:description" content="Invided talk on Pairing-Based Cryptography and Open-Source Library." /><meta property="og:image" content="https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured.jpg" /><meta property="og:locale" content="en-us" />
-
-  
-    <meta
-      property="article:published_time"
-      content="2017-11-01T00:00:00&#43;00:00"
-    />
-  
-  
-    <meta property="article:modified_time" content="2017-12-01T13:00:00&#43;00:00">
-  
-
-
-
-
-
-
-
-  
-    
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/"
-  },
-  "name": "Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library",
-  
-  "location": {
-    "@type": "Place",
-    "name": "IRMAR at University Rennes 1",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Rue du Thabor",
-      "addressLocality": "Rennes",
-      "postalCode": "35000",
-      "addressRegion": "Bittany",
-      "addressCountry": "France"
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .talk-hero {
+      background-color: var(--color-primary);
+      color: white;
+      padding: var(--spacing-xl) 0;
+      margin-bottom: var(--spacing-xl);
     }
     
-  },
-  
-  
-  "image": [
-    "https://al-amin.codes/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured.jpg"
-  ],
-  
-  "startDate": "2017-12-01T13:00:00Z",
-  
-  "endDate": "2017-12-01T14:00:00Z",
-  
-  
-  "performer": {
-    "@type": "Person",
-    "name": "Khandaker Md Al Amin"
-  },
-  
-  "description": "Invided talk on Pairing-Based Cryptography and Open-Source Library."
-}
-</script>
-
-  
-
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-
-
-  
-  <title>Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library | Md. Al-Amin Khandaker</title>
-
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
+    .talk-hero h1 {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .talk-hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: var(--font-size-lg);
+    }
+    
+    .talk-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .talk-card {
+      background-color: var(--color-card-bg);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 10px var(--color-shadow);
+      padding: var(--spacing-xl);
+    }
+    
+    .talk-image {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .talk-image img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      display: block;
+    }
+    
+    .talk-caption {
+      margin-top: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+    }
+    
+    .talk-section-title {
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .talk-abstract {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .talk-details {
+      display: grid;
+      gap: var(--spacing-sm);
+    }
+    
+    .detail-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: var(--spacing-md);
+      align-items: start;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: var(--color-secondary);
+    }
+    
+    .detail-value a {
+      color: var(--color-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .detail-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
-
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  dark " data-wc-page-id="2209518526e9d1e663f6d6e0583be105" >
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <script src="/js/wowchemy-init.min.2a7b4dc7d7846171b6299e17e1f3ac71.js"></script>
-
-  
-
-
-
-
-  <div class="page-header header--fixed">
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-    <div class="container-xl">
-
-      
-      <div class="d-none d-lg-inline-flex">
-        <a class="navbar-brand" href="/">Md. Al-Amin Khandaker</a>
-      </div>
-      
-
-      
-      <button type="button" class="navbar-toggler" data-toggle="collapse"
-              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span><i class="fas fa-bars"></i></span>
-      </button>
-      
-
-      
-      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-        <a class="navbar-brand" href="/">Md. Al-Amin Khandaker</a>
-      </div>
-      
-
-      
-      
-      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
-
-        
-        <ul class="navbar-nav d-md-inline-flex">
-          
-
-          
-
-          
-          
-          
-            
-          
-
-          
-
-          
-          
-          
-          
-
-          
-            
-              
-              
-            
-            
-              
-              
-              
-                
-              
-              
-            
-          
-
-          <li class="nav-item">
-            <a class="nav-link " href="/#projects"><span>Projects</span></a>
-          </li>
-
-          
-          
-
-          
-
-          
-          
-          
-            
-          
-
-          
-
-          
-          
-          
-          
-
-          
-            
-              
-              
-            
-            
-              
-              
-              
-                
-              
-              
-            
-          
-
-          <li class="nav-item">
-            <a class="nav-link " href="/#talks"><span>Talks</span></a>
-          </li>
-
-          
-          
-
-          
-
-          
-          
-          
-            
-          
-
-          
-
-          
-          
-          
-          
-
-          
-            
-              
-              
-            
-            
-              
-              
-              
-                
-              
-              
-            
-          
-
-          <li class="nav-item">
-            <a class="nav-link " href="/#featured"><span>Publications</span></a>
-          </li>
-
-          
-          
-
-          
-
-          
-          
-          
-            
-          
-
-          
-
-          
-          
-          
-          
-
-          
-            
-              
-              
-            
-            
-          
-
-          <li class="nav-item">
-            <a class="nav-link " href="/uploads/resume.pdf"><span>CV</span></a>
-          </li>
-
-          
-          
-
-        
-
-          
-        </ul>
-      </div>
-
-      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-
-        
-        
-          
-        
-
-        
-        
-        
-
-        
-        
-        
-
-        
-        
-
-      </ul>
-
-    </div>
-  </nav>
-</header>
-
-
-  </div>
-
-  <div class="page-body">
-    
-    
-    
-
-    <div class="pub">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
-<div class="article-container pt-3">
-  <h1>Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library</h1>
-
-  
-
-  
-
-
-<div class="article-metadata">
-
-  
-  
-  
-  
-  <div>
-    
-
-  <span >
-      Khandaker Md Al Amin</span>
-  </div>
-  
-  
-
-  
-
-  
-
-  
-
-  
-  
-  
-  
-
-  
-  
-
-</div>
-
-  
-
-
-
-
-<div class="btn-links mb-3">
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 540px;">
-  <div style="position: relative">
-    <img src="/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured_hude1df347bba820ce2419b13eebc298f9_1715315_720x2500_fit_q75_h2_lanczos.webp" width="720" height="540" alt="" class="featured-image">
-    <span class="article-header-caption">:<a href="/content/event/example/featured.jpg"><strong>Co-Author:Mr. Sanada</strong></a></span>
-  </div>
-</div>
-
-
-
-  <div class="article-container">
-
-    
-      <h3>Abstract</h3>
-      <p class="pub-abstract">Pairing-based cryptography is popular among the cryptographic protocol researchers for its eccentric provable security. Protocol side researchers often see pairing as a black box. They often need to test the correctness of their proposal. Typically, mathematicians and cryptography engineers try to make the underlying operations of pairing-based crypto efficient. In addition, different types of pairing and pairing-friendly curves have varying pros and cons with respect to the design of protocol and parameter. All these led us to make a distributable and efficient library that will incorporate various pairing-friendly curves with the different security levels. In this talk, I will share the path we followed to make such library for all who are working directly or indirectly with pairing-based cryptography.</p>
-    
-
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-12 col-md-3 pub-row-heading">Date</div>
-          <div class="col-12 col-md-9">
-            Dec 1, 2017 1:00 PM &mdash; 2:00 PM
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="d-md-none space-below"></div>
-
-    
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-12 col-md-3 pub-row-heading">Event</div>
-          <div class="col-12 col-md-9">
-            <a href="https://webmath.univ-rennes1.fr/crypto/2018/Khandaker" target="_blank" rel="noopener">
-            Séminaire de Cryptographie
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="d-md-none space-below"></div>
-    
-
-    
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-12 col-md-3 pub-row-heading">Location</div>
-          <div class="col-12 col-md-9">IRMAR at University Rennes 1</div>
-          
-            <div class="col-md-3"></div>
-            <div class="col-12 col-md-9">Rue du Thabor, Rennes, Bittany 35000</div>
-          
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="d-md-none space-below"></div>
-    
-
-    <div class="space-below"></div>
-
-    <div class="article-style">
-      <!-- 
-TODO: WILL ADD SLIDE
-
-
-<div class="alert alert-note">
-  <div>
-    Click on the <strong>Slides</strong> button above to view the built-in slides feature.
-  </div>
-</div>
-
-
-Slides can be added in a few ways:
-
-- **Create** slides using Wowchemy's [*Slides*](https://wowchemy.com/docs/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
-- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
-- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://wowchemy.com/docs/writing-markdown-latex/).
-
-Further event details, including [page elements](https://wowchemy.com/docs/writing-markdown-latex/) such as image galleries, can be added to the body of this page. -->
-
-    </div>
-
-    
-
-
-
-
-
-
-
-<div class="share-box">
-  <ul class="share">
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-      <li>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F&amp;text=Towards&#43;the&#43;Implementation&#43;of&#43;Efficient&#43;and&#43;Distributable&#43;Pairing-based&#43;Crypto&#43;Library" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-      <li>
-        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F&amp;t=Towards&#43;the&#43;Implementation&#43;of&#43;Efficient&#43;and&#43;Distributable&#43;Pairing-based&#43;Crypto&#43;Library" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-        
-      
-      <li>
-        <a href="mailto:?subject=Towards%20the%20Implementation%20of%20Efficient%20and%20Distributable%20Pairing-based%20Crypto%20Library&amp;body=https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
-          <i class="fas fa-envelope"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-      <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F&amp;title=Towards&#43;the&#43;Implementation&#43;of&#43;Efficient&#43;and&#43;Distributable&#43;Pairing-based&#43;Crypto&#43;Library" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-      <li>
-        <a href="whatsapp://send?text=Towards&#43;the&#43;Implementation&#43;of&#43;Efficient&#43;and&#43;Distributable&#43;Pairing-based&#43;Crypto&#43;Library%20https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      
-      
-      
-      
-      <li>
-        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fal-amin.codes%2Ftalk%2Ftowards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library%2F&amp;title=Towards&#43;the&#43;Implementation&#43;of&#43;Efficient&#43;and&#43;Distributable&#43;Pairing-based&#43;Crypto&#43;Library" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
-          <i class="fab fa-weibo"></i>
-        </a>
-      </li>
-    
-  </ul>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-</div>
-  </div>
-
-  <div class="page-footer">
-    
-    
+<body>
+  <header>
     <div class="container">
-      <footer class="site-footer">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  <p class="powered-by">
-    
-    
-    
-      
-      
-      
-      
-      
-      
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
-    
-  </p>
-</footer>
-
+      <nav>
+        <div class="logo">
+          <a href="/">Khandaker Md. Al-Amin</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/#talks" class="active">Talks</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/resume/">Resume</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </header>
+
+  <main>
+    <section class="talk-hero">
+      <div class="container">
+        <h1>Towards the Implementation of Efficient and Distributable Pairing-based Crypto Library</h1>
+        <p>Invited talk on pairing-based cryptography and a distributable library for pairing-friendly curves.</p>
+      </div>
+    </section>
     
-  </div>
+    <section class="talk-container">
+      <div class="container">
+        <div class="talk-card">
+          <div class="talk-image">
+            <img src="/talk/towards-the-implementation-of-efficient-and-distributable-pairing-based-crypto-library/featured_hude1df347bba820ce2419b13eebc298f9_1715315_720x2500_fit_q75_h2_lanczos.webp" alt="Talk featured image">
+            <div class="talk-caption">Co-Author: Mr. Sanada</div>
+          </div>
 
-  
+          <h2 class="talk-section-title">Abstract</h2>
+          <p class="talk-abstract">
+            Pairing-based cryptography is popular among the cryptographic protocol researchers for its eccentric provable security.
+            Protocol side researchers often see pairing as a black box. They often need to test the correctness of their proposal.
+            Typically, mathematicians and cryptography engineers try to make the underlying operations of pairing-based crypto efficient.
+            In addition, different types of pairing and pairing-friendly curves have varying pros and cons with respect to the design of
+            protocol and parameter. All these led us to make a distributable and efficient library that will incorporate various pairing-friendly
+            curves with the different security levels. In this talk, I will share the path we followed to make such library for all who are working
+            directly or indirectly with pairing-based cryptography.
+          </p>
 
-
-<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
-
-
-
-
-  
-
-  
-  
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script id="page-data" type="application/json">{"use_headroom":true}</script>
-
-
-
-  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
-
-
-
-
-
-
-
-
-
-
-<script src="/en/js/wowchemy.min.e973d49cb2d568aa6f8eaf3638337473.js"></script>
-
-
-
-
-
-
-
-  
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <div class="talk-details">
+            <div class="detail-item">
+              <div class="detail-label">Date</div>
+              <div class="detail-value">Dec 1, 2017 1:00 PM — 2:00 PM</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Event</div>
+              <div class="detail-value">
+                <a href="https://webmath.univ-rennes1.fr/crypto/2018/Khandaker" target="_blank" rel="noopener">Séminaire de Cryptographie</a>
+              </div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Location</div>
+              <div class="detail-value">
+                IRMAR at University Rennes 1<br>
+                Rue du Thabor, Rennes, Bittany 35000
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        
-        <pre><code></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </footer>
 
-
-  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <!-- Scripts -->
+  <script src="/script.js"></script>
 </body>
 </html>
