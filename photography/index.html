@@ -44,12 +44,20 @@
       transform: scale(1.02);
     }
     
-    .gallery-item img {
+    .gallery-photo {
       width: 100%;
       height: 250px;
-      object-fit: cover;
-      display: block;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+    }
+    
+    .gallery-item * {
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
@@ -164,15 +172,33 @@
     <div class="universal-wrapper">
       <div class="gallery-filter">
         <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="local">Local</button>
         <button class="filter-btn" data-filter="japan">Japan</button>
         <button class="filter-btn" data-filter="france">France</button>
         <button class="filter-btn" data-filter="bangladesh">Bangladesh</button>
       </div>
 
       <div class="gallery">
+        <!-- Local Photos -->
+        <div class="gallery-item" data-category="local">
+          <div class="gallery-photo" role="img" aria-label="20211107_130847" style="background-image: url('/photography/images/20211107_130847.jpg');"></div>
+          <div class="gallery-caption">
+            <div class="gallery-location">20211107_130847</div>
+            <div class="gallery-date">November 7, 2021</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="local">
+          <div class="gallery-photo" role="img" aria-label="APC_0243" style="background-image: url('/photography/images/APC_0243.jpg');"></div>
+          <div class="gallery-caption">
+            <div class="gallery-location">APC_0243</div>
+            <div class="gallery-date">Undated</div>
+          </div>
+        </div>
+
         <!-- Japan Photos -->
         <div class="gallery-item" data-category="japan">
-          <img src="https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg" alt="Tokyo Skyline">
+          <div class="gallery-photo" role="img" aria-label="Tokyo Skyline" style="background-image: url('https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Tokyo Skyline, Japan</div>
             <div class="gallery-date">April 2022</div>
@@ -180,7 +206,7 @@
         </div>
         
         <div class="gallery-item" data-category="japan">
-          <img src="https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg" alt="Kyoto Temple">
+          <div class="gallery-photo" role="img" aria-label="Kyoto Temple" style="background-image: url('https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Kinkaku-ji Temple, Kyoto, Japan</div>
             <div class="gallery-date">April 2022</div>
@@ -188,7 +214,7 @@
         </div>
         
         <div class="gallery-item" data-category="japan">
-          <img src="https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg" alt="Mount Fuji">
+          <div class="gallery-photo" role="img" aria-label="Mount Fuji" style="background-image: url('https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Mount Fuji, Japan</div>
             <div class="gallery-date">May 2022</div>
@@ -197,7 +223,7 @@
         
         <!-- France Photos -->
         <div class="gallery-item" data-category="france">
-          <img src="https://images.pexels.com/photos/699466/pexels-photo-699466.jpeg" alt="Eiffel Tower">
+          <div class="gallery-photo" role="img" aria-label="Eiffel Tower" style="background-image: url('https://images.pexels.com/photos/699466/pexels-photo-699466.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Eiffel Tower, Paris, France</div>
             <div class="gallery-date">June 2021</div>
@@ -205,7 +231,7 @@
         </div>
         
         <div class="gallery-item" data-category="france">
-          <img src="https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg" alt="Arc de Triomphe">
+          <div class="gallery-photo" role="img" aria-label="Arc de Triomphe" style="background-image: url('https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Arc de Triomphe, Paris, France</div>
             <div class="gallery-date">June 2021</div>
@@ -214,7 +240,7 @@
         
         <!-- Bangladesh Photos -->
         <div class="gallery-item" data-category="bangladesh">
-          <img src="https://images.pexels.com/photos/2846217/pexels-photo-2846217.jpeg" alt="Sundarbans">
+          <div class="gallery-photo" role="img" aria-label="Sundarbans" style="background-image: url('https://images.pexels.com/photos/2846217/pexels-photo-2846217.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Sundarbans, Bangladesh</div>
             <div class="gallery-date">December 2020</div>
@@ -222,7 +248,7 @@
         </div>
         
         <div class="gallery-item" data-category="bangladesh">
-          <img src="https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg" alt="Cox's Bazar">
+          <div class="gallery-photo" role="img" aria-label="Cox's Bazar" style="background-image: url('https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg');"></div>
           <div class="gallery-caption">
             <div class="gallery-location">Cox's Bazar Beach, Bangladesh</div>
             <div class="gallery-date">January 2021</div>
@@ -273,13 +299,13 @@
       
       // Prevent image downloads/copying
       document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
+        if (e.target.closest('.gallery-item')) {
           e.preventDefault();
         }
       });
       
       document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
+        if (e.target.closest('.gallery-item')) {
           e.preventDefault();
         }
       });
