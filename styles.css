@@ -1014,3 +1014,128 @@ footer {
   section { page-break-inside: avoid; padding: 1rem 0; }
   a { color: #000; border-bottom: none; }
 }
+
+/* =========================================================
+   Services block (homepage + hire page)
+   ========================================================= */
+.availability-note {
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-primary);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--s-4);
+  font-size: var(--fs-sm);
+}
+.services-intro { max-width: var(--measure); color: var(--color-text-muted); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+.service-card {
+  padding: var(--s-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+.service-card:hover { transform: translateY(-2px); border-color: var(--color-primary); }
+.service-card h3 { font-size: var(--fs-lg); margin-bottom: var(--s-2); }
+.service-card p { color: var(--color-text-muted); font-size: var(--fs-sm); line-height: 1.55; }
+
+.tech-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  margin-top: var(--s-6);
+  padding: var(--s-4);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.tech-strip-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-right: var(--s-2);
+}
+.tech-strip span:not(.tech-strip-label) {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  padding: 2px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* =========================================================
+   Hire page
+   ========================================================= */
+.hire-hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: var(--s-3); }
+.hire-hero .lead { font-size: var(--fs-lg); color: var(--color-text-muted); max-width: var(--measure); }
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-6) 0;
+}
+.hire-card {
+  padding: var(--s-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.hire-card h3 { font-size: var(--fs-md); margin-bottom: var(--s-2); color: var(--color-primary); }
+.hire-card ul { list-style: none; padding: 0; margin: 0; }
+.hire-card li { padding: 4px 0; font-size: var(--fs-sm); color: var(--color-text-muted); }
+
+.hire-form {
+  max-width: 640px;
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+.hire-form label {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.hire-form input,
+.hire-form select,
+.hire-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+.hire-form textarea { min-height: 140px; resize: vertical; }
+.hire-form input:focus,
+.hire-form select:focus,
+.hire-form textarea:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary);
+}
+.form-status { font-size: var(--fs-sm); margin-top: var(--s-2); }
+.form-status.success { color: var(--color-success, #2f855a); }
+.form-status.error { color: var(--color-error, #c53030); }
+
+.highlights {
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-5) 0;
+}
+.highlights li {
+  padding: var(--s-3) var(--s-4);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-accent, var(--color-primary));
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+}

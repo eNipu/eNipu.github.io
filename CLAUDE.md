@@ -55,6 +55,24 @@ To add a new blog post:
 
 To update the CV: replace `uploads/resume.pdf`.
 
+### Adding a new photograph
+
+The photography gallery is backed by the Supabase `photos` table and a public Storage bucket. The gallery on `/photography/` fetches from Supabase at page load, so nothing in this repo needs to change.
+
+Two-minute workflow from the Supabase dashboard:
+
+1. Open the project at `supabase.com` and go to **Storage** &rarr; bucket `photos` (create it as a public bucket if it does not exist yet).
+2. Upload the full image into `full/your-slug.jpg` and a ~720px thumbnail into `thumb/your-slug.jpg`.
+3. Copy the public URLs for both.
+4. Go to **Table Editor** &rarr; `photos` &rarr; **Insert row** and fill in: `title`, `location`, `country`, `category` (lowercased slug like `japan`, `france`, `bangladesh`, `germany`), `taken_on`, `caption` (optional), `image_url`, `thumb_url`, `camera` (optional), `sort_order` (lower numbers come first).
+5. Leave `hidden = false` to publish. Set `hidden = true` to stage a draft.
+
+The filter buttons on `/photography/` are generated from distinct `category` values, so new categories appear automatically.
+
+### Reading inbound hire requests
+
+Form submissions from `/hire/` land in the `contact_requests` table. RLS only allows INSERT for the public; read them in the Supabase **Table Editor** &rarr; `contact_requests`.
+
 ## Conventions
 
 - Preserve the `<link rel="stylesheet" href="styles.css">` import on all primary pages so tokens stay unified.
@@ -63,6 +81,11 @@ To update the CV: replace `uploads/resume.pdf`.
 - Use the `.btn .btn-primary` / `.btn-secondary` pattern for calls to action.
 - Use `var(--color-*)` tokens, never hardcoded colors.
 
-## Not used
+## Dynamic data
 
-No database, no auth service, no build step. Supabase is available in the environment for future dynamic additions (contact form, analytics) but is not required.
+Minimal Supabase usage for two features only:
+
+- `photos` table + `photos` Storage bucket &mdash; powers `/photography/`.
+- `contact_requests` table &mdash; captures submissions from the `/hire/` form.
+
+Both tables have RLS enabled. Public SELECT is allowed only on non-hidden photos; public INSERT is allowed only on `contact_requests`. Writes on `photos` must come from the Supabase dashboard (service role).
