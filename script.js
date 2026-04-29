@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // In a real implementation, you would fetch the citation file
       // For this example, we'll use a hardcoded citation
-      if (filename.includes('ieice2017')) {
+      if (filename && filename.includes('ieice2017')) {
         citationText.textContent = `@article{IEICE2017,
   title={An Improvement of Scalar Multiplication by Skew Frobenius Map with Multi-Scalar Multiplication for KSS Curve},
   author={Md. Al-Amin KHANDAKER and Yasuyuki NOGAMI},

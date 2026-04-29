@@ -17,10 +17,13 @@ Personal site for Khandaker Md. Al-Amin. Static HTML + CSS + a tiny Express serv
 - `styles.css` - global design tokens and components
 - `blog/blog-styles.css` - blog-specific overrides
 - `script.js` - theme toggle, mobile nav, citation modal, smooth scroll
-- `uploads/resume.pdf` - current CV (update this file to publish a new CV)
-- `authors/admin/avatar.jpg` - profile photo
+- `photography/index.html` - photography gallery
+- `404.html` - not-found page
+- `uploads/resume.pdf` - current CV (replace this file to publish a new CV)
+- `.github/workflows/deploy.yml` - static GitHub Pages deploy (no Jekyll, no Hugo, no build step)
+- `.nojekyll` - disables Jekyll processing on Pages
 
-Generated folders (`post/`, `publication/`, `tag/`, `category/`, `publication-type/`, `slides/`, `event/`, `en/`, `home/`, `css/wowchemy.*.css`, `js/wowchemy*.js`, `webfonts/`) are leftovers from an earlier Hugo/Wowchemy export. They are served as-is but are not the source of truth. New content should be authored in the four primary pages above.
+The repo was cleaned of an earlier Hugo/Wowchemy export (Apr 2026). If you see references to `post/`, `publication/`, `project/`, `tag/`, `category/`, `publication-type/`, `slides/`, `event/`, `talk/`, `css/wowchemy*`, `js/wowchemy*`, `webfonts/`, `media/icon_*`, `authors/`, or `en/` in new commits, those paths no longer exist — use the primary pages above instead.
 
 ## Design tokens
 
