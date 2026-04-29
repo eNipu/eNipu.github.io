@@ -1,5 +1,19 @@
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
+  // Scroll-aware header border
+  const siteHeader = document.querySelector('header');
+  if (siteHeader) {
+    const onScroll = () => {
+      if (window.scrollY > 8) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = themeToggle.querySelector('i');
   
