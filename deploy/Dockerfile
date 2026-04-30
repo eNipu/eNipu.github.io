@@ -1,7 +1,7 @@
 # Static site image: nginx serving the repo content as-is.
 # Multi-arch friendly (works on linux/amd64 and linux/arm64 for OCI Ampere).
 
-FROM nginx:1.27-alpine
+FROM nginx:1.29-alpine
 
 RUN apk add --no-cache brotli && \
     rm -rf /usr/share/nginx/html/* && \
