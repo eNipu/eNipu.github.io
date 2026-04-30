@@ -173,7 +173,7 @@ jobs:
       contents: read
     steps:
       - name: Trigger update on VM
-        uses: appleboy/ssh-action@v1.2.0
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.OCI_HOST }}
           username: ${{ secrets.OCI_USER }}
