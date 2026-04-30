@@ -143,7 +143,32 @@ Also enable in repo settings:
 - Cloudflare Web Analytics for the zone.
 - `docker compose logs -f --tail=200` when debugging.
 
-## 7. Rollback
+## 7. Verify image provenance before pulling (optional but recommended)
+
+Every deploy is keyless-signed with Sigstore and carries an SPDX SBOM
+attestation. On the VM you can verify signatures before trusting a new
+image:
+
+```bash
+# One-time install
+VER=v2.4.0
+curl -sL "https://github.com/sigstore/cosign/releases/download/${VER}/cosign-linux-$(dpkg --print-architecture)" \
+  -o /usr/local/bin/cosign && chmod +x /usr/local/bin/cosign
+
+# Verify signature + SBOM attestation
+IMG=ghcr.io/OWNER/REPO:latest
+cosign verify "$IMG" \
+  --certificate-identity-regexp "https://github.com/OWNER/REPO/.github/workflows/deploy.yml@.*" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
+
+cosign verify-attestation "$IMG" --type spdxjson \
+  --certificate-identity-regexp "https://github.com/OWNER/REPO/.github/workflows/deploy.yml@.*" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
+```
+
+If either command fails, stop the rollout and investigate.
+
+## 8. Rollback
 
 Every deploy tags the image with the commit SHA. To roll back:
 

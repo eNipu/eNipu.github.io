@@ -1,4 +1,4 @@
-name: Build, scan, and deploy al-am.in to OCI
+name: Build, scan, sign and deploy al-am.in
 
 on:
   push:
@@ -15,16 +15,17 @@ env:
 
 jobs:
   validate:
-    name: Validate repo (secret scan + HTML)
+    name: Validate repo (gitleaks + layout)
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Run gitleaks (fail on any leaked secret)
+      - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,16 +43,23 @@ jobs:
           test -f sitemap.xml
           echo "Static site layout looks good."
 
+      - name: Hadolint (Dockerfile linter)
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: deploy/Dockerfile
+          failure-threshold: warning
+
   build-and-push:
-    name: Build & push multi-arch image to GHCR
+    name: Build, scan, sign & push image
     needs: validate
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+      id-token: write
+      security-events: write
     outputs:
-      image: ${{ steps.meta.outputs.tags }}
-      digest: ${{ steps.push.outputs.digest }}
+      image_ref: ${{ steps.ref.outputs.image_ref }}
     steps:
       - uses: actions/checkout@v4
 
@@ -78,7 +86,7 @@ jobs:
             type=sha,format=short
             type=ref,event=branch
 
-      - name: Build & push
+      - name: Build & push multi-arch image
         id: push
         uses: docker/build-push-action@v6
         with:
@@ -88,8 +96,71 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          provenance: true
+          sbom: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Expose canonical digest ref
+        id: ref
+        run: |
+          echo "image_ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}" >> "$GITHUB_OUTPUT"
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3.7.0
+
+      - name: Keyless sign image (Sigstore)
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: |
+          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
+
+      - name: Install Syft (SBOM)
+        uses: anchore/sbom-action/download-syft@v0.17.7
+
+      - name: Generate SBOM (SPDX JSON)
+        run: |
+          syft ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }} \
+               -o spdx-json=sbom.spdx.json
+
+      - name: Attach SBOM attestation
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: |
+          cosign attest --yes --predicate sbom.spdx.json --type spdxjson \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.spdx.json
+          retention-days: 90
+
+      - name: Trivy image scan (SARIF)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
+          format: sarif
+          output: trivy-results.sarif
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+          exit-code: "0"
+
+      - name: Upload Trivy SARIF to code scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-image
+
+      - name: Trivy fail-gate (HIGH+ fixable)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
+          format: table
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+          exit-code: "1"
 
   deploy:
     name: Deploy to OCI VM
@@ -98,6 +169,8 @@ jobs:
     environment:
       name: production
       url: https://al-am.in/
+    permissions:
+      contents: read
     steps:
       - name: Trigger update on VM
         uses: appleboy/ssh-action@v1.2.0

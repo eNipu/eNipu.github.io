@@ -1,0 +1,8 @@
+# All changes reviewed by the repo owner
+*       @eNipu
+
+# CI/CD and security-sensitive paths
+/.github/       @eNipu
+/deploy/        @eNipu
+/supabase/      @eNipu
+SECURITY.md     @eNipu

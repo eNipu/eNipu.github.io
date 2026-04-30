@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/eNipu/eNipu.github.io/security/advisories/new
+    about: Report a security issue privately via GitHub Security Advisories.
+  - name: Email the site owner
+    url: mailto:hire.credibly374@passinbox.com
+    about: For private or confidential matters.
