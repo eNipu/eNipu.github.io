@@ -1,0 +1,21 @@
+# Gitleaks config for the al-am.in repository.
+# Extends the default ruleset; adds project-specific allow/deny rules.
+
+title = "al-am.in gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public values that are safe to commit"
+paths = [
+  '''\.env\.example$''',
+  '''CLAUDE\.md$''',
+  '''deploy/README\.md$''',
+]
+# The Supabase anon key is a public, client-embedded JWT by design.
+# Allow it to appear in HTML and .env.example, but nowhere else.
+regexes = [
+  '''VITE_SUPABASE_ANON_KEY''',
+  '''SUPABASE_ANON_KEY''',
+]

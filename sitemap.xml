@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://al-amin.codes/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://al-amin.codes/hire/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://al-amin.codes/projects/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://al-amin.codes/publications/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://al-amin.codes/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://al-amin.codes/blog/understanding-homomorphic-encryption.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://al-amin.codes/blog/secure-multi-party-computation.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://al-amin.codes/photography/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://al-am.in/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://al-am.in/hire/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://al-am.in/projects/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://al-am.in/publications/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://al-am.in/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://al-am.in/blog/understanding-homomorphic-encryption.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://al-am.in/blog/secure-multi-party-computation.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://al-am.in/photography/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

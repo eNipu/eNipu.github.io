@@ -1,0 +1,30 @@
+{
+    email {$ACME_EMAIL}
+    servers {
+        protocols h1 h2 h3
+    }
+}
+
+# Canonical host
+{$SITE_DOMAIN} {
+    encode zstd gzip
+
+    header {
+        Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        -Server
+    }
+
+    reverse_proxy web:80 {
+        health_uri /healthz
+        health_interval 30s
+        health_timeout 5s
+    }
+}
+
+# www -> apex redirect
+www.{$SITE_DOMAIN} {
+    redir https://{$SITE_DOMAIN}{uri} permanent
+}

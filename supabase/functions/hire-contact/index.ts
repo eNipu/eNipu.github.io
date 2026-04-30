@@ -110,7 +110,7 @@ Deno.serve(async (req: Request) => {
       const safeSource = escapeHtml(source || "(direct)");
 
       const ownerHtml = `
-        <h2>New hire enquiry from al-amin.codes</h2>
+        <h2>New hire enquiry from al-am.in</h2>
         <p><strong>Name:</strong> ${safeName}<br>
            <strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a><br>
            <strong>Company:</strong> ${safeCompany}<br>
@@ -122,10 +122,10 @@ Deno.serve(async (req: Request) => {
 
       const replyHtml = `
         <p>Hi ${safeName},</p>
-        <p>Thanks for reaching out through <a href="https://al-amin.codes/hire/">al-amin.codes</a>. I have received your message and will get back to you within 2&ndash;3 business days.</p>
+        <p>Thanks for reaching out through <a href="https://al-am.in/hire/">al-am.in</a>. I have received your message and will get back to you within 2&ndash;3 business days.</p>
         <p>For a faster response, or if your matter is time-sensitive, feel free to message me directly on <a href="${LINKEDIN_URL}">LinkedIn</a>.</p>
         <p>&mdash; Khandaker Md. Al-Amin<br>
-        <a href="${LINKEDIN_URL}">LinkedIn</a> &middot; <a href="https://al-amin.codes/">al-amin.codes</a></p>
+        <a href="${LINKEDIN_URL}">LinkedIn</a> &middot; <a href="https://al-am.in/">al-am.in</a></p>
       `;
 
       try {
@@ -133,7 +133,7 @@ Deno.serve(async (req: Request) => {
           resendKey,
           mailFrom,
           OWNER_EMAIL,
-          `[al-amin.codes] ${name} &mdash; ${role_type || "contact"}`,
+          `[al-am.in] ${name} &mdash; ${role_type || "contact"}`,
           ownerHtml,
           email,
         );

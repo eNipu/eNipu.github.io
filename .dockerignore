@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.idea
+.vscode
+supabase
+server.js
+package.json
+package-lock.json
+CLAUDE.md
+deploy/README.md

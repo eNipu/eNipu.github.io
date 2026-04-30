@@ -1,0 +1,53 @@
+name: al-am-in
+
+services:
+  web:
+    image: ${SITE_IMAGE}
+    pull_policy: always
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - edge
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - edge
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  edge:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

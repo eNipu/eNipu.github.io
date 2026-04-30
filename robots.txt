@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /uploads/.gitkeep
 
-Sitemap: https://al-amin.codes/sitemap.xml
+Sitemap: https://al-am.in/sitemap.xml
