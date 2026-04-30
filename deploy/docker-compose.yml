@@ -1,14 +1,27 @@
 name: al-am-in
 
+# This stack is designed to SHARE the existing host-level Caddy
+# (e.g. `caddy-staging`) that already owns ports 80/443 on the Oracle VM.
+# We do NOT publish any host ports here. The edge Caddy must be attached
+# to the external `web-edge` network and must have a site block for
+# al-am.in that reverse-proxies to the `al-am-in-web` container.
+#
+# Create the shared network once on the VM:
+#     docker network create web-edge
+#
+# Then connect the existing Caddy to it (idempotent):
+#     docker network connect web-edge caddy-staging || true
+
 services:
   web:
     image: ${SITE_IMAGE}
+    container_name: al-am-in-web
     pull_policy: always
     restart: unless-stopped
     expose:
       - "80"
     networks:
-      - edge
+      - web-edge
     logging:
       driver: json-file
       options:
@@ -20,34 +33,6 @@ services:
       timeout: 5s
       retries: 3
 
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
-    depends_on:
-      - web
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      SITE_DOMAIN: ${SITE_DOMAIN}
-      ACME_EMAIL: ${ACME_EMAIL}
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    networks:
-      - edge
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
-
 networks:
-  edge:
-    driver: bridge
-
-volumes:
-  caddy_data:
-  caddy_config:
+  web-edge:
+    external: true

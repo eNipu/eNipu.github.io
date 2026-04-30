@@ -1,12 +1,14 @@
-{
-    email {$ACME_EMAIL}
-    servers {
-        protocols h1 h2 h3
-    }
-}
+# Site block to MERGE INTO the existing host-level Caddy (caddy-staging)
+# at /home/ubuntu/caddy/Caddyfile. Do NOT run a second Caddy container.
+#
+# Prerequisite on the VM:
+#   docker network create web-edge   # if not already created
+#   docker network connect web-edge caddy-staging
+#
+# Then append the blocks below to /home/ubuntu/caddy/Caddyfile and reload:
+#   docker exec caddy-staging caddy reload --config /etc/caddy/Caddyfile
 
-# Canonical host
-{$SITE_DOMAIN} {
+al-am.in {
     encode zstd gzip
 
     header {
@@ -17,14 +19,13 @@
         -Server
     }
 
-    reverse_proxy web:80 {
+    reverse_proxy al-am-in-web:80 {
         health_uri /healthz
         health_interval 30s
         health_timeout 5s
     }
 }
 
-# www -> apex redirect
-www.{$SITE_DOMAIN} {
-    redir https://{$SITE_DOMAIN}{uri} permanent
+www.al-am.in {
+    redir https://al-am.in{uri} permanent
 }
