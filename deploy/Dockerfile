@@ -3,8 +3,7 @@
 
 FROM nginx:1.31-alpine
 
-RUN apk add --no-cache brotli && \
-    rm -rf /usr/share/nginx/html/* && \
+RUN rm -rf /usr/share/nginx/html/* && \
     rm /etc/nginx/conf.d/default.conf
 
 COPY deploy/nginx.conf /etc/nginx/nginx.conf
