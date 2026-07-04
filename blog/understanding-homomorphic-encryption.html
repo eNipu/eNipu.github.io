@@ -78,21 +78,21 @@
           <p>For a homomorphic encryption scheme, we want the following property to hold:</p>
           
           <div class="math-block">
-            \[ E(x) \circ E(y) = E(x \star y) \]
+            \[ E(x) \oplus E(y) = E(x \star y) \]
           </div>
           
-          <p>Where \(E\) is the encryption function, \(\circ\) is an operation on ciphertexts, and \(\star\) is the corresponding operation on plaintexts.</p>
+          <p>Where \(E\) is the encryption function, \(\oplus\) is a specific operation on ciphertexts (like a custom addition), and \(\star\) is the corresponding operation on plaintexts (like standard addition).</p>
           
           <p>For example, in an additively homomorphic encryption scheme:</p>
           
           <div class="math-block">
-            \[ E(x) \cdot E(y) = E(x + y) \]
+            \[ E(x) \oplus E(y) = E(x + y) \]
           </div>
           
           <p>And in a multiplicatively homomorphic encryption scheme:</p>
           
           <div class="math-block">
-            \[ E(x)^y = E(x \cdot y) \]
+            \[ E(x) \otimes E(y) = E(x \times y) \]
           </div>
           
           <h2>Types of Homomorphic Encryption</h2>
@@ -116,7 +116,7 @@
           
           <p>FHE schemes support an arbitrary number of additions and multiplications, allowing for any computable function to be performed on encrypted data.</p>
           
-          <p>The first viable FHE scheme was proposed by Craig Gentry in 2009, using lattice-based cryptography. Since then, several more efficient schemes have been developed, including:</p>
+          <p>The first viable FHE scheme was proposed by Craig Gentry in 2009, using lattice-based cryptography (a mathematical approach based on complex multi-dimensional grids, which is known to be secure even against quantum computers). Since then, several more efficient schemes have been developed, including:</p>
           
           <ul>
             <li>Brakerski-Gentry-Vaikuntanathan (BGV)</li>
@@ -127,21 +127,34 @@
           
           <h2>Practical Implementation</h2>
           
-          <p>Let's look at a simple example using the TenSEAL library, which provides Python bindings for the Microsoft SEAL library:</p>
+          <p>Let's look at a simple example using the TenSEAL library, which provides Python bindings for the Microsoft SEAL library. We will use the CKKS scheme because it is specifically designed for floating-point arithmetic (useful for machine learning), unlike other schemes (like BFV or BGV) which only support exact integers.</p>
           
           <pre><code class="language-python">import tenseal as ts
 import numpy as np
 
 # Set up the TenSEAL context
+# The context holds the configuration for our encryption environment.
 context = ts.context(
     ts.SCHEME_TYPE.CKKS,
+    # poly_modulus_degree defines the "size" of the polynomials used.
+    # A larger degree (like 8192) provides more security and room for computations,
+    # but makes operations slower and ciphertexts larger.
     poly_modulus_degree=8192,
+    # coeff_mod_bit_sizes controls the bit sizes of the prime numbers used in the modulus.
+    # This directly impacts how much "noise budget" we have for operations like multiplication.
     coeff_mod_bit_sizes=[60, 40, 40, 60]
 )
+
+# Set the scale for encoding floating-point numbers into integers.
+# A scale of 2**40 gives us roughly 40 bits of precision.
 context.global_scale = 2**40
+
+# Galois keys are special evaluation keys needed to perform certain
+# operations on encrypted data, such as rotating arrays or multiplying ciphertexts.
 context.generate_galois_keys()
 
 # Encrypt some data
+# The original data (plaintext) is considered "raw data", and the output is the "ciphertext".
 data = np.array([1.0, 2.0, 3.0, 4.0])
 encrypted_vector = ts.ckks_vector(context, data)
 
@@ -196,7 +209,7 @@ print(result)  # Should be [10.0, 20.0, 30.0, 40.0]</code></pre>
           
           <h3>Noise Growth</h3>
           
-          <p>In many FHE schemes, each operation introduces "noise" that accumulates. After too many operations, the noise can corrupt the encrypted data, requiring techniques like bootstrapping to manage it.</p>
+          <p>In many FHE schemes, each operation introduces "noise" (computational error) that accumulates. After too many operations, the noise can corrupt the encrypted data, requiring a technique called <strong>bootstrapping</strong> to manage it. Bootstrapping essentially "refreshes" the ciphertext to reduce the noise level by evaluating the decryption circuit homomorphically, allowing computations to continue indefinitely, though it is computationally very expensive.</p>
           
           <h3>Parameter Selection</h3>
           
