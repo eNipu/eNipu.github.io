@@ -29,6 +29,10 @@ SCENES=(
   "s13_ntt_pipeline.py:NTTPipeline"
   "s14_crt_sharding.py:CRTSharding"
   "s15_lattice_cvp.py:LatticeCVP"
+  "s16_lwe_error_3d.py:LWEError3D"
+  "s17_lattice_cvp_3d.py:LatticeCVP3D"
+  "s18_poly_cylinder_wrap.py:PolyCylinderWrap"
+  "s19_noise_sphere_boundary.py:NoiseSphereBoundary"
 )
 
 cd "$HERE"
@@ -37,10 +41,18 @@ for entry in "${SCENES[@]}"; do
   scene="${entry##*:}"
   base="${file%.py}"
   echo "==> rendering $scene"
-  "$PY" -qm --format=mp4 -o "$base" "scenes/$file" "$scene"
-  "$PY" -ql --format=gif -o "$base" "scenes/$file" "$scene"
-  cp "media/videos/$base/720p30/$base.mp4" "$ASSETS/$base.mp4"
-  cp "media/videos/$base/480p15/$base.gif" "$ASSETS/$base.gif"
+  
+  # Render 1080p60 MP4 and save last frame as PNG
+  "$PY" -qh -s -o "$base" "scenes/$file" "$scene"
+  
+  # Copy MP4 and PNG to assets
+  # Note: manim -qh outputs to 1080p60, and -s outputs image to images/$base/
+  if [ -f "media/videos/$base/1080p60/$base.mp4" ]; then
+    cp "media/videos/$base/1080p60/$base.mp4" "$ASSETS/$base.mp4"
+  fi
+  if [ -f "media/images/$base/$base.png" ]; then
+    cp "media/images/$base/$base.png" "$ASSETS/$base.png"
+  fi
 done
 
 echo "All scenes rendered into $ASSETS"

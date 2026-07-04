@@ -86,7 +86,7 @@ The result is your ciphertext. If you hold the secret, you can *subtract the
 mask exactly*, leaving $\Delta m + e$. This leaves the message in the high bits and the noise in the low bits. Divide by $\Delta$ and **round**, and the noise falls away like
 truncated low bits.
 
-![The one idea: hide a scaled message under a mask plus noise, then cancel the mask and round.](assets/s01_hide_with_noise.gif)
+![The one idea: hide a scaled message under a mask plus noise, then cancel the mask and round.](assets/s01_hide_with_noise.png)
 
 That is the entire story. Everything below is about making "mask" and "cancel
 the mask" precise, and about keeping the noise small enough to round away even
@@ -115,7 +115,12 @@ Two questions should be nagging you:
 
 All our arithmetic happens **modulo** some integer $q$, which means numbers wrap around like a clock or like a fixed-width integer overflow. For example, on a 24-hour clock, $21 + 6 \equiv 3$ because you pass 24 and keep going. In code, `(21 + 6) % 24 == 3`.
 
-![Arithmetic modulo $t$ behaves like a clock: $21 + 6$ wraps to $3$.](assets/s03_mod_clock_torus.gif)
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s03_mod_clock_torus.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">Arithmetic modulo $t$ behaves like a clock: $21 + 6$ wraps to $3$.</figcaption>
+</figure>
 
 If you have ever debugged unsigned integer overflow, you already have the
 intuition. Arithmetic using `uint32` *is* simply arithmetic modulo $2^{32}$. The only novelty
@@ -140,7 +145,7 @@ b = (sum(ai * si for ai, si in zip(a, s)) + e) % q
 
 The pair $(\vec a,\, b)$ is called an **LWE sample**. It consists of a random vector, its dot product with the secret, and a small amount of random noise.
 
-![An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.gif)
+![An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.png)
 
 Here is the crucial fact that forms the entire foundation of the security.
 
@@ -243,7 +248,7 @@ the "tens place" is a position marker in decimal. Index $i$ of the array holds
 the coefficient of $x^i$. Every coefficient lives on our clock: mod $t$ for
 plaintexts, mod $q$ for ciphertexts.
 
-![A polynomial is just a vector of coefficients, and $x^d = -1$ folds high powers back down.](assets/s04_poly_ring.gif)
+![A polynomial is just a vector of coefficients, and $x^d = -1$ folds high powers back down.](assets/s04_poly_ring.png)
 
 Adding two polynomials is element-wise array addition. The interesting part is
 multiplication.
@@ -278,7 +283,28 @@ the 16 slots and **reflects its sign** whenever it wraps past the top:
 
 $$ 2x^{14} \cdot x^4 = 2x^{18} \equiv -2x^2 \pmod{x^{16}+1}. $$
 
-![Multiplying by a power of $x$ rotates a term around the ring and flips its sign when it wraps.](assets/s05_poly_mult_rotate_reflect.gif)
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s05_poly_mult_rotate_reflect.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">Multiplying by a power of $x$ rotates a term around the ring and flips its sign when it wraps.</figcaption>
+</figure>
+
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s18_poly_cylinder_wrap.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">A 3D perspective: Polynomial coefficients wrapping around the surface of a cylinder as they are multiplied by x.</figcaption>
+</figure>
+
+
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s16_lwe_error_3d.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">Visualizing the discrete Gaussian error distribution e dropping onto the 2D lattice grid in 3D space.</figcaption>
+</figure>
+
 
 Full polynomial multiplication just does this for every pair of terms and adds
 the results up. In code it is a convolution plus the wrap rule, and it fits in
@@ -336,7 +362,12 @@ point half a turn from $1$ is $-1$. That is the entire content of the
 mysterious sign flip: **"rotate and reflect" is just rotation, and the
 reflection is what passing the halfway mark looks like.**
 
-![Multiplying by $\omega$ steps a point around the unit circle; the fourth of eight steps lands on $-1$, because half a turn is negation.](assets/s11_roots_of_unity.gif)
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s11_roots_of_unity.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">Multiplying by $\omega$ steps a point around the unit circle; the fourth of eight steps lands on $-1$, because half a turn is negation.</figcaption>
+</figure>
 
 Watch the animation until the fourth hop. The moment the dot lands on $-1$ is
 the moment the "+1" in $x^{16}+1$ stops being a syntax rule and becomes
@@ -367,7 +398,12 @@ a rotation by 1/8 of a turn. And halfway through the cycle:
 16          # 16 is -1 mod 17: half a turn is negation, again
 ```
 
-![The powers of $2 \pmod{17}$ hop around a ring of eight values; the fourth hop lands on $16$, which is $-1 \pmod{17}$: the same half-turn-is-negation picture, in pure integers.](assets/s12_modular_roots.gif)
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s12_modular_roots.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">The powers of $2 \pmod{17}$ hop around a ring of eight values; the fourth hop lands on $16$, which is $-1 \pmod{17}$: the same half-turn-is-negation picture, in pure integers.</figcaption>
+</figure>
 
 It is the same movie as before, with the complex plane deleted. Eight
 integers, arranged in the cycle that multiplication-by-2 drives, behaving
@@ -414,7 +450,7 @@ cryptography where every bit must be exact. Doing it with a root of unity
 bakes the $x^{16} = -1$ sign flip directly into the transform, so the
 rotate-and-reflect wrap costs nothing extra.)
 
-![The NTT pipeline: coefficients transform to values at powers of $\omega$, multiply pointwise in $\mathcal{O}(d)$, and transform back; $\mathcal{O}(d^2)$ convolution becomes $\mathcal{O}(d \log d)$.](assets/s13_ntt_pipeline.gif)
+![The NTT pipeline: coefficients transform to values at powers of $\omega$, multiply pointwise in $\mathcal{O}(d)$, and transform back; $\mathcal{O}(d^2)$ convolution becomes $\mathcal{O}(d \log d)$.](assets/s13_ntt_pipeline.png)
 
 A useful mental model for reading real FHE code: a production library is,
 computationally, an NTT machine. Profile one under load and you will find it
@@ -450,7 +486,7 @@ This concept is known as the **Chinese Remainder Theorem (CRT)**. It means that 
 shard-wise + and $\times$ into shard-wise $\times$. It preserves the
 operations. It is a *homomorphism*, the same word as in this post's title.
 
-![$11 \pmod{15}$ splits into shards $2 \pmod 3$ and $1 \pmod 5$; adding $7$ updates each shard independently, and the shards still agree with the true answer.](assets/s14_crt_sharding.gif)
+![$11 \pmod{15}$ splits into shards $2 \pmod 3$ and $1 \pmod 5$; adding $7$ updates each shard independently, and the shards still agree with the true answer.](assets/s14_crt_sharding.png)
 
 Hold that thought for part 6: with the right choice of $t$, the entire
 plaintext polynomial ring shards the same way, into $d$ independent slots,
@@ -465,7 +501,20 @@ taking *integer* steps along a fixed set of basis vectors: a perfectly
 regular, infinite grid, possibly skewed. In 2D you can draw one on graph
 paper. In cryptography, the dimension is in the hundreds or thousands.
 
-![A skewed grid of lattice points built from two basis vectors; a red point $\vec{b} = A\vec{s} + \vec{e}$ sits near a grid point, and a dashed line snaps it to the closest one.](assets/s15_lattice_cvp.gif)
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s15_lattice_cvp.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">A skewed grid of lattice points built from two basis vectors; a red point $\vec{b} = A\vec{s} + \vec{e}$ sits near a grid point, and a dashed line snaps it to the closest one.</figcaption>
+</figure>
+
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s17_lattice_cvp_3d.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">The Closest Vector Problem shown in a true 3D lattice space. Notice how the complexity increases with dimensions.</figcaption>
+</figure>
+
 
 The connection to LWE: collect the samples into $\vec b = A\vec s + \vec e$.
 The set of all *noiseless* values $A\vec s$ forms a lattice, so the attacker's
@@ -519,7 +568,7 @@ e = small_error()                    # discarded after keygen
 pk = (mod_q(-mul(a, s) + e), a)
 ```
 
-![The public key hides the secret: $\mathbf{pk} = ([-as + e]_q, a)$ is a Ring-LWE sample.](assets/s06_keygen.gif)
+![The public key hides the secret: $\mathbf{pk} = ([-as + e]_q, a)$ is a Ring-LWE sample.](assets/s06_keygen.png)
 
 Look closely: $(-as+e,\ a)$ is exactly a Ring-LWE sample. The random $a$
 scrambles $s$, and the small $e$ makes solving back for $s$ the hard Ring-LWE
@@ -541,7 +590,7 @@ ct0 = mod_q(mul(pk[0], u) + e1 + delta * m)   # message rides in here
 ct1 = mod_q(mul(pk[1], u) + e2)               # helper for unmasking
 ```
 
-![Encryption: $\mathbf{ct}_0 = [\mathbf{pk}_0 \cdot u + e_1 + \Delta m]_q$, $\mathbf{ct}_1 = [\mathbf{pk}_1 \cdot u + e_2]_q$. The message rides in the high part of $\mathbf{ct}_0$.](assets/s07_encryption_build.gif)
+![Encryption: $\mathbf{ct}_0 = [\mathbf{pk}_0 \cdot u + e_1 + \Delta m]_q$, $\mathbf{ct}_1 = [\mathbf{pk}_1 \cdot u + e_2]_q$. The message rides in the high part of $\mathbf{ct}_0$.](assets/s07_encryption_build.png)
 
 The message sits in $\mathbf{ct}_0$, scaled into the high bits by $\Delta$ and
 buried under the mask $\mathbf{pk}_0 u$. The second component,
@@ -558,7 +607,7 @@ made of. The mask terms are engineered to cancel:
 
 $$ \mathbf{ct}_0 + \mathbf{ct}_1\, s = \Delta m + \underbrace{e_1 + e\,u + e_2 s}_{\text{noise, all small}} \pmod q. $$
 
-![Decryption cancels the mask with the key, leaving $\Delta m + \text{noise}$; rescale and round.](assets/s08_decryption_rescale_round.gif)
+![Decryption cancels the mask with the key, leaving $\Delta m + \text{noise}$; rescale and round.](assets/s08_decryption_rescale_round.png)
 
 Why does it cancel? $\mathbf{ct}_0$ contains $\mathbf{pk}_0 u = (-as+e)u$,
 whose big ugly part is $-a s u$. And $\mathbf{ct}_1 \cdot s$ contains
@@ -612,7 +661,15 @@ plaintexts:
 
 $$ E(m_1) + E(m_2) = E(m_1 + m_2). $$
 
-![Homomorphic addition adds the messages, but the noise budgets add too.](assets/s09_hom_add_noise.gif)
+![Homomorphic addition adds the messages, but the noise budgets add too.](assets/s09_hom_add_noise.png)
+
+<figure>
+<video width="100%" autoplay loop muted playsinline controls>
+  <source src="assets/s19_noise_sphere_boundary.mp4" type="video/mp4">
+</video>
+<figcaption aria-hidden="true">Visualizing the noise budget as a 3D spherical boundary. If the accumulated noise vector pierces the sphere, decryption fails.</figcaption>
+</figure>
+
 
 But the noise adds too, and not all noise is created equal. Expand what
 decryption of the sum will see, and the leftover noise groups into three kinds
@@ -659,7 +716,7 @@ Now take two ciphertexts and *multiply them as functions*:
 
 $$ (a_0 + a_1 s)(b_0 + b_1 s) = a_0 b_0 + (a_0 b_1 + a_1 b_0)\,s + a_1 b_1\,s^2. $$
 
-![Reading a ciphertext as a polynomial in $s$: multiplying two of them yields a quadratic, $\mathbf{c}_0 + \mathbf{c}_1 s + \mathbf{c}_2 s^2$.](assets/s10_hom_mult_powers_of_s.gif)
+![Reading a ciphertext as a polynomial in $s$: multiplying two of them yields a quadratic, $\mathbf{c}_0 + \mathbf{c}_1 s + \mathbf{c}_2 s^2$.](assets/s10_hom_mult_powers_of_s.png)
 
 Evaluated at the secret, the left side is $\approx \Delta m_1 \cdot \Delta m_2$,
 which contains the product we want. The right side tells us the price: the
