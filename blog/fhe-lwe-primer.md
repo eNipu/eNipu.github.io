@@ -20,16 +20,14 @@ summary: >
 
 Imagine handing a locked box of numbers to a stranger, asking them to do your
 arithmetic *inside the box*, and getting back a locked box with the right
-answer, all without them ever seeing a single digit. That is
-**homomorphic encryption**: computing on data you cannot read.
+answer, all without them ever seeing a single digit. This process is called **homomorphic encryption**. It allows you to compute on data that you cannot read.
 
 Cryptographers have wanted this for almost the entire history of the field.
 The problem was posed in 1978, one year after RSA, under the name *privacy
 homomorphisms*, and it then resisted everyone for thirty-one years, picking up
 the nickname "the holy grail of cryptography" along the way. When Craig Gentry
 finally built the first fully homomorphic scheme in 2009, the shock was not
-just that it worked but *how*: the same noise that protects the data is
-gently steered so that arithmetic flows around it. Every practical scheme
+just that it worked, but *how* it worked. The same noise that protects the data is gently steered so that mathematical operations can flow around it. Every practical scheme
 since, including the one in this post, runs on that idea.
 
 It sounds impossible. This post is about *why it is not*. If you can read
@@ -48,8 +46,7 @@ Here is the plan:
 6. **Extensions** - batching, bootstrapping, and how security is chosen.
 
 Between parts 3 and 4 there is also an **interlude** that opens the hood on
-the math itself: roots of unity, the NTT, the Chinese Remainder Theorem, and
-what a "lattice" actually is. If you have ever used an FFT or sharded a
+the underlying math. We will cover roots of unity, the NTT, the Chinese Remainder Theorem, and what a "lattice" actually is. If you have ever used an FFT or sharded a
 database, you already know more of that material than you think.
 
 ### How to read the math
@@ -67,8 +64,7 @@ directly to a line of Python:
 | polynomial of degree $< d$ | just an array of $d$ ints | `np.zeros(d, dtype=np.int64)` |
 
 The signed-range trick $[x]_q$ deserves one beat of attention, because we use
-it everywhere. It is exactly the `uint8` vs `int8` story: the byte `0xFF` is
-255 if you read it unsigned and -1 if you read it signed. Same bits, different
+it everywhere. It is exactly like the difference between `uint8` and `int8`. The byte `0xFF` is 255 if you read it as unsigned, and -1 if you read it as signed. Same bits, different
 label. We prefer the signed view because in this scheme "small" always means
 "near zero", and $-1$ is small while $255$ does not look small.
 
@@ -87,8 +83,7 @@ want to protect, and:
 3. **add a little extra noise** $e$ down in the "low bits".
 
 The result is your ciphertext. If you hold the secret, you can *subtract the
-mask exactly*, leaving $\Delta m + e$: the message in the high bits, the noise
-in the low bits. Divide by $\Delta$ and **round**, and the noise falls away like
+mask exactly*, leaving $\Delta m + e$. This leaves the message in the high bits and the noise in the low bits. Divide by $\Delta$ and **round**, and the noise falls away like
 truncated low bits.
 
 ![The one idea: hide a scaled message under a mask plus noise, then cancel the mask and round.](assets/s01_hide_with_noise.gif)
@@ -118,14 +113,12 @@ Two questions should be nagging you:
 
 ### Numbers on a clock
 
-All our arithmetic happens **modulo** some integer $q$: numbers wrap around
-like a clock, or like fixed-width integer overflow. On a 24-hour clock,
-$21 + 6 \equiv 3$: you pass 24 and keep going. In code, `(21 + 6) % 24 == 3`.
+All our arithmetic happens **modulo** some integer $q$, which means numbers wrap around like a clock or like a fixed-width integer overflow. For example, on a 24-hour clock, $21 + 6 \equiv 3$ because you pass 24 and keep going. In code, `(21 + 6) % 24 == 3`.
 
 ![Arithmetic modulo $t$ behaves like a clock: $21 + 6$ wraps to $3$.](assets/s03_mod_clock_torus.gif)
 
 If you have ever debugged unsigned integer overflow, you already have the
-intuition: `uint32` arithmetic *is* arithmetic mod $2^{32}$. The only novelty
+intuition. Arithmetic using `uint32` *is* simply arithmetic modulo $2^{32}$. The only novelty
 here is that we pick moduli that are not powers of two, and that we usually
 relabel the top half as negatives (the signed view from the cheat sheet), so
 mod 24 runs $-11 \dots 12$ instead of $0 \dots 23$.
@@ -137,7 +130,7 @@ generate a uniformly random array $\vec a$ and compute
 
 $$ b = \vec a \cdot \vec s + e \pmod q $$
 
-where $e$ is a small random error. In Python:
+where $e$ is a small random error. In Python, this looks like:
 
 ```python
 a = [random.randrange(q) for _ in range(n)]      # public, uniform
@@ -145,12 +138,11 @@ e = round(random.gauss(0, sigma))                # tiny, e.g. -2..2
 b = (sum(ai * si for ai, si in zip(a, s)) + e) % q
 ```
 
-The pair $(\vec a,\, b)$ is an **LWE sample**: a random vector, plus its dot
-product with the secret, corrupted by a whisper of noise.
+The pair $(\vec a,\, b)$ is called an **LWE sample**. It consists of a random vector, its dot product with the secret, and a small amount of random noise.
 
 ![An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.gif)
 
-Here is the crucial fact, the entire foundation of the security:
+Here is the crucial fact that forms the entire foundation of the security.
 
 > **Given as many samples $(\vec a,\, b)$ as you like, recovering $\vec s$ is
 > believed to be computationally hard**, even for a quantum computer.
@@ -163,15 +155,13 @@ subtracting equations from each other, and every one of those steps
 **amplifies the error terms**. After a few eliminations the errors have
 snowballed and drowned out the very values you were solving for. The tiny $e$
 is load-bearing: it is what turns easy linear algebra into the
-**Learning With Errors** problem, one of the most studied hard problems in
-post-quantum cryptography.
+**Learning With Errors** problem. This is one of the most studied hard problems in post-quantum cryptography.
 
 And here is my favorite fact in this whole subject. Most of cryptography rests
 on problems assumed hard *on average*, because nobody has broken a random
 instance yet. LWE comes with something stronger. When Oded Regev introduced it
 in 2005, he proved that breaking *randomly generated* LWE instances is at
-least as hard as solving the **worst case** of certain lattice problems, the
-single nastiest instances that exist. Your randomly generated key is provably
+least as hard as solving the **worst case** of certain lattice problems, which are the most difficult instances that exist. Your randomly generated key is provably
 as strong as the hardest problem in the family. Guarantees of that shape are
 almost unheard of; it is a big part of why lattices took over post-quantum
 cryptography. (What "lattice problem" actually means: see the interlude.)
@@ -456,9 +446,7 @@ True
 True
 ```
 
-That is the **Chinese Remainder Theorem (CRT)**: arithmetic mod 15 *is* two
-independent machines, mod 3 and mod 5, running in parallel behind one
-interface. Notice what kind of map "split into shards" is: it converts + into
+This concept is known as the **Chinese Remainder Theorem (CRT)**. It means that arithmetic modulo 15 operates like two independent machines (modulo 3 and modulo 5) running in parallel behind a single interface. Notice what kind of map "split into shards" is: it converts + into
 shard-wise + and $\times$ into shard-wise $\times$. It preserves the
 operations. It is a *homomorphism*, the same word as in this post's title.
 
@@ -536,8 +524,7 @@ pk = (mod_q(-mul(a, s) + e), a)
 Look closely: $(-as+e,\ a)$ is exactly a Ring-LWE sample. The random $a$
 scrambles $s$, and the small $e$ makes solving back for $s$ the hard Ring-LWE
 problem. Without $e$, an attacker could recover $s$ with straightforward
-algebra. The public key is, quite literally, a *puzzle whose answer is the
-secret key*, published in the confidence that nobody can solve it.
+algebra. The public key acts as a mathematical puzzle where the answer is the secret key. It is published publicly because it is computationally too difficult for anyone to solve. For a real-world analogy, think of the public key as an open padlock that you hand out to everyone. Anyone can place a message in a box and snap the padlock shut, but only you hold the physical key (the secret key) to open it again.
 
 ### Encryption
 
