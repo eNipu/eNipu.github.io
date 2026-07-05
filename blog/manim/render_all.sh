@@ -4,7 +4,7 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$(cd "$HERE/.." && pwd)"
+ROOT="$(cd "$HERE/../.." && pwd)"
 PY="$ROOT/manimenv/bin/manim"
 ASSETS="$ROOT/blog/assets"
 
