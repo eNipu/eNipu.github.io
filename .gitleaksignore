@@ -1,0 +1,8 @@
+# Supabase Anon Keys are public and safe to expose in frontend code.
+# Ignoring these false positives detected by gitleaks.
+
+# photography/index.html
+0ee13b32728b77fab5981b5c44fdb85754422b80:photography/index.html:jwt:150
+
+# hire/index.html
+0ee13b32728b77fab5981b5c44fdb85754422b80:hire/index.html:jwt:197
