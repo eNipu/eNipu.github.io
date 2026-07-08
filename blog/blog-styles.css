@@ -23,7 +23,7 @@
   max-width: var(--measure);
 }
 
-.blog-header::before {
+.blog-header .container::before {
   content: 'Writing';
   display: block;
   font-family: var(--font-mono);

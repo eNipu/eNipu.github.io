@@ -12,11 +12,11 @@ summary: >
   animations and runnable code.
 ---
 
-> This post is a rewrite and extension of Stephen Hardy's excellent
-> *"A Homomorphic Encryption Illustrated Primer"* (originally on
-> n1analytics.com, 2018). I have kept his illustrative FV example and added a
-> ground-up **Learning With Errors** foundation, animations, and reproducible
-> code. All credit for the original explanation and the toy example is his.
+> This post is a rewrite and extension of Stephen Hardy's
+> *"Homomorphic Encryption Illustrated Primer"* (2018). I have kept his
+> illustrative FV example and added a ground-up **Learning With Errors**
+> foundation, animations, and reproducible code. All credit for the original
+> explanation and the toy example is his.
 
 Imagine handing a locked box of numbers to a stranger, asking them to do your
 arithmetic *inside the box*, and getting back a locked box with the right
@@ -24,11 +24,12 @@ answer, all without them ever seeing a single digit. This process is called **ho
 
 Cryptographers have wanted this for almost the entire history of the field.
 The problem was posed in 1978, one year after RSA, under the name *privacy
-homomorphisms*, and it then resisted everyone for thirty-one years, picking up
-the nickname "the holy grail of cryptography" along the way. When Craig Gentry
-finally built the first fully homomorphic scheme in 2009, the shock was not
-just that it worked, but *how* it worked. The same noise that protects the data is gently steered so that mathematical operations can flow around it. Every practical scheme
-since, including the one in this post, runs on that idea.
+homomorphisms*, and nobody could solve it for thirty-one years. When Craig
+Gentry finally built the first fully homomorphic scheme in 2009, the surprise
+was not just that it worked, but *how* it worked. The same noise that protects
+the data is carefully controlled, so that mathematical operations can flow
+around it. Every practical scheme since, including the one in this post, runs
+on that idea.
 
 It sounds impossible. This post is about *why it is not*. If you can read
 Python and remember what `%` does, you have all the math you need. By the end
@@ -159,7 +160,7 @@ elimination, $O(n^3)$, trivial). But elimination works by scaling and
 subtracting equations from each other, and every one of those steps
 **amplifies the error terms**. After a few eliminations the errors have
 snowballed and drowned out the very values you were solving for. The tiny $e$
-is load-bearing: it is what turns easy linear algebra into the
+is essential: it is what turns easy linear algebra into the
 **Learning With Errors** problem. This is one of the most studied hard problems in post-quantum cryptography.
 
 And here is my favorite fact in this whole subject. Most of cryptography rests
@@ -212,7 +213,7 @@ $m_1 + m_2$*, under the same secret, with mask $\vec a_1 + \vec a_2$ and noise
 $e_1 + e_2$. So the decryption routine, which knows nothing about how this
 ciphertext was produced, will happily return $m_1 + m_2$. We added two
 encrypted numbers **without decrypting them**. That is the "homomorphic" magic,
-and it is almost suspiciously easy.
+and it turns out to be surprisingly easy.
 
 The catch is in the noise term: $e_1 + e_2$. Every addition spends budget. Do
 it too many times and the accumulated noise escapes the lane.
@@ -335,9 +336,9 @@ samples.
 ## Interlude: the math under the hood
 
 You can build the full scheme knowing only what we have covered so far, and if
-you are impatient you may skip ahead to part 4. But a few phrases have been
-doing quiet work in the background - *roots of unity*, *cyclotomic*, *NTT*,
-*lattice problem* - and each of them maps onto something you probably already
+you are impatient you may skip ahead to part 4. But a few words have been used
+without full explanation. *roots of unity*, *cyclotomic*, *NTT*,
+*lattice problem*. Each of them maps onto something you probably already
 know from engineering. Sections 4-6 will point back here.
 
 ### Roots of unity: numbers that rotate
@@ -817,13 +818,14 @@ Three more ideas make it practical:
 - **Choosing parameters.** Security and capability pull in opposite
   directions. A larger $q/t$ buys noise budget (deeper circuits) but weakens
   security for a fixed $d$; raising $d$ restores security but costs
-  performance. In practice you do not eyeball this: the Homomorphic Encryption
-  Standard publishes tables mapping $(d, q)$ to a security level in bits, and
-  libraries either enforce or default to standardized parameter sets.
+  performance. In practice you do not guess these numbers by hand: the
+  Homomorphic Encryption Standard publishes tables mapping $(d, q)$ to a
+  security level in bits, and libraries either enforce or default to
+  standardized parameter sets.
 
 ### The engineer's phrasebook
 
-Every load-bearing concept in this post has an engineering twin. The analogies
+Every key idea in this post has an everyday engineering twin. The analogies
 are scattered through the text; here they are in one place:
 
 | FHE concept | You already know it as |
