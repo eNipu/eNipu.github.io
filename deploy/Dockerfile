@@ -3,6 +3,10 @@
 
 FROM nginx:1.31-alpine
 
+# Pull in patched Alpine packages (e.g. libexpat CVEs) ahead of whatever
+# was baked into the upstream nginx image tag.
+RUN apk upgrade --no-cache
+
 RUN rm -rf /usr/share/nginx/html/* && \
     rm /etc/nginx/conf.d/default.conf
 
