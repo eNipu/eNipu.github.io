@@ -170,6 +170,24 @@ e = round(random.gauss(0, sigma))                # tiny, e.g. -2..2
 b = (sum(ai * si for ai, si in zip(a, s)) + e) % q
 ```
 
+Three things about this snippet are easy to miss. First, every stored value
+is an integer. The entries of `a` are uniform integers from $0$ to $q-1$, and
+`b` is an integer mod $q$. Second, `sigma` is not computed from anything. It
+is a fixed parameter of the scheme, chosen up front together with $n$ and $q$,
+and it sets the width (standard deviation) of the noise distribution. A
+typical value is small, such as 1.5 or 3.2. Third, `random.gauss(0, sigma)`
+does return a real number, drawn from a bell curve centered at 0, but
+`round()` immediately snaps it to the nearest integer. Run the error line ten
+times with `sigma = 1.5` and you get something like
+
+```python
+>>> [round(random.gauss(0, 1.5)) for _ in range(10)]
+[0, 1, 0, 0, -1, 0, 2, 1, 2, 0]
+```
+
+Small integers, mostly 0 and $\pm 1$, rarely beyond $\pm 4$. That is all the
+error ever is. The bell-surface figure below shows this distribution.
+
 The pair $(\vec a,\, b)$ is called an **LWE sample**. It consists of a random vector, its dot product with the secret, and a small amount of random noise.
 
 ![An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.png)
