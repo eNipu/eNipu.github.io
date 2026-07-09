@@ -64,12 +64,12 @@ directly to a line of Python:
 | $\Delta$ | the message scaling factor $\lfloor q/t \rfloor$ | `delta = q // t` |
 | polynomial of degree $< d$ | just an array of $d$ ints | `np.zeros(d, dtype=np.int64)` |
 
-The signed-range trick $[x]_q$ deserves one beat of attention, because we use
+The signed-range trick $[x]_q$ deserves a moment of attention, because we use
 it everywhere. It is exactly like the difference between `uint8` and `int8`. The byte `0xFF` is 255 if you read it as unsigned, and -1 if you read it as signed. Same bits, different
 label. We prefer the signed view because in this scheme "small" always means
 "near zero", and $-1$ is small while $255$ does not look small.
 
-Strap in.
+Let's begin.
 
 ---
 
@@ -85,9 +85,9 @@ want to protect, and:
 
 The result is your ciphertext. If you hold the secret, you can *subtract the
 mask exactly*, leaving $\Delta m + e$. This leaves the message in the high bits and the noise in the low bits. Divide by $\Delta$ and **round**, and the noise falls away like
-truncated low bits.
+truncated low bits. Figure 1 shows the whole trip.
 
-![The one idea: hide a scaled message under a mask plus noise, then cancel the mask and round.](assets/s01_hide_with_noise.png)
+![Figure 1. The one idea: hide a scaled message under a mask plus noise, then cancel the mask and round.](assets/s01_hide_with_noise.png)
 
 That is the entire story. Everything below is about making "mask" and "cancel
 the mask" precise, and about keeping the noise small enough to round away even
@@ -140,13 +140,13 @@ the value inside its lane.
 
 ### Numbers on a clock
 
-All our arithmetic happens **modulo** some integer $q$, which means numbers wrap around like a clock or like a fixed-width integer overflow. For example, on a 24-hour clock, $21 + 6 \equiv 3$ because you pass 24 and keep going. In code, `(21 + 6) % 24 == 3`.
+All our arithmetic happens **modulo** some integer $q$, which means numbers wrap around like a clock (Figure 2) or like a fixed-width integer overflow. For example, on a 24-hour clock, $21 + 6 \equiv 3$ because you pass 24 and keep going. In code, `(21 + 6) % 24 == 3`.
 
 <figure>
 <video width="100%" autoplay loop muted playsinline controls>
   <source src="assets/s03_mod_clock_torus.mp4" type="video/mp4">
 </video>
-<figcaption aria-hidden="true">Arithmetic modulo $t$ behaves like a clock: $21 + 6$ wraps to $3$.</figcaption>
+<figcaption aria-hidden="true">Figure 2. Arithmetic modulo $t$ behaves like a clock: $21 + 6$ wraps to $3$.</figcaption>
 </figure>
 
 If you have ever debugged unsigned integer overflow, you already have the
@@ -157,7 +157,8 @@ mod 24 runs $-11 \dots 12$ instead of $0 \dots 23$.
 
 ### The LWE sample
 
-Fix a secret array $\vec s = (s_1, \dots, s_n)$ with small entries. Now
+Fix a secret array $\vec s = (s_1, \dots, s_n)$ with small entries (small
+integers near zero, such as -1, 0, or 1). Now
 generate a uniformly random array $\vec a$ and compute
 
 $$ b = \vec a \cdot \vec s + e \pmod q $$
@@ -186,11 +187,17 @@ times with `sigma = 1.5` and you get something like
 ```
 
 Small integers, mostly 0 and $\pm 1$, rarely beyond $\pm 4$. That is all the
-error ever is. The bell-surface figure below shows this distribution.
+error ever is. Figure 4 shows this distribution as a bell surface. Almost
+all of its weight sits on the few integers around zero.
 
-The pair $(\vec a,\, b)$ is called an **LWE sample**. It consists of a random vector, its dot product with the secret, and a small amount of random noise.
+The pair $(\vec a,\, b)$ is called an **LWE sample**. It consists of a random vector, its dot product with the secret, and a small amount of random noise. Figure 3 shows the whole sample, and how a message will later ride inside it.
 
-![An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.png)
+![Figure 3. An LWE sample $\vec{b} = \vec{a} \cdot \vec{s} + e$; adding $\Delta m$ encrypts, subtracting $\vec{a} \cdot \vec{s}$ decrypts.](assets/s02_lwe_sample_and_decrypt.png)
+<figure>
+<img src="assets/s16_lwe_error_3d.png"
+alt="The discrete Gaussian error distribution as a 3D bell surface over the 2D grid, concentrated near zero." />
+<figcaption aria-hidden="true">Figure 4. Where the error $e$ comes from: a discrete Gaussian, a bell surface over the grid, overwhelmingly concentrated near zero. "Small noise" means a draw from the peak.</figcaption>
+</figure>
 
 Here is the crucial fact that forms the entire foundation of the security.
 
@@ -308,7 +315,7 @@ schemes like FV use.
 ### A polynomial is just an array
 
 Do not let the word "polynomial" raise your heart rate. For our purposes a
-polynomial *is* an array of integers, and nothing more:
+polynomial *is* an array of integers, and nothing more (Figure 5):
 
 $$ a_{d-1} x^{d-1} + \dots + a_2 x^2 + a_1 x + a_0
    \quad\Longleftrightarrow\quad
@@ -319,7 +326,7 @@ the "tens place" is a position marker in decimal. Index $i$ of the array holds
 the coefficient of $x^i$. Every coefficient lives on our clock: mod $t$ for
 plaintexts, mod $q$ for ciphertexts.
 
-![A polynomial is just a vector of coefficients, and $x^d = -1$ folds high powers back down.](assets/s04_poly_ring.png)
+![Figure 5. A polynomial is just a vector of coefficients, and $x^d = -1$ folds high powers back down.](assets/s04_poly_ring.png)
 
 Adding two polynomials is element-wise array addition. The interesting part is
 multiplication.
@@ -350,7 +357,9 @@ after this section: $x$ is a rotation.)
 ### Multiplication is "rotate and reflect"
 
 Because of the rule, multiplying a term by a power of $x$ **rotates** it around
-the 16 slots and **reflects its sign** whenever it wraps past the top:
+the 16 slots and **reflects its sign** whenever it wraps past the top.
+Figure 6 shows the rotation flat, and Figure 7 wraps the same walk around a
+cylinder, where the seam is the sign flip. For example,
 
 $$ 2x^{14} \cdot x^4 = 2x^{18} \equiv -2x^2 \pmod{x^{16}+1}. $$
 
@@ -358,21 +367,16 @@ $$ 2x^{14} \cdot x^4 = 2x^{18} \equiv -2x^2 \pmod{x^{16}+1}. $$
 <video width="100%" autoplay loop muted playsinline controls>
   <source src="assets/s05_poly_mult_rotate_reflect.mp4" type="video/mp4">
 </video>
-<figcaption aria-hidden="true">Multiplying by a power of $x$ rotates a term around the ring and flips its sign when it wraps.</figcaption>
+<figcaption aria-hidden="true">Figure 6. Multiplying by a power of $x$ rotates a term around the ring and flips its sign when it wraps.</figcaption>
 </figure>
 
 <figure>
 <img src="assets/s18_poly_cylinder_wrap.png"
 alt="Polynomial coefficient slots arranged around a cylinder; multiplying by x walks the surface and flips sign at the seam." />
-<figcaption aria-hidden="true">A 3D view: the 16 coefficient slots wrap around a cylinder. Multiplying by $x$ walks a term along the surface, and crossing the seam flips its sign.</figcaption>
+<figcaption aria-hidden="true">Figure 7. A 3D view: the 16 coefficient slots wrap around a cylinder. Multiplying by $x$ walks a term along the surface, and crossing the seam flips its sign.</figcaption>
 </figure>
 
 
-<figure>
-<img src="assets/s16_lwe_error_3d.png"
-alt="The discrete Gaussian error distribution as a 3D bell surface over the 2D grid, concentrated near zero." />
-<figcaption aria-hidden="true">Where the error $e$ comes from: a discrete Gaussian, a bell surface over the grid, overwhelmingly concentrated near zero. "Small noise" means a draw from the peak.</figcaption>
-</figure>
 
 
 Full polynomial multiplication just does this for every pair of terms and adds
@@ -435,10 +439,10 @@ reflection is what passing the halfway mark looks like.**
 <video width="100%" autoplay loop muted playsinline controls>
   <source src="assets/s11_roots_of_unity.mp4" type="video/mp4">
 </video>
-<figcaption aria-hidden="true">Multiplying by $\omega$ steps a point around the unit circle; the fourth of eight steps lands on $-1$, because half a turn is negation.</figcaption>
+<figcaption aria-hidden="true">Figure 8. Multiplying by $\omega$ steps a point around the unit circle; the fourth of eight steps lands on $-1$, because half a turn is negation.</figcaption>
 </figure>
 
-Watch the animation until the fourth hop. The moment the dot lands on $-1$ is
+Watch Figure 8 until the fourth hop. The moment the dot lands on $-1$ is
 the moment the "+1" in $x^{16}+1$ stops being a syntax rule and becomes
 geometry: negation *is* the far side of the circle.
 
@@ -471,10 +475,10 @@ a rotation by 1/8 of a turn. And halfway through the cycle:
 <video width="100%" autoplay loop muted playsinline controls>
   <source src="assets/s12_modular_roots.mp4" type="video/mp4">
 </video>
-<figcaption aria-hidden="true">The powers of $2 \pmod{17}$ hop around a ring of eight values; the fourth hop lands on $16$, which is $-1 \pmod{17}$: the same half-turn-is-negation picture, in pure integers.</figcaption>
+<figcaption aria-hidden="true">Figure 9. The powers of $2 \pmod{17}$ hop around a ring of eight values; the fourth hop lands on $16$, which is $-1 \pmod{17}$: the same half-turn-is-negation picture, in pure integers.</figcaption>
 </figure>
 
-It is the same movie as before, with the complex plane deleted. Eight
+Figure 9 is the same movie as Figure 8, with the complex plane deleted. Eight
 integers, arranged in the cycle that multiplication-by-2 drives, behaving
 pixel-for-pixel like the rotating dot on the unit circle. When a structure
 survives having its scaffolding removed like this, that is usually math's way
@@ -517,9 +521,10 @@ cryptography where every bit must be exact. Doing it with a root of unity
 **Number Theoretic Transform (NTT)**: the FFT, retargeted from `complex128` to
 `int64 % q`. (A tidy bonus: evaluating at the *odd* powers of the 32nd root
 bakes the $x^{16} = -1$ sign flip directly into the transform, so the
-rotate-and-reflect wrap costs nothing extra.)
+rotate-and-reflect wrap costs nothing extra. Figure 10 shows the full
+pipeline.)
 
-![The NTT pipeline: coefficients transform to values at powers of $\omega$, multiply pointwise in $\mathcal{O}(d)$, and transform back; $\mathcal{O}(d^2)$ convolution becomes $\mathcal{O}(d \log d)$.](assets/s13_ntt_pipeline.png)
+![Figure 10. The NTT pipeline: coefficients transform to values at powers of $\omega$, multiply pointwise in $\mathcal{O}(d)$, and transform back; $\mathcal{O}(d^2)$ convolution becomes $\mathcal{O}(d \log d)$.](assets/s13_ntt_pipeline.png)
 
 A useful mental model for reading real FHE code: a production library is,
 computationally, an NTT machine. Profile one under load and you will find it
@@ -554,8 +559,10 @@ True
 This concept is known as the **Chinese Remainder Theorem (CRT)**. It means that arithmetic modulo 15 operates like two independent machines (modulo 3 and modulo 5) running in parallel behind a single interface. Notice what kind of map "split into shards" is: it converts + into
 shard-wise + and $\times$ into shard-wise $\times$. It preserves the
 operations. It is a *homomorphism*, the same word as in this post's title.
+Figure 11 shows the shards updating independently while staying in
+agreement.
 
-![$11 \pmod{15}$ splits into shards $2 \pmod 3$ and $1 \pmod 5$; adding $7$ updates each shard independently, and the shards still agree with the true answer.](assets/s14_crt_sharding.png)
+![Figure 11. $11 \pmod{15}$ splits into shards $2 \pmod 3$ and $1 \pmod 5$; adding $7$ updates each shard independently, and the shards still agree with the true answer.](assets/s14_crt_sharding.png)
 
 Hold that thought for part 6: with the right choice of $t$, the entire
 plaintext polynomial ring shards the same way, into $d$ independent slots,
@@ -574,13 +581,13 @@ paper. In cryptography, the dimension is in the hundreds or thousands.
 <video width="100%" autoplay loop muted playsinline controls>
   <source src="assets/s15_lattice_cvp.mp4" type="video/mp4">
 </video>
-<figcaption aria-hidden="true">A skewed grid of lattice points built from two basis vectors; a red point $\vec{b} = A\vec{s} + \vec{e}$ sits near a grid point, and a dashed line snaps it to the closest one.</figcaption>
+<figcaption aria-hidden="true">Figure 12. A skewed grid of lattice points built from two basis vectors; a red point $\vec{b} = A\vec{s} + \vec{e}$ sits near a grid point, and a dashed line snaps it to the closest one.</figcaption>
 </figure>
 
 <figure>
 <img src="assets/s17_lattice_cvp_3d.png"
 alt="The Closest Vector Problem in a 3D lattice: a noisy point among many nearby candidate grid points." />
-<figcaption aria-hidden="true">The same closest-vector problem, one dimension up. Every added dimension multiplies the number of plausible nearby grid points; by dimension 1000 the search is hopeless.</figcaption>
+<figcaption aria-hidden="true">Figure 13. The same closest-vector problem, one dimension up. Every added dimension multiplies the number of plausible nearby grid points; by dimension 1000 the search is hopeless.</figcaption>
 </figure>
 
 
@@ -614,7 +621,8 @@ A plaintext is a polynomial with coefficients mod $t$; a ciphertext is a
 **pair** of polynomials with coefficients mod $q$, where $q \gg t$. For a real
 deployment you might see $d = 4096$, $t \approx 2.9\times10^8$ and
 $q \approx 9.2\times10^{18}$ (yes, that is "coefficients are `uint64`s"). To
-keep every number readable we use the primer's toy parameters:
+keep every number readable we use the toy parameters from Hardy's original
+primer:
 
 $$ d = 16, \qquad t = 7, \qquad q = 874, \qquad \Delta = \lfloor q/t \rfloor = 124. $$
 
@@ -636,9 +644,9 @@ e = small_error()                    # discarded after keygen
 pk = (mod_q(-mul(a, s) + e), a)
 ```
 
-![The public key hides the secret: $\mathbf{pk} = ([-as + e]_q, a)$ is a Ring-LWE sample.](assets/s06_keygen.png)
+![Figure 14. The public key hides the secret. $\mathbf{pk} = ([-as + e]_q, a)$ is a Ring-LWE sample.](assets/s06_keygen.png)
 
-Look closely: $(-as+e,\ a)$ is exactly a Ring-LWE sample. The random $a$
+Look closely at Figure 14. $(-as+e,\ a)$ is exactly a Ring-LWE sample. The random $a$
 scrambles $s$, and the small $e$ makes solving back for $s$ the hard Ring-LWE
 problem. Without $e$, an attacker could recover $s$ with straightforward
 algebra. The public key acts as a mathematical puzzle where the answer is the secret key. It is published publicly because it is computationally too difficult for anyone to solve. For a real-world analogy, think of the public key as an open padlock that you hand out to everyone. Anyone can place a message in a box and snap the padlock shut, but only you hold the physical key (the secret key) to open it again.
@@ -658,9 +666,9 @@ ct0 = mod_q(mul(pk[0], u) + e1 + delta * m)   # message rides in here
 ct1 = mod_q(mul(pk[1], u) + e2)               # helper for unmasking
 ```
 
-![Encryption: $\mathbf{ct}_0 = [\mathbf{pk}_0 \cdot u + e_1 + \Delta m]_q$, $\mathbf{ct}_1 = [\mathbf{pk}_1 \cdot u + e_2]_q$. The message rides in the high part of $\mathbf{ct}_0$.](assets/s07_encryption_build.png)
+![Figure 15. Encryption. $\mathbf{ct}_0 = [\mathbf{pk}_0 \cdot u + e_1 + \Delta m]_q$ carries the message in its high bits. $\mathbf{ct}_1 = [\mathbf{pk}_1 \cdot u + e_2]_q$ helps unmask during decryption.](assets/s07_encryption_build.png)
 
-The message sits in $\mathbf{ct}_0$, scaled into the high bits by $\Delta$ and
+The message sits in $\mathbf{ct}_0$ (Figure 15), scaled into the high bits by $\Delta$ and
 buried under the mask $\mathbf{pk}_0 u$. The second component,
 $\mathbf{ct}_1$, carries just enough information for the *key holder* to
 reconstruct and cancel that mask later; to anyone else it is more noise-hiding
@@ -671,11 +679,11 @@ non-determinism a good encryption scheme needs.
 ### Decryption
 
 Compute $\mathbf{ct}_0 + \mathbf{ct}_1 \cdot s$ and expand what each piece was
-made of. The mask terms are engineered to cancel:
+made of. The mask terms are engineered to cancel (Figure 16):
 
 $$ \mathbf{ct}_0 + \mathbf{ct}_1\, s = \Delta m + \underbrace{e_1 + e\,u + e_2 s}_{\text{noise, all small}} \pmod q. $$
 
-![Decryption cancels the mask with the key, leaving $\Delta m + \text{noise}$; rescale and round.](assets/s08_decryption_rescale_round.png)
+![Figure 16. Decryption cancels the mask with the key, leaving $\Delta m + \text{noise}$; rescale and round.](assets/s08_decryption_rescale_round.png)
 
 Why does it cancel? $\mathbf{ct}_0$ contains $\mathbf{pk}_0 u = (-as+e)u$,
 whose big ugly part is $-a s u$. And $\mathbf{ct}_1 \cdot s$ contains
@@ -729,16 +737,17 @@ plaintexts:
 
 $$ E(m_1) + E(m_2) = E(m_1 + m_2). $$
 
-![Homomorphic addition adds the messages, but the noise budgets add too.](assets/s09_hom_add_noise.png)
+![Figure 17. Homomorphic addition adds the messages, but the noise budgets add too.](assets/s09_hom_add_noise.png)
 
 <figure>
 <img src="assets/s19_noise_sphere_boundary.png"
 alt="The noise budget as a spherical boundary; a noise vector piercing the sphere means decryption failure." />
-<figcaption aria-hidden="true">The noise budget as a sphere of radius $q/(2t)$. Decryption succeeds while the accumulated noise vector stays inside; the moment it pierces the boundary, decryption fails, silently.</figcaption>
+<figcaption aria-hidden="true">Figure 18. The noise budget as a sphere of radius $q/(2t)$. Decryption succeeds while the accumulated noise vector stays inside; the moment it pierces the boundary, decryption fails, silently.</figcaption>
 </figure>
 
 
-But the noise adds too, and not all noise is created equal. Expand what
+But as Figure 17 warns, the noise adds too, and not all noise is created
+equal. Expand what
 decryption of the sum will see, and the leftover noise groups into three kinds
 of term:
 
@@ -749,18 +758,20 @@ of term:
   randomly-signed contributions. Grows much faster;
 - **summed errors times the secret** ($(e_2 + e_4) \cdot s$): same story.
 
-Here is the actual distribution of each kind of term after adding 1, 5, and 30
+Figure 19 shows the actual distribution of each kind of term after adding 1, 5, and 30
 ciphertexts (regenerated by [`noise_plots.py`](https://gist.github.com/eNipu/023d3537f1c2464617c5de43b96dcdfe#file-noise_plots-py)):
 
-![Distributions of the three noise terms after 1, 5, and 30 additions; dashed lines mark the budget.](assets/noise_distributions.png)
+![Figure 19. Distributions of the three noise terms after 1, 5, and 30 additions; dashed lines mark the budget.](assets/noise_distributions.png)
 
-Tracking the largest noise coefficient as additions pile up shows the budget
+Figure 20 tracks the largest noise coefficient as additions pile up, and shows the budget
 $q/(2t) = 62$ getting eaten alive:
 
-![The largest noise coefficient versus number of additions, against the decryption budget.](assets/addition_noise_growth.png)
+![Figure 20. The largest noise coefficient versus number of additions, against the decryption budget.](assets/addition_noise_growth.png)
 
 For these toy parameters you can safely add only a couple of ciphertexts before
-decryption starts to fail. And note the failure mode, because it is nasty:
+decryption starts to fail. Figure 18 is the picture to keep in mind. The
+noise vector grows with every operation, and decryption fails the moment it
+pierces the budget sphere. And note the failure mode, because it is nasty:
 there is no exception, no error code, no integrity check to fail. Decryption
 just rounds into the wrong lane and *returns a wrong polynomial with a straight
 face*, like memory corruption without a checksum. Real deployments buy headroom
@@ -779,11 +790,11 @@ on to that feeling. Finding the second reading of an object you thought you
 understood is half of cryptography, and this particular re-reading is about to
 make multiplication fall out of simple algebra.
 
-Now take two ciphertexts and *multiply them as functions*:
+Now take two ciphertexts and *multiply them as functions* (Figure 21):
 
 $$ (a_0 + a_1 s)(b_0 + b_1 s) = a_0 b_0 + (a_0 b_1 + a_1 b_0)\,s + a_1 b_1\,s^2. $$
 
-![Reading a ciphertext as a polynomial in $s$: multiplying two of them yields a quadratic, $\mathbf{c}_0 + \mathbf{c}_1 s + \mathbf{c}_2 s^2$.](assets/s10_hom_mult_powers_of_s.png)
+![Figure 21. Reading a ciphertext as a polynomial in $s$: multiplying two of them yields a quadratic, $\mathbf{c}_0 + \mathbf{c}_1 s + \mathbf{c}_2 s^2$.](assets/s10_hom_mult_powers_of_s.png)
 
 Evaluated at the secret, the left side is $\approx \Delta m_1 \cdot \Delta m_2$,
 which contains the product we want. The right side tells us the price: the
