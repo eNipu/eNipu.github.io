@@ -100,7 +100,8 @@ Two questions should be nagging you:
   lets arithmetic pass through it. Linear structure alone would also let an
   attacker solve for the pad with linear algebra. The noise is the wrench in
   that plan. It turns "solvable with Gaussian elimination" into a genuinely
-  hard problem.
+  hard problem. Part 2 shows exactly how, with two equations you can check by
+  hand.
 - *Why does rounding not destroy the message?* Because scaling by $\Delta$
   gives each message value a wide "lane" (think: each value owns $\Delta$
   consecutive integers). As long as noise stays inside the lane, rounding
@@ -187,6 +188,32 @@ subtracting equations from each other, and every one of those steps
 snowballed and drowned out the very values you were solving for. The tiny $e$
 is essential: it is what turns easy linear algebra into the
 **Learning With Errors** problem. This is one of the most studied hard problems in post-quantum cryptography.
+
+Here is the smallest version of that story. Two equations, two unknown secret
+values, no noise. This is school algebra, and it recovers the secret
+instantly.
+
+```text
+3*s1 + 5*s2 = 41        eliminate s1: take (eq1) - 3*(eq2)
+1*s1 + 2*s2 = 16        -1*s2 = 41 - 3*16 = -7   ->  s2 = 7, then s1 = 2
+```
+
+Now add a tiny error of +1 to each right-hand side, the way LWE does, and run
+the exact same attack.
+
+```text
+3*s1 + 5*s2 = 42        same move: (eq1) - 3*(eq2)
+1*s1 + 2*s2 = 17        -1*s2 = 42 - 3*17 = -9   ->  s2 = 9   (true value: 7)
+```
+
+The subtraction did not just combine the equations. It combined the *errors*,
+and it multiplied the second equation's error by 3 on the way: the total error
+is $e_1 - 3e_2 = -2$, double the $\pm 1$ we started with, and the recovered
+value is simply wrong. In a real system the multipliers are not 3. They are
+arbitrary values mod $q$, and there are a thousand elimination steps, each one
+stacking amplified errors on top of the last. The signal drowns long before
+the last unknown is isolated. That is the whole trade: the noise costs the
+honest decryptor one rounding step, and it costs the attacker everything.
 
 And here is my favorite fact in this whole subject. Most of cryptography rests
 on problems assumed hard *on average*, because nobody has broken a random
