@@ -119,6 +119,13 @@ encrypt m=2, noise  +9:   248 +  9 = 257    257/124 = 2.07  -> rounds to 2   cor
 encrypt m=2, noise +70:   248 + 70 = 318    318/124 = 2.56  -> rounds to 3   WRONG
 ```
 
+Where do 186 and 309 come from? Decryption computes `round(x / 124)`, and
+rounding returns 2 exactly when $x/124$ is within 0.5 of 2, that is
+$1.5 \times 124 \le x < 2.5 \times 124$, so $186 \le x < 310$. Put
+differently, rounding snaps to the *nearest* lane center, so the lane edges
+are the halfway points to the neighboring centers: halfway between 124 and
+248 is 186, halfway between 248 and 372 is 310.
+
 With noise 9 the stored value 257 is off-center but still inside the lane of
 $m = 2$, so dividing by 124 and rounding returns exactly 2. With noise 70 the
 value drifts past the lane edge (which sits $\Delta/2 = 62$ from the center)
