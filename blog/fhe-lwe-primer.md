@@ -108,6 +108,24 @@ Two questions should be nagging you:
   wrong message. Managing that error margin is the central engineering problem
   of the whole field.
 
+A tiny worked example with $t = 7$, $q = 874$, $\Delta = 124$:
+
+```text
+message m:       0        1        2        3        4     ...
+lane center:     0      124      248      372      496          (m * Delta)
+lane of m=2:              [186 ....... 309]                     (center 248, width Delta)
+
+encrypt m=2, noise  +9:   248 +  9 = 257    257/124 = 2.07  -> rounds to 2   correct
+encrypt m=2, noise +70:   248 + 70 = 318    318/124 = 2.56  -> rounds to 3   WRONG
+```
+
+With noise 9 the stored value 257 is off-center but still inside the lane of
+$m = 2$, so dividing by 124 and rounding returns exactly 2. With noise 70 the
+value drifts past the lane edge (which sits $\Delta/2 = 62$ from the center)
+into the territory of $m = 3$, and decryption silently returns the wrong
+message. Every mention of "noise budget" below is this picture: keep the value
+inside its lane.
+
 ---
 
 ## 2. Learning With Errors
