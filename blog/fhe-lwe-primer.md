@@ -124,15 +124,15 @@ Where do 186 and 309 come from? Decryption computes `round(x / 124)`, and
 rounding returns 2 exactly when $x/124$ is within 0.5 of 2, that is
 $1.5 \times 124 \le x < 2.5 \times 124$, so $186 \le x < 310$. Put
 differently, rounding snaps to the *nearest* lane center, so the lane edges
-are the halfway points to the neighboring centers: halfway between 124 and
-248 is 186, halfway between 248 and 372 is 310.
+are the halfway points to the neighboring centers. Halfway between 124 and
+248 is 186, and halfway between 248 and 372 is 310.
 
 With noise 9 the stored value 257 is off-center but still inside the lane of
 $m = 2$, so dividing by 124 and rounding returns exactly 2. With noise 70 the
 value drifts past the lane edge (which sits $\Delta/2 = 62$ from the center)
 into the territory of $m = 3$, and decryption silently returns the wrong
-message. Every mention of "noise budget" below is this picture: keep the value
-inside its lane.
+message. Every mention of "noise budget" below refers to this picture. Keep
+the value inside its lane.
 
 ---
 
@@ -207,12 +207,12 @@ the exact same attack.
 ```
 
 The subtraction did not just combine the equations. It combined the *errors*,
-and it multiplied the second equation's error by 3 on the way: the total error
+and it multiplied the second equation's error by 3 on the way. The total error
 is $e_1 - 3e_2 = -2$, double the $\pm 1$ we started with, and the recovered
 value is simply wrong. In a real system the multipliers are not 3. They are
 arbitrary values mod $q$, and there are a thousand elimination steps, each one
 stacking amplified errors on top of the last. The signal drowns long before
-the last unknown is isolated. That is the whole trade: the noise costs the
+the last unknown is isolated. That is the whole trade. The noise costs the
 honest decryptor one rounding step, and it costs the attacker everything.
 
 And here is my favorite fact in this whole subject. Most of cryptography rests
