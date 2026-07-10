@@ -69,6 +69,10 @@ Two-minute workflow from the Supabase dashboard:
 
 The filter buttons on `/photography/` are generated from distinct `category` values, so new categories appear automatically.
 
+### Reading inbound meeting requests
+
+Meeting requests from `/schedule/` land in the `meeting_requests` table. RLS only allows INSERT for the public; read them in the Supabase **Table Editor** &rarr; `meeting_requests`. Status values: `pending`, `confirmed`, `declined`, `rescheduled`.
+
 ### Reading inbound hire requests
 
 Form submissions from `/hire/` land in the `contact_requests` table. RLS only allows INSERT for the public; read them in the Supabase **Table Editor** &rarr; `contact_requests`.
@@ -87,5 +91,6 @@ Minimal Supabase usage for two features only:
 
 - `photos` table + `photos` Storage bucket &mdash; powers `/photography/`.
 - `contact_requests` table &mdash; captures submissions from the `/hire/` form.
+- `meeting_requests` table &mdash; captures booking requests from the `/schedule/` page.
 
 Both tables have RLS enabled. Public SELECT is allowed only on non-hidden photos; public INSERT is allowed only on `contact_requests`. Writes on `photos` must come from the Supabase dashboard (service role).

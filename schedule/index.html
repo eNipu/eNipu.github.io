@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule a Meeting | Khandaker Md. Al-Amin &mdash; Berlin</title>
+  <meta name="description" content="Schedule a 30- or 60-minute meeting with Khandaker Md. Al-Amin, cryptography and cybersecurity engineer based in Berlin.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://al-am.in/schedule/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Schedule a Meeting | Khandaker Md. Al-Amin">
+  <meta property="og:description" content="Book a 30- or 60-minute meeting with Al-Amin. Available slots are shown in real time.">
+  <meta property="og:url" content="https://al-am.in/schedule/">
+  <meta property="og:image" content="https://al-am.in/uploads/3763635.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Scheduler layout ─────────────────────────────────── */
+    .scheduler-hero {
+      padding: var(--s-10) 0 var(--s-6);
+    }
+    .scheduler-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: var(--s-3);
+    }
+    .scheduler-hero .lead {
+      font-size: var(--fs-md);
+      color: var(--color-text-muted);
+      max-width: var(--measure);
+      margin-bottom: var(--s-6);
+    }
+
+    /* ── Duration picker ──────────────────────────────────── */
+    .duration-picker {
+      display: flex;
+      gap: var(--s-3);
+      margin-bottom: var(--s-7);
+      flex-wrap: wrap;
+    }
+    .duration-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: var(--s-4) var(--s-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg-elevated);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      min-width: 140px;
+      text-align: left;
+    }
+    .duration-btn:hover {
+      border-color: var(--color-primary);
+    }
+    .duration-btn.active {
+      border-color: var(--color-primary);
+      background: var(--color-surface);
+    }
+    .duration-btn .dur-label {
+      font-family: var(--font-serif);
+      font-size: var(--fs-lg);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .duration-btn .dur-sub {
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Main scheduler grid ──────────────────────────────── */
+    .scheduler-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-6);
+      align-items: start;
+    }
+
+    /* ── Calendar panel ───────────────────────────────────── */
+    .cal-panel {
+      background: var(--color-bg-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .cal-header h3 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: 600;
+      margin: 0;
+    }
+    .cal-nav-btn {
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+    .cal-nav-btn:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: var(--s-3) var(--s-4) 0;
+      gap: 2px;
+    }
+    .cal-weekday {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      padding-bottom: var(--s-2);
+    }
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 0 var(--s-4) var(--s-4);
+      gap: 4px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      font-size: var(--fs-sm);
+      cursor: default;
+      transition: background var(--transition-fast), color var(--transition-fast);
+      position: relative;
+    }
+    .cal-day.empty { visibility: hidden; }
+    .cal-day.past {
+      color: var(--color-text-soft);
+      opacity: 0.45;
+    }
+    .cal-day.today {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .cal-day.has-slots {
+      cursor: pointer;
+      background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+      color: var(--color-text);
+    }
+    .cal-day.has-slots:hover {
+      background: color-mix(in srgb, var(--color-primary) 24%, transparent);
+    }
+    .cal-day.selected {
+      background: var(--color-primary);
+      color: #fff;
+      font-weight: 600;
+    }
+    .cal-day.no-slots {
+      color: var(--color-text-soft);
+      opacity: 0.5;
+    }
+    .cal-loading {
+      text-align: center;
+      padding: var(--s-6);
+      color: var(--color-text-muted);
+      font-size: var(--fs-sm);
+      font-family: var(--font-mono);
+    }
+    .cal-legend {
+      display: flex;
+      gap: var(--s-4);
+      padding: var(--s-3) var(--s-5);
+      border-top: 1px solid var(--color-border);
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .legend-dot.available { background: color-mix(in srgb, var(--color-primary) 55%, transparent); }
+    .legend-dot.busy { background: var(--color-border-strong); }
+
+    /* ── Slots panel ──────────────────────────────────────── */
+    .slots-panel {
+      background: var(--color-bg-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .slots-header {
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .slots-header h3 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: 600;
+      margin: 0 0 var(--s-1);
+    }
+    .slots-header .slots-date {
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+      letter-spacing: 0.05em;
+    }
+    .slots-body {
+      padding: var(--s-4) var(--s-5);
+      min-height: 200px;
+    }
+    .slots-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      color: var(--color-text-soft);
+      font-size: var(--fs-sm);
+      text-align: center;
+      gap: var(--s-3);
+    }
+    .slots-placeholder i { font-size: 2rem; opacity: 0.35; }
+    .slots-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: var(--s-2);
+    }
+    .slot-btn {
+      padding: var(--s-3) var(--s-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+    }
+    .slot-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .slot-btn.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+    }
+    .slot-btn.busy {
+      background: var(--color-bg-subtle);
+      color: var(--color-text-soft);
+      cursor: not-allowed;
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+    .tz-note {
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+      margin-top: var(--s-4);
+      padding-top: var(--s-3);
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Booking form ─────────────────────────────────────── */
+    .booking-form-section {
+      margin-top: var(--s-7);
+    }
+    .booking-summary {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--s-4) var(--s-5);
+      margin-bottom: var(--s-5);
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      flex-wrap: wrap;
+    }
+    .booking-summary-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .booking-summary-text {
+      flex: 1;
+    }
+    .booking-summary-text strong {
+      display: block;
+      font-size: var(--fs-md);
+      color: var(--color-text);
+    }
+    .booking-summary-text span {
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+      letter-spacing: 0.04em;
+    }
+    .booking-form {
+      max-width: 560px;
+      display: grid;
+      gap: var(--s-3);
+    }
+    .booking-form label {
+      display: block;
+      font-size: var(--fs-sm);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: inherit;
+    }
+    .booking-form textarea { min-height: 100px; resize: vertical; }
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 1px;
+      border-color: var(--color-primary);
+    }
+    .booking-form-actions {
+      display: flex;
+      gap: var(--s-3);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .form-status { font-size: var(--fs-sm); margin-top: var(--s-2); }
+    .form-status.success { color: var(--color-success, #2f855a); }
+    .form-status.error { color: var(--color-error, #c53030); }
+
+    /* ── Success state ────────────────────────────────────── */
+    .booking-success {
+      display: none;
+      text-align: center;
+      padding: var(--s-8) var(--s-5);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .booking-success.visible { display: block; }
+    .booking-success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-full);
+      background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 1.75rem;
+      margin: 0 auto var(--s-5);
+    }
+    .booking-success h2 {
+      font-size: var(--fs-xl);
+      margin-bottom: var(--s-3);
+    }
+    .booking-success p {
+      color: var(--color-text-muted);
+      font-size: var(--fs-md);
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .scheduler-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .duration-picker { flex-direction: column; }
+      .duration-btn { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><a href="/">Khandaker Md. Al-Amin</a></div>
+        <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/blog/">Writing</a></li>
+          <li><a href="/photography/">Photography</a></li>
+          <li><a href="/hire/">Hire</a></li>
+          <li><a href="/schedule/" class="active">Schedule</a></li>
+          <li><a href="/uploads/resume.pdf" target="_blank">CV</a></li>
+          <li class="theme-toggle">
+            <button id="themeToggle" aria-label="Toggle dark/light mode"><i class="fas fa-moon"></i></button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="scheduler-hero">
+      <div class="container">
+        <h1>Schedule a meeting</h1>
+        <p class="lead">Pick a duration, choose an available date and time slot, and submit a brief request. I will confirm within one business day. All times are shown in Berlin time (CET/CEST).</p>
+
+        <!-- Step 1: Duration -->
+        <h2 class="section-title" data-index="01">Duration</h2>
+        <div class="duration-picker" id="durationPicker">
+          <button class="duration-btn active" data-minutes="30">
+            <span class="dur-label">30 min</span>
+            <span class="dur-sub">Quick sync / intro call</span>
+          </button>
+          <button class="duration-btn" data-minutes="60">
+            <span class="dur-label">60 min</span>
+            <span class="dur-sub">Deep-dive / consulting</span>
+          </button>
+        </div>
+
+        <!-- Step 2: Calendar + Slots -->
+        <h2 class="section-title" data-index="02">Date &amp; time</h2>
+        <div class="scheduler-grid">
+          <!-- Calendar -->
+          <div class="cal-panel">
+            <div class="cal-header">
+              <button class="cal-nav-btn" id="calPrev" aria-label="Previous month"><i class="fas fa-chevron-left"></i></button>
+              <h3 id="calMonthLabel">Loading&hellip;</h3>
+              <button class="cal-nav-btn" id="calNext" aria-label="Next month"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="cal-weekdays">
+              <div class="cal-weekday">Mo</div>
+              <div class="cal-weekday">Tu</div>
+              <div class="cal-weekday">We</div>
+              <div class="cal-weekday">Th</div>
+              <div class="cal-weekday">Fr</div>
+              <div class="cal-weekday">Sa</div>
+              <div class="cal-weekday">Su</div>
+            </div>
+            <div class="cal-days" id="calDays">
+              <div class="cal-loading">Loading availability&hellip;</div>
+            </div>
+            <div class="cal-legend">
+              <span><span class="legend-dot available"></span>Available</span>
+              <span><span class="legend-dot busy"></span>Fully booked / unavailable</span>
+            </div>
+          </div>
+
+          <!-- Time slots -->
+          <div class="slots-panel">
+            <div class="slots-header">
+              <h3>Available times</h3>
+              <div class="slots-date" id="slotsDateLabel">Select a date to see slots</div>
+            </div>
+            <div class="slots-body" id="slotsBody">
+              <div class="slots-placeholder">
+                <i class="far fa-calendar-alt"></i>
+                <span>Choose a date on the calendar to see available time slots.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Booking form (shown after slot is picked) -->
+        <div class="booking-form-section" id="bookingFormSection" style="display:none">
+          <h2 class="section-title" data-index="03">Your details</h2>
+          <div class="booking-summary" id="bookingSummary">
+            <div class="booking-summary-icon"><i class="far fa-clock"></i></div>
+            <div class="booking-summary-text">
+              <strong id="summaryLine">—</strong>
+              <span id="summaryDur">—</span>
+            </div>
+            <button class="btn btn-secondary" id="changeSlotBtn" style="margin-left:auto">Change slot</button>
+          </div>
+
+          <form class="booking-form" id="bookingForm" autocomplete="on" novalidate>
+            <div>
+              <label for="bName">Your name</label>
+              <input id="bName" name="name" type="text" required placeholder="Jane Smith">
+            </div>
+            <div>
+              <label for="bEmail">Email</label>
+              <input id="bEmail" name="email" type="email" required placeholder="jane@example.com">
+            </div>
+            <div>
+              <label for="bCompany">Company / organisation <span style="font-weight:400;color:var(--color-text-soft)">(optional)</span></label>
+              <input id="bCompany" name="company" type="text" placeholder="Acme GmbH">
+            </div>
+            <div>
+              <label for="bTopic">Meeting topic</label>
+              <select id="bTopic" name="topic">
+                <option value="consulting">Consulting / advisory</option>
+                <option value="eu-cra">EU CRA readiness</option>
+                <option value="sbom">SBOM management</option>
+                <option value="vuln">Vulnerability handling</option>
+                <option value="automotive">Automotive cybersecurity</option>
+                <option value="crypto">Applied cryptography / FHE / MPC</option>
+                <option value="intro">General intro call</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="bNote">Brief note <span style="font-weight:400;color:var(--color-text-soft)">(optional)</span></label>
+              <textarea id="bNote" name="note" placeholder="What would you like to discuss? Any context helps me prepare."></textarea>
+            </div>
+            <div class="booking-form-actions">
+              <button type="submit" class="btn btn-primary" id="bookingSubmit">Request meeting</button>
+            </div>
+            <div id="bookingStatus" class="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <!-- Success state -->
+        <div class="booking-success" id="bookingSuccess">
+          <div class="booking-success-icon"><i class="fas fa-check"></i></div>
+          <h2>Request sent!</h2>
+          <p>Your meeting request has been received. I will confirm or suggest an alternative within one business day. Check your inbox for an acknowledgement.</p>
+          <p style="margin-top:var(--s-5)">
+            <a href="/hire/" class="btn btn-secondary">Back to Hire page</a>
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>&copy; 2026 Khandaker Md. Al-Amin</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" rel="me" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+          <a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" rel="me" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://github.com/eNipu" target="_blank" rel="me" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/khandakermd/" target="_blank" rel="me" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script type="module">
+    /* ============================================================
+       CONFIGURATION
+       ============================================================ */
+    const CONFIG = {
+      // Your Google Calendar ID (your Gmail address)
+      calendarId: 'tokhandakeralamin@gmail.com',
+
+      // Google Calendar API key — restricted to your domain + Calendar API.
+      // Create one at https://console.cloud.google.com/ → APIs & Services →
+      // Credentials → Create Credentials → API key → restrict to:
+      //   - HTTP referrers: al-am.in/*, www.al-am.in/*
+      //   - API: Google Calendar API
+      // Then replace the placeholder below with your key.
+      googleApiKey: 'YOUR_GOOGLE_API_KEY',
+
+      // Supabase — used to store booking requests and trigger email
+      supabaseUrl: 'https://0ec90b57d6e95fcbda19832f.supabase.co',
+      supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJib2x0IiwicmVmIjoiMGVjOTBiNTdkNmU5NWZjYmRhMTk4MzJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4ODE1NzQsImV4cCI6MTc1ODg4MTU3NH0.9I8-U0x86Ak8t2DGaIk0HfvTSLsAyzdnz-Nw00mMkKw',
+
+      // Timezone shown to visitors
+      timezone: 'Europe/Berlin',
+
+      // Weekly availability windows (24-h, Berlin time).
+      // These are your INTENDED available hours. Busy blocks from Google
+      // Calendar are subtracted from these windows automatically.
+      availability: {
+        // 0 = Sunday, 1 = Monday, … 6 = Saturday
+        1: [{ start: '09:00', end: '12:00' }, { start: '14:00', end: '17:00' }], // Mon
+        2: [{ start: '09:00', end: '12:00' }, { start: '14:00', end: '17:00' }], // Tue
+        3: [{ start: '09:00', end: '12:00' }, { start: '14:00', end: '17:00' }], // Wed
+        4: [{ start: '09:00', end: '12:00' }, { start: '14:00', end: '17:00' }], // Thu
+        5: [{ start: '09:00', end: '11:00' }],                                    // Fri
+        // Sat (6) and Sun (0) intentionally absent → no slots
+      },
+
+      // How many weeks ahead to show
+      lookaheadWeeks: 6,
+    };
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+    const state = {
+      durationMinutes: 30,
+      viewYear: 0,
+      viewMonth: 0,
+      selectedDate: null,   // 'YYYY-MM-DD'
+      selectedSlot: null,   // { date, start, end, label }
+      busyBlocks: {},       // { 'YYYY-MM-DD': [{start, end}, …] }
+      busyLoaded: false,
+      busyError: false,
+    };
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    function berlinDate(d) {
+      // Returns a Date adjusted so .getFullYear/.getMonth/.getDate
+      // reflect Berlin local time.
+      return new Date(d.toLocaleString('en-US', { timeZone: CONFIG.timezone }));
+    }
+
+    function todayBerlin() {
+      return berlinDate(new Date());
+    }
+
+    function isoDate(year, month1, day) {
+      return `${year}-${String(month1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    }
+
+    function parseHHMM(hhmm) {
+      const [h, m] = hhmm.split(':').map(Number);
+      return h * 60 + m;
+    }
+
+    function minutesToHHMM(mins) {
+      return `${String(Math.floor(mins / 60)).padStart(2, '0')}:${String(mins % 60).padStart(2, '0')}`;
+    }
+
+    function formatSlotLabel(hhmm) {
+      const [h, m] = hhmm.split(':').map(Number);
+      const suffix = h < 12 ? 'AM' : 'PM';
+      const h12 = h % 12 || 12;
+      return `${h12}:${String(m).padStart(2, '0')} ${suffix}`;
+    }
+
+    /* ============================================================
+       GOOGLE CALENDAR FREE/BUSY
+       ============================================================ */
+    async function fetchBusyBlocks(year, month1) {
+      if (CONFIG.googleApiKey === 'YOUR_GOOGLE_API_KEY') {
+        // No API key yet — operate in static-availability mode
+        state.busyLoaded = true;
+        return;
+      }
+
+      // Fetch the entire month (plus a day buffer)
+      const firstDay = new Date(year, month1 - 1, 1);
+      const lastDay  = new Date(year, month1, 1);   // 1st of next month
+
+      const timeMin = firstDay.toISOString();
+      const timeMax = lastDay.toISOString();
+
+      const body = {
+        timeMin,
+        timeMax,
+        timeZone: CONFIG.timezone,
+        items: [{ id: CONFIG.calendarId }],
+      };
+
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/calendar/v3/freeBusy?key=${CONFIG.googleApiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          }
+        );
+        if (!res.ok) throw new Error(`FreeBusy HTTP ${res.status}`);
+        const data = await res.json();
+        const busy = data.calendars?.[CONFIG.calendarId]?.busy ?? [];
+
+        // Index busy blocks by date (Berlin time)
+        busy.forEach(({ start, end }) => {
+          const s = berlinDate(new Date(start));
+          const e = berlinDate(new Date(end));
+          const dateKey = isoDate(s.getFullYear(), s.getMonth() + 1, s.getDate());
+          if (!state.busyBlocks[dateKey]) state.busyBlocks[dateKey] = [];
+          // Convert to minutes-since-midnight for easy comparison
+          state.busyBlocks[dateKey].push({
+            start: s.getHours() * 60 + s.getMinutes(),
+            end:   e.getHours() * 60 + e.getMinutes(),
+          });
+        });
+
+        state.busyLoaded = true;
+      } catch (err) {
+        console.warn('Google Calendar FreeBusy failed:', err.message);
+        state.busyError = true;
+        state.busyLoaded = true;
+      }
+    }
+
+    /* ============================================================
+       SLOT GENERATION
+       ============================================================ */
+    function getSlotsForDate(dateStr) {
+      // dateStr: 'YYYY-MM-DD'
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dow = new Date(y, m - 1, d).getDay(); // 0=Sun
+      const windows = CONFIG.availability[dow];
+      if (!windows || windows.length === 0) return [];
+
+      const busyList = state.busyBlocks[dateStr] ?? [];
+      const dur = state.durationMinutes;
+      const slots = [];
+
+      windows.forEach(({ start, end }) => {
+        let cursor = parseHHMM(start);
+        const windowEnd = parseHHMM(end);
+        while (cursor + dur <= windowEnd) {
+          const slotEnd = cursor + dur;
+          // Check overlap with any busy block
+          const blocked = busyList.some(b => cursor < b.end && slotEnd > b.start);
+          slots.push({
+            start: minutesToHHMM(cursor),
+            end:   minutesToHHMM(slotEnd),
+            busy:  blocked,
+          });
+          cursor += 30; // 30-min grid
+        }
+      });
+
+      return slots;
+    }
+
+    function hasAvailableSlots(dateStr) {
+      return getSlotsForDate(dateStr).some(s => !s.busy);
+    }
+
+    /* ============================================================
+       CALENDAR RENDER
+       ============================================================ */
+    function renderCalendar() {
+      const { viewYear, viewMonth } = state;
+      const today = todayBerlin();
+      const todayStr = isoDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
+
+      const monthNames = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+      document.getElementById('calMonthLabel').textContent =
+        `${monthNames[viewMonth - 1]} ${viewYear}`;
+
+      // First weekday of month (0=Sun → convert to Mon-based 0–6)
+      const firstDow = new Date(viewYear, viewMonth - 1, 1).getDay();
+      const offset = (firstDow + 6) % 7; // Mon=0 … Sun=6
+      const daysInMonth = new Date(viewYear, viewMonth, 0).getDate();
+
+      const maxDate = new Date(today);
+      maxDate.setDate(maxDate.getDate() + CONFIG.lookaheadWeeks * 7);
+      const maxStr = isoDate(maxDate.getFullYear(), maxDate.getMonth() + 1, maxDate.getDate());
+
+      const container = document.getElementById('calDays');
+      container.innerHTML = '';
+
+      // Empty cells before first day
+      for (let i = 0; i < offset; i++) {
+        const el = document.createElement('div');
+        el.className = 'cal-day empty';
+        container.appendChild(el);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = isoDate(viewYear, viewMonth, day);
+        const el = document.createElement('div');
+        el.textContent = day;
+
+        const isPast = dateStr < todayStr;
+        const isBeyond = dateStr > maxStr;
+
+        if (isPast || isBeyond) {
+          el.className = 'cal-day past';
+        } else if (dateStr === todayStr) {
+          el.className = 'cal-day today';
+          if (hasAvailableSlots(dateStr)) {
+            el.className += ' has-slots';
+            el.dataset.date = dateStr;
+          }
+        } else if (hasAvailableSlots(dateStr)) {
+          el.className = 'cal-day has-slots';
+          el.dataset.date = dateStr;
+        } else {
+          el.className = 'cal-day no-slots';
+        }
+
+        if (dateStr === state.selectedDate) {
+          el.className = el.className.replace('has-slots', '') + ' selected';
+        }
+
+        if (el.dataset.date) {
+          el.addEventListener('click', () => selectDate(el.dataset.date));
+        }
+
+        container.appendChild(el);
+      }
+    }
+
+    /* ============================================================
+       SLOT PANEL RENDER
+       ============================================================ */
+    function renderSlots(dateStr) {
+      const slots = getSlotsForDate(dateStr);
+      const body = document.getElementById('slotsBody');
+      const label = document.getElementById('slotsDateLabel');
+
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dateObj = new Date(y, m - 1, d);
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      label.textContent = `${dayNames[dateObj.getDay()]}, ${monthNames[m-1]} ${d}, ${y}`;
+
+      if (slots.length === 0) {
+        body.innerHTML = `<div class="slots-placeholder"><i class="far fa-calendar-times"></i><span>No availability on this day.</span></div>`;
+        return;
+      }
+
+      const list = document.createElement('div');
+      list.className = 'slots-list';
+
+      slots.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.className = 'slot-btn' + (slot.busy ? ' busy' : '');
+        btn.textContent = formatSlotLabel(slot.start);
+        btn.disabled = slot.busy;
+        btn.dataset.start = slot.start;
+        btn.dataset.end = slot.end;
+
+        if (!slot.busy) {
+          btn.addEventListener('click', () => selectSlot(dateStr, slot));
+        }
+
+        if (state.selectedSlot?.date === dateStr && state.selectedSlot?.start === slot.start) {
+          btn.classList.add('selected');
+        }
+
+        list.appendChild(btn);
+      });
+
+      body.innerHTML = '';
+      body.appendChild(list);
+
+      const tz = document.createElement('p');
+      tz.className = 'tz-note';
+      tz.innerHTML = `<i class="fas fa-globe"></i> Times shown in Berlin time (CET/CEST)`;
+      body.appendChild(tz);
+    }
+
+    /* ============================================================
+       INTERACTIONS
+       ============================================================ */
+    function selectDate(dateStr) {
+      state.selectedDate = dateStr;
+      // Deselect slot if it was on a different date
+      if (state.selectedSlot && state.selectedSlot.date !== dateStr) {
+        state.selectedSlot = null;
+        document.getElementById('bookingFormSection').style.display = 'none';
+      }
+      renderCalendar();
+      renderSlots(dateStr);
+    }
+
+    function selectSlot(dateStr, slot) {
+      state.selectedSlot = { date: dateStr, ...slot };
+      renderSlots(dateStr); // re-render to highlight selected
+
+      // Show booking form
+      const section = document.getElementById('bookingFormSection');
+      section.style.display = 'block';
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Update summary
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dateObj = new Date(y, m - 1, d);
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const monthNames = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+      document.getElementById('summaryLine').textContent =
+        `${dayNames[dateObj.getDay()]}, ${monthNames[m-1]} ${d}, ${y} · ${formatSlotLabel(slot.start)} – ${formatSlotLabel(slot.end)}`;
+      document.getElementById('summaryDur').textContent =
+        `${state.durationMinutes} minutes · Berlin time (CET/CEST)`;
+    }
+
+    /* ============================================================
+       DURATION PICKER
+       ============================================================ */
+    document.getElementById('durationPicker').addEventListener('click', e => {
+      const btn = e.target.closest('.duration-btn');
+      if (!btn) return;
+      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.durationMinutes = Number(btn.dataset.minutes);
+      // Reset slot selection since duration changed
+      state.selectedSlot = null;
+      document.getElementById('bookingFormSection').style.display = 'none';
+      if (state.selectedDate) renderSlots(state.selectedDate);
+    });
+
+    /* ============================================================
+       CALENDAR NAV
+       ============================================================ */
+    document.getElementById('calPrev').addEventListener('click', async () => {
+      const today = todayBerlin();
+      if (state.viewYear === today.getFullYear() && state.viewMonth === today.getMonth() + 1) return;
+      state.viewMonth--;
+      if (state.viewMonth < 1) { state.viewMonth = 12; state.viewYear--; }
+      await fetchBusyBlocks(state.viewYear, state.viewMonth);
+      renderCalendar();
+    });
+
+    document.getElementById('calNext').addEventListener('click', async () => {
+      state.viewMonth++;
+      if (state.viewMonth > 12) { state.viewMonth = 1; state.viewYear++; }
+      await fetchBusyBlocks(state.viewYear, state.viewMonth);
+      renderCalendar();
+    });
+
+    /* ============================================================
+       CHANGE SLOT BUTTON
+       ============================================================ */
+    document.getElementById('changeSlotBtn').addEventListener('click', () => {
+      state.selectedSlot = null;
+      document.getElementById('bookingFormSection').style.display = 'none';
+      if (state.selectedDate) renderSlots(state.selectedDate);
+    });
+
+    /* ============================================================
+       BOOKING FORM SUBMIT
+       ============================================================ */
+    document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const status = document.getElementById('bookingStatus');
+      const submitBtn = document.getElementById('bookingSubmit');
+
+      status.className = 'form-status';
+      status.textContent = '';
+
+      if (!state.selectedSlot) {
+        status.textContent = 'Please select a time slot first.';
+        status.classList.add('error');
+        return;
+      }
+
+      const payload = {
+        name:     form.bName.value.trim(),
+        email:    form.bEmail.value.trim(),
+        company:  form.bCompany.value.trim(),
+        topic:    form.bTopic.value,
+        note:     form.bNote.value.trim(),
+        date:     state.selectedSlot.date,
+        slot_start: state.selectedSlot.start,
+        slot_end:   state.selectedSlot.end,
+        duration_minutes: state.durationMinutes,
+        timezone: CONFIG.timezone,
+      };
+
+      if (!payload.name || !payload.email) {
+        status.textContent = 'Please fill in your name and email.';
+        status.classList.add('error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(`${CONFIG.supabaseUrl}/functions/v1/schedule-request`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: CONFIG.supabaseAnonKey,
+            Authorization: `Bearer ${CONFIG.supabaseAnonKey}`,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          // Fallback: direct REST insert (no email, but request is stored)
+          const fallback = await fetch(`${CONFIG.supabaseUrl}/rest/v1/meeting_requests`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: CONFIG.supabaseAnonKey,
+              Authorization: `Bearer ${CONFIG.supabaseAnonKey}`,
+              Prefer: 'return=minimal',
+            },
+            body: JSON.stringify(payload),
+          });
+          if (!fallback.ok) throw new Error(`HTTP ${fallback.status}`);
+        }
+
+        // Show success
+        document.getElementById('bookingFormSection').style.display = 'none';
+        document.getElementById('bookingSuccess').classList.add('visible');
+        document.getElementById('bookingSuccess').scrollIntoView({ behavior: 'smooth' });
+
+      } catch (err) {
+        console.error(err);
+        status.innerHTML = 'Something went wrong. Please email <a href="mailto:hire.credibly374@passinbox.com">hire.credibly374@passinbox.com</a> directly.';
+        status.classList.add('error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request meeting';
+      }
+    });
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    async function init() {
+      const today = todayBerlin();
+      state.viewYear  = today.getFullYear();
+      state.viewMonth = today.getMonth() + 1;
+
+      await fetchBusyBlocks(state.viewYear, state.viewMonth);
+      renderCalendar();
+    }
+
+    init();
+  </script>
+</body>
+</html>
