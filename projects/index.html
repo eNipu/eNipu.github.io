@@ -22,127 +22,38 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/styles.css">
   <style>
-    /* Projects page specific styles */
-    .projects-hero {
-      background-color: var(--color-primary);
-      color: white;
-      padding: var(--spacing-xl) 0;
-      margin-bottom: var(--spacing-xl);
-    }
-    
-    .projects-hero h1 {
-      margin-bottom: var(--spacing-md);
-    }
-    
-    .projects-hero p {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: var(--font-size-lg);
-    }
-    
-    .projects-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: var(--spacing-xl);
-      margin-bottom: var(--spacing-2xl);
-    }
-    
-    .project-card {
-      background-color: var(--color-card-bg);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: 0 4px 10px var(--color-shadow);
-      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px var(--color-shadow);
-    }
-    
-    .project-image {
-      height: 200px;
-      overflow: hidden;
-    }
-    
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform var(--transition-normal);
-    }
-    
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-    
-    .project-content {
-      padding: var(--spacing-lg);
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .project-content h3 {
-      margin-bottom: var(--spacing-sm);
-    }
-    
+    /* Projects page. Cards, grid, and page header come from styles.css. */
     .project-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
-      font-size: var(--font-size-sm);
-      color: var(--color-secondary);
+      gap: var(--s-4);
+      margin-bottom: var(--s-3);
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      color: var(--color-text-soft);
+      letter-spacing: 0.05em;
     }
-    
     .project-description {
-      margin-bottom: var(--spacing-lg);
       flex-grow: 1;
+      margin-bottom: var(--s-4);
     }
-    
     .project-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--spacing-sm);
-      margin-bottom: var(--spacing-md);
+      gap: var(--s-2);
+      margin-bottom: var(--s-4);
     }
-    
     .project-tag {
-      background-color: var(--color-code-bg);
-      padding: var(--spacing-xs) var(--spacing-sm);
+      font-family: var(--font-mono);
+      font-size: var(--fs-xs);
+      padding: 2px 10px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
     }
-    
-    .project-links {
-      display: flex;
-      gap: var(--spacing-md);
-      margin-top: auto;
-    }
-    
-    .category-title {
-      margin: var(--spacing-2xl) 0 var(--spacing-lg);
-      position: relative;
-      text-align: left;
-      padding-bottom: var(--spacing-xs);
-      border-bottom: 2px solid var(--color-primary);
-      width: fit-content;
-    }
-    
-    @media (max-width: 768px) {
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    .projects-listing .section-title { margin-top: var(--s-7); }
+    .projects-listing .section-title:first-child { margin-top: 0; }
   </style>
 </head>
 <body>
@@ -179,17 +90,18 @@
   </header>
 
   <main>
-    <section class="projects-hero">
+    <section class="page-header">
       <div class="container">
-        <h1>Research & Development Projects</h1>
-        <p>A collection of my work in cryptography, secure computing, and privacy-preserving technologies.</p>
+        <p class="eyebrow">&sect; Projects</p>
+        <h1>Research &amp; Development Projects</h1>
+        <p class="lead">Work in cryptography, secure computing, and privacy-preserving technologies.</p>
       </div>
     </section>
-    
-    <section class="projects-container">
+
+    <section class="projects-listing">
       <div class="container">
-        <h2 class="category-title">Professional Projects</h2>
-        <div class="project-grid">
+        <h2 class="section-title" data-index="01">Professional</h2>
+        <div class="projects-grid">
           <div class="project-card">
             <div class="project-image">
               <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=720" alt="DataArmorGate DB">
@@ -242,8 +154,8 @@
           </div>
         </div>
         
-        <h2 class="category-title">Research Projects</h2>
-        <div class="project-grid">
+        <h2 class="section-title" data-index="02">Research</h2>
+        <div class="projects-grid">
           <div class="project-card">
             <div class="project-image">
               <img src="https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?auto=compress&cs=tinysrgb&w=720" alt="ELiPS">
@@ -289,7 +201,7 @@
                 <span class="project-tag">Rust</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn btn-primary">Learn More</a>
+                <a href="/blog/secure-multi-party-computation.html" class="btn btn-primary">Read the Guide</a>
               </div>
             </div>
           </div>
@@ -302,7 +214,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-info">
-          <p>&copy; 2025 Khandaker Md. Al-Amin</p>
+          <p>&copy; 2026 Khandaker Md. Al-Amin</p>
         </div>
         <div class="footer-links">
           <a href="https://www.researchgate.net/profile/Md-Al-Amin-Khandaker" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
