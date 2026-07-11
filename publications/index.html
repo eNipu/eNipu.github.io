@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Publications | Khandaker Md. Al-Amin</title>
-  
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- MathJax for math equations -->
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  
+
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8429168925339454" crossorigin="anonymous"></script>
-  
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/styles.css">
   <style>
@@ -44,20 +44,10 @@
       background: var(--color-border);
     }
 
-    .publication-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--s-2);
-      margin-bottom: var(--s-4);
-    }
-    .publication-tag {
-      font-family: var(--font-mono);
-      font-size: var(--fs-xs);
-      padding: 2px 10px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-full);
-      color: var(--color-text-muted);
+    .publication-card { padding: var(--s-5) 0; }
+
+    .scholar-link {
+      margin-top: var(--s-4);
     }
   </style>
 </head>
@@ -99,7 +89,8 @@
       <div class="container">
         <p class="eyebrow">&sect; Publications</p>
         <h1>Publications</h1>
-        <p class="lead">Peer-reviewed research on pairing-based cryptography, secure computing, and privacy-preserving technologies.</p>
+        <p class="lead">Peer-reviewed research on pairing-based cryptography, elliptic curve cryptography, and efficient implementations for constrained devices.</p>
+        <p class="scholar-link"><a href="https://scholar.google.com/citations?user=nAO6FycAAAAJ" target="_blank" class="btn btn-secondary"><i class="fas fa-graduation-cap"></i> Google Scholar profile</a></p>
       </div>
     </section>
 
@@ -110,93 +101,371 @@
           <button class="filter-btn" data-filter="journal">Journal</button>
           <button class="filter-btn" data-filter="conference">Conference</button>
         </div>
-        
+
         <div class="publication-grid">
-          <div class="year-divider">
-            <span>2018</span>
-          </div>
-          
-          <div class="publication-card" data-category="conference">
+          <div class="year-divider"><span>2019</span></div>
+
+          <div class="publication-card" data-category="thesis">
             <div class="publication-content">
-              <h3>Efficient Scalar Multiplication for Pairing-Friendly Elliptic Curves</h3>
-              <div class="publication-authors">
-                <span class="author">Khandaker Md. Al-Amin</span>
-                <span class="author">Yasuyuki Nogami</span>
-              </div>
+              <h3>A Study of Efficient Pairing Computation Algorithm Using KSS Curves</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker</span></div>
               <div class="publication-details">
-                <span class="publication-venue">International Conference on Cryptography and Network Security</span>
-                <span class="publication-date">October 2018</span>
-              </div>
-              <div class="publication-abstract">
-                <p>This paper presents novel techniques for optimizing scalar multiplication operations on pairing-friendly elliptic curves, which are essential for efficient implementation of pairing-based cryptographic protocols.</p>
-              </div>
-              <div class="publication-tags">
-                <span class="publication-tag">Elliptic Curve Cryptography</span>
-                <span class="publication-tag">Pairing-Based Cryptography</span>
-                <span class="publication-tag">Scalar Multiplication</span>
-              </div>
-              <div class="publication-links">
-                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/scalar2018/cite.bib">Cite</a>
+                <span class="publication-venue">Ph.D. dissertation, Okayama University</span>
+                <span class="publication-date">2019</span>
               </div>
             </div>
           </div>
-          
-          <div class="year-divider">
-            <span>2017</span>
+
+          <div class="year-divider"><span>2018</span></div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>Efficient Pairing-Based Cryptography on Raspberry Pi</h3>
+              <div class="publication-authors"><span class="author">Y. Nanjo, M. A.-A. Khandaker, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">Journal of Communications 13(2)</span>
+                <span class="publication-date">2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.12720/jcm.13.2.88-93" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
           </div>
-          
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>An Implementation of ECC with Twisted Montgomery Curve over 32nd Degree Tower Field on Arduino Uno</h3>
+              <div class="publication-authors"><span class="author">Y. Hashimoto, M. A.-A. Khandaker, Y. Kodera, T. Park, T. Kusaka, H. Kim, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">International Journal of Networking and Computing 8(2)</span>
+                <span class="publication-date">2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.15803/ijnc.8.2_341" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>Distribution of Digit Patterns in Multi-Value Sequence over the Odd Characteristic Field</h3>
+              <div class="publication-authors"><span class="author">Y. Kodera, T. Miyazaki, M. A.-A. Khandaker, M. A. Ali, T. Kusaka, Y. Nogami, et al.</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">IEICE Transactions on Fundamentals E101.A</span>
+                <span class="publication-date">2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1587/transfun.E101.A.1525" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>An Extended Generalized Minimum Distance Decoding for Binary Linear Codes on a 4-Level Quantization over an AWGN Channel</h3>
+              <div class="publication-authors"><span class="author">S. Ueda, K. Ikuta, T. Kusaka, M. A.-A. Khandaker, M. A. Ali, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">IEICE Transactions on Fundamentals E101.A</span>
+                <span class="publication-date">2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1587/transfun.E101.A.1235" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Efficient Ate-Based Pairing over the Attractive Classes of BN Curves</h3>
+              <div class="publication-authors"><span class="author">Y. Nanjo, M. A.-A. Khandaker, M. Shirase, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">WISA 2018, Springer LNCS</span>
+                <span class="publication-date">2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-030-17982-3_5" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>A Comparative Implementation of GLV Technique on KSS-16 Curve</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nanjo, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">CANDAR 2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/CANDAR.2018.00021" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Consideration of Efficient Pairing Applying Two Construction Methods of Extension Fields</h3>
+              <div class="publication-authors"><span class="author">Y. Nanjo, M. A.-A. Khandaker, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">CANDAR Workshops 2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/CANDARW.2018.00087" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Efficient Parallel Simeck Encryption with GPGPU and OpenCL</h3>
+              <div class="publication-authors"><span class="author">T. Park, H. Seo, M. A.-A. Khandaker, Y. Nogami, H. Kim</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">IEEE ICCE-TW 2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/ICCE-China.2018.8448768" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>A Study on the Parameter of the Distinguished Point Method in Pollard's Rho Method for ECDLP</h3>
+              <div class="publication-authors"><span class="author">K. Ikuta, S. Joichi, K. Kobayashi, M. A.-A. Khandaker, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">ISITA 2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.23919/ISITA.2018.8664405" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>A Study on the Parameter Size of the Montgomery Trick for ECDLP</h3>
+              <div class="publication-authors"><span class="author">K. Ikuta, S. Joichi, K. Kobayashi, M. A.-A. Khandaker, T. Kusaka, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">ISITA 2018</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.23919/ISITA.2018.8664242" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="year-divider"><span>2017</span></div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Solving 114-Bit ECDLP for a Barreto-Naehrig Curve</h3>
+              <div class="publication-authors"><span class="author">T. Kusaka, S. Joichi, K. Ikuta, M. A.-A. Khandaker, Y. Nogami, S. Uehara, et al.</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">ICISC 2017, Springer LNCS</span>
+                <span class="publication-date">2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-319-78556-1_13" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Efficient Optimal Ate Pairing at 128-Bit Security Level</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nanjo, L. Ghammam, S. Duquesne, Y. Nogami, et al.</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">INDOCRYPT 2017, Springer LNCS</span>
+                <span class="publication-date">2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-319-71667-1_10" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
           <div class="publication-card" data-category="journal">
             <div class="publication-content">
               <h3>An Improvement of Scalar Multiplication by Skew Frobenius Map with Multi-Scalar Multiplication for KSS Curve</h3>
-              <div class="publication-authors">
-                <span class="author">Khandaker Md. Al-Amin</span>
-                <span class="author">Yasuyuki Nogami</span>
-              </div>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nogami</span></div>
               <div class="publication-details">
-                <span class="publication-venue">IEICE Transactions</span>
-                <span class="publication-date">December 2017</span>
-              </div>
-              <div class="publication-abstract">
-                <p>Scalar multiplication over higher degree rational point groups is often regarded as the bottleneck for faster pairing based cryptography. This paper has presented a skew Frobenius mapping technique in the sub-field isomorphic sextic twisted curve of Kachisa-Schaefer-Scott (KSS) pairing friendly curve of embedding degree 18 in the context of Ate based pairing.</p>
-              </div>
-              <div class="publication-tags">
-                <span class="publication-tag">Elliptic Curve Cryptography</span>
-                <span class="publication-tag">KSS Curve</span>
-                <span class="publication-tag">Frobenius Map</span>
+                <span class="publication-venue">IEICE Transactions on Fundamentals E100.A(9)</span>
+                <span class="publication-date">2017</span>
               </div>
               <div class="publication-links">
-                <a href="https://doi.org/10.1587/transfun.E100.A.1838" target="_blank" class="btn btn-primary">DOI</a>
-                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="ieice2017">Cite</a>
+                <a href="https://doi.org/10.1587/transfun.E100.A.1838" target="_blank" class="btn btn-secondary">DOI</a>
               </div>
             </div>
           </div>
-          
-          <div class="year-divider">
-            <span>2016</span>
-          </div>
-          
+
           <div class="publication-card" data-category="conference">
             <div class="publication-content">
-              <h3>Efficient Implementation of Pairing-Based Cryptography on Embedded Devices Using FPGA</h3>
-              <div class="publication-authors">
-                <span class="author">Khandaker Md. Al-Amin</span>
-                <span class="author">Satoshi Tanaka</span>
-                <span class="author">Yasuyuki Nogami</span>
-              </div>
+              <h3>Security Analysis of Raspberry Pi against Side-Channel Attack with RSA Cryptography</h3>
+              <div class="publication-authors"><span class="author">A. Sanada, Y. Nogami, K. Iokibe, M. A.-A. Khandaker</span></div>
               <div class="publication-details">
-                <span class="publication-venue">International Conference on Information Security and Cryptology</span>
-                <span class="publication-date">November 2016</span>
-              </div>
-              <div class="publication-abstract">
-                <p>This paper presents an efficient implementation of pairing-based cryptography on embedded devices using FPGA. We propose a hardware architecture for computing bilinear pairings that is suitable for resource-constrained environments.</p>
-              </div>
-              <div class="publication-tags">
-                <span class="publication-tag">FPGA</span>
-                <span class="publication-tag">Embedded Systems</span>
-                <span class="publication-tag">Pairing-Based Cryptography</span>
+                <span class="publication-venue">IEEE ICCE-TW 2017</span>
               </div>
               <div class="publication-links">
-                <a href="#" class="btn btn-secondary js-cite-modal" data-filename="publication/fpga2016/cite.bib">Cite</a>
+                <a href="https://doi.org/10.1109/ICCE-China.2017.7991108" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Parallel Implementations of SIMON and SPECK, Revisited</h3>
+              <div class="publication-authors"><span class="author">T. Park, H. Seo, G. Lee, M. A.-A. Khandaker, Y. Nogami, H. Kim</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">WISA 2017, Springer LNCS</span>
+                <span class="publication-date">2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-319-93563-8_24" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>A Comparative Study of Twist Property in KSS Curves of Embedding Degree 16 and 18 from the Implementation Perspective</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, T. Park, Y. Nogami, H. Kim</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">Journal of Information and Communication Convergence Engineering 15(2)</span>
+                <span class="publication-date">2017</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>An ECC Implementation with a Twisted Montgomery Curve over F<sub>q32</sub> on an 8-Bit Microcontroller</h3>
+              <div class="publication-authors"><span class="author">Y. Hashimoto, M. A.-A. Khandaker, Y. Kodera, T. Park, T. Kusaka, H. Kim, et al.</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">CANDAR 2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/CANDAR.2017.90" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Distribution of Bit Patterns on Multi-Value Sequence over Odd Characteristics Field</h3>
+              <div class="publication-authors"><span class="author">Y. Kodera, T. Miyazaki, M. A.-A. Khandaker, A. M. Arshad, Y. Nogami, S. Uehara</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">IEEE ICCE-TW 2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/ICCE-China.2017.7991033" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>An Efficient Implementation of Trace Calculation over Finite Field for a Pseudorandom Sequence</h3>
+              <div class="publication-authors"><span class="author">Y. Kodera, T. Kusaka, T. Miyazaki, M. A.-A. Khandaker, Y. Nogami, S. Uehara</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">CANDAR 2017</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/CANDAR.2017.86" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="year-divider"><span>2016</span></div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>An Improvement of Optimal Ate Pairing on KSS Curve with Pseudo 12-Sparse Multiplication</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, H. Ono, Y. Nogami, M. Shirase, S. Duquesne</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">ICISC 2016, Springer LNCS</span>
+                <span class="publication-date">2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-319-53177-9_11" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Efficient Scalar Multiplication for Ate Based Pairing over KSS Curve of Embedding Degree 18</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nogami, H. Seo, S. Duquesne</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">WISA 2016, Springer LNCS</span>
+                <span class="publication-date">2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1007/978-3-319-56549-1_19" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>A Consideration of Towering Scheme for Efficient Arithmetic Operation over Extension Field of Degree 18</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">ICCIT 2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/ICCITECHN.2016.7860209" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>Isomorphic Mapping for Ate-Based Pairing over KSS Curve of Embedding Degree 18</h3>
+              <div class="publication-authors"><span class="author">M. A.-A. Khandaker, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">CANDAR 2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/CANDAR.2016.0113" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>Web-Based Volunteer Computing for Solving the Elliptic Curve Discrete Logarithm Problem</h3>
+              <div class="publication-authors"><span class="author">S. Kajitani, Y. Nogami, S. Miyoshi, T. Austin, K. M. Al-Amin, N. Begum, et al.</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">International Journal of Networking and Computing 6(2)</span>
+                <span class="publication-date">2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.15803/ijnc.6.2_181" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-card" data-category="conference">
+            <div class="publication-content">
+              <h3>An Improvement of Scalar Multiplication on Elliptic Curve Defined over Extension Field F<sub>q2</sub></h3>
+              <div class="publication-authors"><span class="author">K. M. Al-Amin, Y. Nogami</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">IEEE ICCE-TW 2016</span>
+              </div>
+              <div class="publication-links">
+                <a href="https://doi.org/10.1109/ICCE-TW.2016.7520894" target="_blank" class="btn btn-secondary">DOI</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="year-divider"><span>2013</span></div>
+
+          <div class="publication-card" data-category="journal">
+            <div class="publication-content">
+              <h3>Image Based Measurement of Length and Distance of an Inaccessible Object</h3>
+              <div class="publication-authors"><span class="author">M. I. Islam, M. Alam, S. Basak, A. Khandaker, S. M. Raihan</span></div>
+              <div class="publication-details">
+                <span class="publication-venue">International Journal of Advanced Computer Research 3(3)</span>
+                <span class="publication-date">2013</span>
               </div>
             </div>
           </div>
@@ -221,16 +490,6 @@
     </div>
   </footer>
 
-  <!-- Modal for citations -->
-  <div id="citeModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Citation</h2>
-      <pre id="citationText"></pre>
-      <button id="copyCitation" class="btn btn-primary">Copy to Clipboard</button>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="/script.js"></script>
   <script>
@@ -238,16 +497,14 @@
     document.addEventListener('DOMContentLoaded', function() {
       const filterButtons = document.querySelectorAll('.filter-buttons .filter-btn');
       const publicationCards = document.querySelectorAll('.publication-card');
-      
+
       filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-          // Update active button
           filterButtons.forEach(btn => btn.classList.remove('active'));
           this.classList.add('active');
-          
-          // Filter publications
+
           const filter = this.getAttribute('data-filter');
-          
+
           publicationCards.forEach(card => {
             if (filter === 'all' || card.getAttribute('data-category') === filter) {
               card.style.display = '';
@@ -255,87 +512,6 @@
               card.style.display = 'none';
             }
           });
-        });
-      });
-      
-      // Citation modal functionality
-      const modal = document.getElementById('citeModal');
-      const citeBtns = document.querySelectorAll('.js-cite-modal');
-      const closeBtn = document.querySelector('.close');
-      const citationText = document.getElementById('citationText');
-      const copyBtn = document.getElementById('copyCitation');
-      
-      citeBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const filename = this.getAttribute('data-filename');
-          
-          // In a real implementation, you would fetch the citation file
-          // For this example, we'll use hardcoded citations
-          if (filename.includes('ieice2017')) {
-            citationText.textContent = `@article{IEICE2017,
-  title={An Improvement of Scalar Multiplication by Skew Frobenius Map with Multi-Scalar Multiplication for KSS Curve},
-  author={Md. Al-Amin KHANDAKER and Yasuyuki NOGAMI},
-  journal={IEICE Transactions on Fundamentals of Electronics, Communications and Computer Sciences},
-  volume={E100.A},
-  number={9},
-  pages={1838-1845},
-  year={2017},
-  doi={10.1587/transfun.E100.A.1838}
-}`;
-          } else if (filename.includes('fpga2016')) {
-            citationText.textContent = `@inproceedings{fpga2016,
-  title={Efficient Implementation of Pairing-Based Cryptography on Embedded Devices Using FPGA},
-  author={Khandaker, Md. Al-Amin and Tanaka, Satoshi and Nogami, Yasuyuki},
-  booktitle={International Conference on Information Security and Cryptology},
-  pages={120-135},
-  year={2016},
-  organization={Springer}
-}`;
-          } else if (filename.includes('scalar2018')) {
-            citationText.textContent = `@inproceedings{scalar2018,
-  title={Efficient Scalar Multiplication for Pairing-Friendly Elliptic Curves},
-  author={Khandaker, Md. Al-Amin and Nogami, Yasuyuki},
-  booktitle={International Conference on Cryptography and Network Security},
-  pages={214-226},
-  year={2018},
-  organization={Springer}
-}`;
-          } else {
-            citationText.textContent = `@article{example,
-  title={Example Citation},
-  author={Khandaker, Md. Al-Amin},
-  journal={Example Journal},
-  year={2023}
-}`;
-          }
-          
-          modal.style.display = 'block';
-        });
-      });
-      
-      // Close modal when clicking the × button
-      closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-      });
-      
-      // Close modal when clicking outside of it
-      window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-      
-      // Copy citation to clipboard
-      copyBtn.addEventListener('click', function() {
-        const text = citationText.textContent;
-        navigator.clipboard.writeText(text).then(function() {
-          copyBtn.textContent = 'Copied!';
-          setTimeout(function() {
-            copyBtn.textContent = 'Copy to Clipboard';
-          }, 2000);
-        }, function(err) {
-          console.error('Could not copy text: ', err);
         });
       });
     });
