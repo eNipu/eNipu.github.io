@@ -44,7 +44,7 @@ jobs:
           echo "Static site layout looks good."
 
       - name: Hadolint (Dockerfile linter)
-        uses: hadolint/hadolint-action@v3.1.0
+        uses: hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: deploy/Dockerfile
           failure-threshold: warning
